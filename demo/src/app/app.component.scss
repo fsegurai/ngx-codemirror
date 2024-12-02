@@ -1,0 +1,112 @@
+@use '@angular/material' as mat;
+
+// variables
+
+$viewport-max-width: 960px;
+$viewport-offset-x: 16px;
+
+// mixins
+
+@mixin viewport-width($padding: true) {
+  margin: 0 auto;
+  max-width: $viewport-max-width;
+
+  @if ($padding) {
+    padding-left: $viewport-offset-x;
+    padding-right: $viewport-offset-x;
+  }
+}
+
+// style
+
+:host {
+  display: block;
+}
+
+.github-icon {
+  --mdc-icon-button-icon-size: 28px;
+  position: relative;
+  top: -2px;
+  left: -2px;
+}
+
+.mat-mdc-tab-nav-bar--sticky {
+  @include mat.elevation(6);
+  transition: box-shadow .3s ease-out;
+}
+
+.mat-mdc-tab-nav-bar ::ng-deep {
+  position: sticky;
+  top: 0;
+  z-index: 24;
+
+  .mdc-tab-indicator__content--underline {
+    border-radius: 3px 3px 0 0;
+    border-top-width: 3px;
+    transition-duration: 500ms;
+  }
+
+  .mat-mdc-tab-link {
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: normal;
+    margin: 0 $viewport-offset-x;
+    min-width: 0;
+    opacity: 0.6;
+    padding: 0;
+    text-decoration: none;
+    transition: all 0.2s ease-out;
+  }
+
+  .mat-mdc-tab-link:not(.mdc-tab--active):hover {
+    transform: translateY(-1px);
+  }
+
+  .mat-mdc-tab-link:hover,
+  .mdc-tab--active {
+    opacity: 1;
+  }
+
+  .mat-mdc-tab-link-container {
+    @include viewport-width($padding: false);
+    overflow: auto;
+  }
+
+  .mdc-tab__ripple {
+    opacity: 0;
+  }
+
+  // start - workaround for responsive tabs
+  .mat-mdc-tab-header-pagination {
+    display: none !important;
+  }
+
+  .mat-mdc-tab-list {
+    transform: unset !important;
+  }
+
+  // end - workaround
+}
+
+.mat-toolbar ::ng-deep {
+
+  .mat-toolbar-row {
+    @include viewport-width();
+  }
+
+  .mat-icon-button {
+    transition: all 0.2s ease-out;
+
+    &:hover {
+      transform: translateY(-2px);
+    }
+  }
+}
+
+.outlet-wrapper {
+  @include viewport-width();
+  display: block;
+  margin-top: $viewport-offset-x;
+  margin-bottom: $viewport-offset-x;
+  position: relative;
+}

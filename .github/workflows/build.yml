@@ -1,0 +1,86 @@
+name: Build Lib-Demo
+
+on:
+  workflow_call:
+
+env:
+  LIB_ARTIFACT_NAME: "build-lib-artifact"
+
+jobs:
+  build_library:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    environment: FSI_DEP_NodeJs
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js - Version ${{ vars.NODE_VERSION }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ vars.NODE_VERSION }}
+          cache: 'yarn'
+
+      - name: Create cache directories
+        run: mkdir -p ~/.cache/yarn && mkdir -p ${{ github.workspace }}/.yarn
+
+      - name: Cache Yarn dependencies
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cache/yarn
+            ${{ github.workspace }}/.yarn
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Build library
+        run: |
+          yarn build:lib
+          yarn postBuild:lib
+
+      - name: Upload build library artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.LIB_ARTIFACT_NAME }}
+          path: ${{ vars.DEMO_PATH }}
+          if-no-files-found: error
+
+  build_demo:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    environment: github-pages
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js - Version ${{ vars.NODE_VERSION }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ vars.NODE_VERSION }}
+          cache: 'yarn'
+
+      - name: Create cache directories
+        run: mkdir -p ~/.cache/yarn && mkdir -p ${{ github.workspace }}/.yarn
+
+      - name: Cache Yarn dependencies
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cache/yarn
+            ${{ github.workspace }}/.yarn
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Build demo
+        run: |
+          yarn gh-pages:build
+          yarn gh-pages:copy404
+          yarn gh-pages:postBuild

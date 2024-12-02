@@ -1,0 +1,38 @@
+{
+  "name": "@fsegurai/ngx-codemirror",
+  "version": "19.0.0-beta.1",
+  "description": "Angular library that uses codemirror to create a code editor",
+  "homepage": "https://github.com/fsegurai/ngx-codemirror",
+  "license": "MIT",
+  "author": {
+    "name": "Fabián Segura",
+    "url": "https://www.fsegurai.com/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/fsegurai/ngx-codemirror"
+  },
+  "keywords": [
+    "angular",
+    "ngx",
+    "editor",
+    "codemirror",
+    "code-editor",
+    "ngx-codemirror"
+  ],
+  "dependencies": {
+    "codemirror": "^6.0.1",
+    "tslib": "^2.8.1"
+  },
+  "peerDependencies": {
+    "@angular/common": "^19.0.0",
+    "@angular/core": "^19.0.0",
+    "@angular/forms": "^19.0.0",
+    "@angular/platform-browser": "^19.0.0",
+    "@codemirror/language-data": "^6.5.1",
+    "@codemirror/merge": "^6.7.4",
+    "rxjs": "^6.5.3 || ^7.4.0 || ^7.8.1",
+    "zone.js": "~0.15.0"
+  },
+  "sideEffects": false
+}

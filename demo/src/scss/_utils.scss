@@ -1,0 +1,9 @@
+@use 'sass:math';
+@use 'sass:color';
+
+@function soften-color($color, $percent) {
+  @if color.channel($color, "lightness", $space: hsl) < 50% {
+    @return color.adjust($color, $lightness: $percent);
+  }
+  @return color.adjust($color, $lightness: - math.div($percent, 2));
+}

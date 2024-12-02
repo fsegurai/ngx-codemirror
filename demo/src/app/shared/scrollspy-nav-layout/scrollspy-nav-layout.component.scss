@@ -1,0 +1,28 @@
+.footer {
+  margin: 32px 0 8px;
+
+  &-text {
+    display: block;
+    font-size: 13px;
+    padding-top: 4px;
+  }
+}
+
+.sticky {
+  position: sticky;
+  top: 80px;
+}
+
+.scrollup-button {
+  margin: 14px;
+
+  &--fixed {
+    position: fixed;
+    bottom: 16px;
+    right: 16px;
+  }
+
+  img {
+    display: flex;
+  }
+}

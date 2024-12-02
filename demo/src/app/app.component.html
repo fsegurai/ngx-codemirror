@@ -1,0 +1,33 @@
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <h1>&#64;fsegurai/ngx-codemirror</h1>
+    <span fxFlex></span>
+    <button (click)="toggleTheme()" mat-icon-button>
+      <mat-icon>
+        <img [hidden]="theme === 'light'" src="icon-light-on.svg" alt="Light theme">
+        <img [hidden]="theme === 'dark'" src="icon-light-off.svg" alt="Dark theme">
+      </mat-icon>
+    </button>
+    <a href="https://github.com/fsegurai/ngx-codemirror" mat-icon-button>
+      <img class="github-icon" src="icon-github.svg" alt="GitHub">
+    </a>
+  </mat-toolbar-row>
+</mat-toolbar>
+
+<nav #tabHeader [tabPanel]="tabPanel" backgroundColor="primary" disableRipple fitInkBarToContent
+     mat-stretch-tabs="false" mat-tab-nav-bar>
+  <a #tabLink="routerLinkActive" *ngFor="let route of routes" [active]="tabLink.isActive"
+     [routerLink]="route.path"
+     mat-tab-link
+     routerLinkActive>
+    <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="8px">
+      <img src="icon-{{route.path}}.svg" alt="{{ route.data?.['label'] }}">
+      <span>{{ route.data?.['label'] }}</span>
+    </div>
+  </a>
+</nav>
+
+<mat-tab-nav-panel #tabPanel (@routeAnimation.Done)="handleFragment()"
+                   [@routeAnimation]="getRouteAnimation(outlet)" class="outlet-wrapper">
+  <router-outlet #outlet="outlet"></router-outlet>
+</mat-tab-nav-panel>

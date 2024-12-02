@@ -2,9 +2,19 @@ name: Release Library
 # Job will only run on push to the main branch after the test job has passed
 
 on:
-  workflow_run:
-    workflows: [ "Test Lib-Demo" ]
-    types: [ completed ]
+  push:
+    branches: [ "main" ]
+    paths-ignore:
+      - ".github/**"
+      - "docs/**"
+      - "assets/**"
+      - "demo/public/**"
+      - "*.yml"
+      - "*.json"
+      - "*.config"
+      - "*.md"
+      - "!package.json"
+      - "!github/workflows/**"
   workflow_dispatch:
     inputs: { }
 
@@ -28,29 +38,18 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Set up Node.js - Version ${{ vars.NODE_VERSION }}
-        uses: actions/setup-node@v4
+      - name: Set up Bun - Version ${{ vars.BUN_VERSION }}
+        uses: oven-sh/setup-bun@v2
         with:
-          node-version: ${{ vars.NODE_VERSION }}
-          cache: 'yarn'
-
-      - name: Cache Yarn dependencies
-        uses: actions/cache@v4
-        with:
-          path: |
-            ~/.cache/yarn
-            ${{ github.workspace }}/.yarn
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-yarn-
+          bun-version: ${{ vars.BUN_VERSION }}
 
       - name: Install dependencies
-        run: yarn install --frozen-lockfile
+        run: bun install
 
       - name: Build library
         run: |
-          yarn build:lib
-          yarn postBuild:lib
+          bun run build:lib
+          bun run postBuild:lib
 
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4
@@ -76,7 +75,6 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ vars.NODE_VERSION }}
-          cache: 'yarn'
           registry-url: "https://registry.npmjs.org/"
           scope: ${{ vars.NPM_ORG }}
           always-auth: true

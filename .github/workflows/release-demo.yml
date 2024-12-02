@@ -34,33 +34,19 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Set up Node.js - Version ${{ vars.NODE_VERSION }}
-        uses: actions/setup-node@v4
+      - name: Set up Bun - Version ${{ vars.BUN_VERSION }}
+        uses: oven-sh/setup-bun@v2
         with:
-          node-version: ${{ vars.NODE_VERSION }}
-          cache: 'yarn'
-
-      - name: Create cache directories
-        run: mkdir -p ~/.cache/yarn && mkdir -p ${{ github.workspace }}/.yarn
-
-      - name: Cache Yarn dependencies
-        uses: actions/cache@v4
-        with:
-          path: |
-            ~/.cache/yarn
-            ${{ github.workspace }}/.yarn
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-yarn-
+          bun-version: ${{ vars.BUN_VERSION }}
 
       - name: Install dependencies
-        run: yarn install --frozen-lockfile
+        run: bun install
 
       - name: Build demo
         run: |
-          yarn gh-pages:build
-          yarn gh-pages:copy404
-          yarn gh-pages:postBuild
+          bun run gh-pages:build
+          bun run gh-pages:copy404
+          bun run gh-pages:postBuild
 
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4

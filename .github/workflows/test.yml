@@ -2,19 +2,6 @@ name: Test Lib-Demo
 # Job will only run on push and pull requests to the main branch
 
 on:
-  push:
-    branches: [ "main" ]
-    paths-ignore:
-      - ".github/**"
-      - "docs/**"
-      - "assets/**"
-      - "demo/public/**"
-      - "*.yml"
-      - "*.json"
-      - "*.config"
-      - "*.md"
-      - "!package.json"
-      - "!github/workflows/**"
   pull_request:
     branches: [ "main" ]
     paths-ignore:
@@ -44,23 +31,22 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Set up Node.js - Version ${{ vars.NODE_VERSION }}
-        uses: actions/setup-node@v4
+      - name: Set up Bun - Version ${{ vars.BUN_VERSION }}
+        uses: oven-sh/setup-bun@v2
         with:
-          node-version: ${{ vars.NODE_VERSION }}
-          cache: 'yarn'
+          bun-version: ${{ vars.BUN_VERSION }}
 
       - name: Install dependencies
-        run: yarn install --frozen-lockfile
+        run: bun install
 
       - name: Test Lint (Library)
-        run: yarn lint:lib
+        run: bun run lint:lib
 
       - name: Test TypeScript (Library)
-        run: yarn type-check:lib
+        run: bun run type-check:lib
 
       - name: Test library
-        run: yarn test-ci_cd:lib
+        run: bun run test-ci_cd:lib
 
   test_demo:
     runs-on: ubuntu-latest
@@ -70,17 +56,16 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Set up Node.js - Version ${{ vars.NODE_VERSION }}
-        uses: actions/setup-node@v4
+      - name: Set up Bun - Version ${{ vars.BUN_VERSION }}
+        uses: oven-sh/setup-bun@v2
         with:
-          node-version: ${{ vars.NODE_VERSION }}
-          cache: 'yarn'
+          bun-version: ${{ vars.BUN_VERSION }}
 
       - name: Install dependencies
-        run: yarn install --frozen-lockfile
+        run: bun install
 
       - name: Test Lint (Demo)
-        run: yarn lint:demo
+        run: bun run lint:demo
 
       - name: Test TypeScript (Demo)
-        run: yarn type-check:demo
+        run: bun run type-check:demo

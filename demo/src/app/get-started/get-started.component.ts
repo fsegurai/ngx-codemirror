@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, ElementRef } from '@angular/core';
-import { MarkdownComponent } from 'ngx-markdown';
+import { MarkdownComponent } from '@fsegurai/ngx-markdown';
 import { ScrollspyNavLayoutComponent } from '@shared/scrollspy-nav-layout';
 
 @Component({

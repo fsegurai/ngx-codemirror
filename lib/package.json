@@ -22,6 +22,8 @@
     "ngx-codemirror"
   ],
   "dependencies": {
+    "@codemirror/language-data": "^6.5.1",
+    "@codemirror/merge": "^6.7.4",
     "codemirror": "^6.0.1",
     "tslib": "^2.8.1"
   },
@@ -30,8 +32,6 @@
     "@angular/core": "^19.0.0",
     "@angular/forms": "^19.0.0",
     "@angular/platform-browser": "^19.0.0",
-    "@codemirror/language-data": "^6.5.1",
-    "@codemirror/merge": "^6.7.4",
     "rxjs": "^6.5.3 || ^7.4.0 || ^7.8.1",
     "zone.js": "~0.15.0"
   },

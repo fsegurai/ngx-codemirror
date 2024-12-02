@@ -1,6 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { CodeDiffEditorComponent } from './code-diff-editor.component';
+import { CodeDiffEditorComponent } from 'ngx-codemirror';
 
 describe('CodeDiffEditorComponent', () => {
   let component: CodeDiffEditorComponent;
@@ -8,9 +7,9 @@ describe('CodeDiffEditorComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [CodeDiffEditorComponent]
+      imports: [CodeDiffEditorComponent],
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(CodeDiffEditorComponent);
     component = fixture.componentInstance;

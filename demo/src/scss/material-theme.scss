@@ -1,11 +1,11 @@
 @use 'sass:map';
 @use '@angular/material' as mat;
 
-@use 'typography' as typography;
-@use 'utils' as utils;
+@use './typography' as typography;
+@use './utils' as utils;
 
-@use 'light-theme' as light-theme;
-@use 'dark-theme' as dark-theme;
+@use './light-theme' as light-theme;
+@use './dark-theme' as dark-theme;
 
 @use '../app/app.component.theme' as app-component;
 @use '../app/shared/scrollspy-nav/scrollspy-nav.component.theme' as scrollspy-nav-component;

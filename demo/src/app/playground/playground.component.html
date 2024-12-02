@@ -3,29 +3,7 @@
 
   <section>
     <div class="playground">
-      <mat-form-field class="editor">
-        <mat-label>Markdown Editor</mat-label>
-        <textarea matInput [(ngModel)]="markdownContent"></textarea>
-      </mat-form-field>
-
-      <markdown
-        (ready)="onLoad()"
-        class="markdown"
-        [disableSanitizer]="true"
-        [lineNumbers]="true"
-        [start]="1"
-        [emoji]="true"
-        [katex]="true"
-        [katexOptions]="katexOptions"
-        [mermaid]="true"
-        [mermaidOptions]="mermaidOptions"
-        [clipboard]="true"
-        [clipboardLanguageButton]="true"
-        [data]="markdownRendering"
-        [routerLinkOptions]="{
-          internalBrowserHandler: true,
-          externalBrowserHandler: true,
-        }"/>
+      <ngx-code-editor class="editor"/>
     </div>
   </section>
 </app-scrollspy-nav-layout>

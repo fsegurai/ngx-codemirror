@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { CodeEditorComponent } from './code-editor.component';
+import { CodeEditorComponent } from 'ngx-codemirror';
 
 describe('CodeEditorComponent', () => {
   let component: CodeEditorComponent;

@@ -23,6 +23,11 @@ $viewport-offset-x: 16px;
   display: block;
 }
 
+.lib-title {
+  font-size: 20px;
+  font-weight: bold;
+}
+
 .github-icon {
   --mdc-icon-button-icon-size: 28px;
   position: relative;

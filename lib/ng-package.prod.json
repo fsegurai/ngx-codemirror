@@ -6,6 +6,8 @@
     "entryFile": "public_api.ts"
   },
   "allowedNonPeerDependencies": [
-    "."
+    "@codemirror/merge",
+    "@codemirror/theme-one-dark",
+    "codemirror"
   ]
 }

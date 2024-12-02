@@ -27,11 +27,11 @@ export const External = Annotation.define<boolean>();
 
 @Component({
   // eslint-disable-next-line @angular-eslint/component-selector
-  selector: 'ngx-code-editor, [code-editor]',
+  selector: 'ngx-code-editor, code-editor, [code-editor]',
   imports: [],
-  templateUrl: 'code-editor.component',
-  styleUrl: `
-      .code-editor {
+  template: '',
+  styles: `
+    .code-editor {
       display: block;
 
       .cm-editor {
@@ -79,7 +79,7 @@ export class CodeEditorComponent implements OnChanges, OnInit, OnDestroy, Contro
   /** The editor's theme. */
   @Input() theme: Theme = 'light';
 
-  /** The editor's placecholder. */
+  /** The editor's placeholder. */
   @Input() placeholder = '';
 
   /** Whether indent with Tab key. */

@@ -18,7 +18,7 @@ import { DiffConfig, MergeView } from '@codemirror/merge';
 import { Compartment, Extension } from '@codemirror/state';
 import { EditorView } from '@codemirror/view';
 import { basicSetup, minimalSetup } from 'codemirror';
-import { External, Setup } from '../code-editor/code-editor.component';
+import { External, Setup } from 'ngx-codemirror';
 
 export type Orientation = 'a-b' | 'b-a';
 export type RevertControls = 'a-to-b' | 'b-to-a';
@@ -31,7 +31,7 @@ export interface DiffEditorModel {
 
 @Component({
   // eslint-disable-next-line @angular-eslint/component-selector
-  selector: 'ngx-code-diff-editor, [diff-editor]',
+  selector: 'ngx-code-diff-editor, code-diff-editor, [diff-editor]',
   imports: [],
   template: '',
   styles: `
@@ -105,7 +105,7 @@ export class CodeDiffEditorComponent implements OnChanges, OnInit, OnDestroy, Co
 
   /**
    * By default, the merge view will mark inserted and deleted text
-   * in changed chunks. Set this to false to turn that off.
+   * in changed chunks. Set this to false in order to turn that off.
    */
   @Input({ transform: booleanAttribute }) highlightChanges = true;
 

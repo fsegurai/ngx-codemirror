@@ -4,7 +4,7 @@ import { ExtendedModule } from '@angular/flex-layout/extended';
 import { FlexModule } from '@angular/flex-layout/flex';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
-import { MarkdownComponent } from 'ngx-markdown';
+import { MarkdownComponent } from '@fsegurai/ngx-markdown';
 import { ScrollspyNavComponent } from '@shared/scrollspy-nav';
 import { ZOOM_ANIMATION } from './scrollspy-nav-layout.animation';
 

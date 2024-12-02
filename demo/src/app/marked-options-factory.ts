@@ -1,5 +1,5 @@
-import {MarkedOptions, MarkedRenderer, MarkedToken} from 'ngx-markdown';
-import {AnchorService} from '@shared/anchor';
+import { MarkedOptions, MarkedRenderer, MarkedToken } from '@fsegurai/ngx-markdown';
+import { AnchorService } from '@shared/anchor';
 
 export function markedOptionsFactory(anchorService: AnchorService): MarkedOptions {
   const renderer = new MarkedRenderer();

@@ -4,7 +4,7 @@
   <section>
     <div class="playground">
       <div class="editor-options">
-        <mat-form-field class="editor-theme-selection">
+        <mat-form-field class="editor-theme-selection" appearance="outline">
           <mat-label>Theme</mat-label>
           <mat-select [(value)]="selectedTheme">
             @for (theme of CodeMirrorThemes; track theme) {
@@ -13,7 +13,7 @@
           </mat-select>
         </mat-form-field>
 
-        <mat-form-field class="editor-theme-selection">
+        <mat-form-field class="editor-theme-selection" appearance="outline">
           <mat-label>Language</mat-label>
           <mat-select [(value)]="selectedLanguage" (selectionChange)="onLanguageChange($event.value)">
             @for (lang of CodeMirrorLanguages; track lang) {

@@ -29,6 +29,9 @@ export class ScrollspyNavLayoutComponent {
   @Input()
   headings: Element[] | undefined;
 
+  @Input()
+  displayTOC: boolean | undefined;
+
   showScrollUpButton = false;
 
   @HostListener('window:scroll')

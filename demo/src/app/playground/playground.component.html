@@ -1,9 +1,33 @@
-<app-scrollspy-nav-layout [headings]="headings">
+<app-scrollspy-nav-layout [displayTOC]="false">
   <h1>Playground</h1>
 
   <section>
     <div class="playground">
-      <ngx-code-editor class="editor"/>
+      <div class="editor-options">
+        <mat-form-field class="editor-theme-selection">
+          <mat-label>Theme</mat-label>
+          <mat-select [(value)]="selectedTheme">
+            @for (theme of CodeMirrorThemes; track theme) {
+              <mat-option [value]="theme">{{ theme.viewValue }}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field class="editor-theme-selection">
+          <mat-label>Language</mat-label>
+          <mat-select [(value)]="selectedLanguage" (selectionChange)="onLanguageChange($event.value)">
+            @for (lang of CodeMirrorLanguages; track lang) {
+              <mat-option [value]="lang">{{ lang.name }}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <ngx-code-editor class="editor"
+                       [style.height]="'500px'"
+                       [theme]="selectedTheme.theme"
+                       [language]="selectedLanguage.name"
+                       [languages]="CodeMirrorLanguages"
+                       [(ngModel)]="editorContent"/>
     </div>
   </section>
 </app-scrollspy-nav-layout>

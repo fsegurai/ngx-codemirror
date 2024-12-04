@@ -84,7 +84,7 @@
     "@typescript-eslint/parser": "^8.16.0",
     "@typescript-eslint/types": "8.16.0",
     "@typescript-eslint/utils": "^8.16.0",
-    "angular-eslint": "^18.4.2",
+    "angular-eslint": "^19.0.0",
     "cpy-cli": "^5.0.0",
     "eslint": "^9.15.0",
     "eslint-formatter-checkstyle": "^8.40.0",

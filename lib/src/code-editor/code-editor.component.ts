@@ -86,7 +86,7 @@ export class CodeEditorComponent implements OnChanges, OnInit, OnDestroy, Contro
   @Input({ transform: booleanAttribute }) indentWithTab = false;
 
   /** Should be a string consisting either entirely of the same whitespace character. */
-  @Input() indentUnit = '';
+  @Input() indentUnit = 0;
 
   /** Whether the editor wraps lines. */
   @Input({ transform: booleanAttribute }) lineWrapping = false;
@@ -320,8 +320,9 @@ export class CodeEditorComponent implements OnChanges, OnInit, OnDestroy, Contro
   }
 
   /** Sets editor's indentUnit. */
-  setIndentUnit(value: string) {
-    this._dispatchEffects(this._indentUnitConf.reconfigure(value ? indentUnit.of(value) : []));
+  setIndentUnit(value: number) {
+    const spaceCount = Array.from({ length: value }).map(() => ' ').join('');
+    this._dispatchEffects(this._indentUnitConf.reconfigure(value ? indentUnit.of(spaceCount) : []));
   }
 
   /** Sets editor's lineWrapping. */

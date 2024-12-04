@@ -29,118 +29,95 @@ import {
  */
 export const CodeMirrorThemes = [
   {
-    value: 0,
     viewValue: 'abcdef',
-    theme: abcdef,
+    value: abcdef,
   },
   {
-    value: 1,
     viewValue: 'abyss',
-    theme: abyss,
+    value: abyss,
   },
   {
-    value: 2,
     viewValue: 'android studio',
-    theme: androidStudio,
+    value: androidStudio,
   },
   {
-    value: 3,
     viewValue: 'andromeda',
-    theme: andromeda,
+    value: andromeda,
   },
   {
-    value: 4,
     viewValue: 'basic light',
-    theme: basicLight,
+    value: basicLight,
   },
   {
-    value: 5,
     viewValue: 'basic dark',
-    theme: basicDark,
+    value: basicDark,
   },
   {
-    value: 6,
     viewValue: 'forest',
-    theme: forest,
+    value: forest,
   },
   {
-    value: 7,
     viewValue: 'github light',
-    theme: githubLight,
+    value: githubLight,
   },
   {
-    value: 8,
     viewValue: 'github dark',
-    theme: githubDark,
+    value: githubDark,
   },
   {
-    value: 9,
     viewValue: 'gruvbox light',
-    theme: gruvboxLight,
+    value: gruvboxLight,
   },
   {
-    value: 10,
     viewValue: 'gruvbox dark',
-    theme: gruvboxDark,
+    value: gruvboxDark,
   },
   {
-    value: 11,
     viewValue: 'material light',
-    theme: materialLight,
+    value: materialLight,
   },
   {
-    value: 12,
     viewValue: 'material dark',
-    theme: materialDark,
+    value: materialDark,
   },
   {
-    value: 13,
     viewValue: 'monokai',
-    theme: monokai,
+    value: monokai,
   },
   {
-    value: 14,
     viewValue: 'nord',
-    theme: nord,
+    value: nord,
   },
   {
-    value: 15,
     viewValue: 'palenight',
-    theme: palenight,
+    value: palenight,
   },
   {
-    value: 16,
     viewValue: 'solarized light',
-    theme: solarizedLight,
+    value: solarizedLight,
   },
   {
-    value: 17,
     viewValue: 'solarized dark',
-    theme: solarizedDark,
+    value: solarizedDark,
   },
   {
-    value: 18,
     viewValue: 'tokyo night day',
-    theme: tokyoNightDay,
+    value: tokyoNightDay,
   },
   {
-    value: 19,
     viewValue: 'tokyo night storm',
-    theme: tokyoNightStorm,
+    value: tokyoNightStorm,
   },
   {
-    value: 20,
     viewValue: 'volcano',
-    theme: volcano,
+    value: volcano,
   },
   {
-    value: 21,
     viewValue: 'vsCodeLight',
-    theme: vsCodeLight
+    value: vsCodeLight
   },
   {
-    value: 22,
     viewValue: 'vsCodeDark',
-    theme: vsCodeDark
+    value: vsCodeDark
   }
 ];

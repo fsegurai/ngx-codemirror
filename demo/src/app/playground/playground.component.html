@@ -21,13 +21,61 @@
             }
           </mat-select>
         </mat-form-field>
+
+        <mat-form-field class="editor-theme-selection" appearance="outline">
+          <mat-label>Setup</mat-label>
+          <mat-select [(value)]="selectedSetup">
+            @for (setup of CodeMirrorSetup; track setup) {
+              <mat-option [value]="setup">{{ setup.viewValue }}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+
+        <p class="editor-theme-selection">
+          <mat-slide-toggle [(ngModel)]="isDisabled">Disabled</mat-slide-toggle>
+        </p>
+
+        <p class="editor-theme-selection">
+          <mat-slide-toggle [(ngModel)]="isReadOnly">Readonly</mat-slide-toggle>
+        </p>
+
+        <mat-form-field>
+          <mat-label>Placeholder</mat-label>
+          <input [(ngModel)]="placeholder" matInput>
+        </mat-form-field>
+
+        <p class="editor-theme-selection">
+          <mat-slide-toggle [(ngModel)]="isTabIndent">Indent with tab</mat-slide-toggle>
+        </p>
+
+        <mat-form-field>
+          <mat-label>Indent unit</mat-label>
+          <input [(ngModel)]="indentUnit" matInput [type]="'number'" [disabled]="!isTabIndent">
+        </mat-form-field>
+
+        <p class="editor-theme-selection">
+          <mat-slide-toggle [(ngModel)]="isLineWrapping">Line wrapping</mat-slide-toggle>
+        </p>
+
+        <p class="editor-theme-selection">
+          <mat-slide-toggle [(ngModel)]="isHighlightWhitespace">Highlight line (...)</mat-slide-toggle>
+        </p>
+
       </div>
       <ngx-code-editor class="editor"
-                       [style.height]="'500px'"
-                       [theme]="selectedTheme.theme"
+                       [style.height]="'650px'"
+                       [(ngModel)]="editorContent"
+                       [theme]="selectedTheme.value"
                        [language]="selectedLanguage.name"
                        [languages]="CodeMirrorLanguages"
-                       [(ngModel)]="editorContent"/>
+                       [setup]="selectedSetup.value"
+                       [disabled]="isDisabled"
+                       [readonly]="isReadOnly"
+                       [placeholder]="placeholder"
+                       [indentWithTab]="isTabIndent"
+                       [indentUnit]="indentUnit"
+                       [lineWrapping]="isLineWrapping"
+                       [highlightWhitespace]="isHighlightWhitespace"/>
     </div>
   </section>
 </app-scrollspy-nav-layout>

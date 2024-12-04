@@ -1,0 +1,73 @@
+infra:
+  - changed-files:
+      - any-glob-to-any-file: [
+        '.github/**',
+        'angular.json',
+        'package*.json',
+        'tsconfig*.json',
+        'eslint*.json',
+      ]
+
+dependencies:
+  - changed-files:
+      - any-glob-to-any-file: [
+        'package-lock.json',
+        'yarn.lock',
+        'bun.lockb'
+      ]
+
+ci-cd:
+  - changed-files:
+      - any-glob-to-any-file: [
+        '.github/workflows/**',
+        'Dockerfile',
+        'Jenkinsfile',
+      ]
+
+demo:
+  - changed-files:
+      - any-glob-to-any-file: [
+        'demo/**'
+      ]
+
+assets:
+  - changed-files:
+      - any-glob-to-any-file: [
+        'demo/public/**'
+      ]
+
+styles:
+  - changed-files:
+      - any-glob-to-any-file: [
+        '**/*.scss',
+        '**/*.css',
+      ]
+
+library:
+  - changed-files:
+      - any-glob-to-any-file: [
+        'lib/**',
+      ]
+
+tests-library:
+  - changed-files:
+      - any-glob-to-any-file: [
+        'lib/**/*.spec.ts',
+        '**/karma.conf.js',
+      ]
+
+tests-demo:
+  - changed-files:
+      - any-glob-to-any-file: [
+        'demo/**/*.spec.ts',
+      ]
+
+documentation:
+  - changed-files:
+      - any-glob-to-any-file: [
+        'docs/**',
+        'CHANGELOG.md',
+        'CONTRIBUTING.md',
+        'LICENSE',
+        'README.md',
+      ]

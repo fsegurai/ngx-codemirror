@@ -1,0 +1,58 @@
+name: Build Lib-Demo
+
+on:
+  workflow_call:
+
+env:
+  LIB_ARTIFACT_NAME: "build-lib-artifact"
+
+jobs:
+  build_library:
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    environment: FSI_DEP_NodeJs
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Bun - Version ${{ vars.BUN_VERSION }}
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: ${{ vars.BUN_VERSION }}
+
+      - name: Install dependencies
+        run: bun install
+
+      - name: Build library
+        run: |
+          bun run build:lib
+          bun run postBuild:lib
+
+      - name: Upload build library artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.LIB_ARTIFACT_NAME }}
+          path: ${{ vars.DEMO_PATH }}
+          if-no-files-found: error
+
+  build_demo:
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    environment: github-pages
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Bun - Version ${{ vars.BUN_VERSION }}
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: ${{ vars.BUN_VERSION }}
+
+      - name: Install dependencies
+        run: bun install
+
+      - name: Build demo
+        run: |
+          bun run gh-pages:build
+          bun run gh-pages:copy404
+          bun run gh-pages:postBuild

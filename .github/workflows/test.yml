@@ -1,0 +1,71 @@
+name: Test Lib-Demo
+# Job will only run on push and pull requests to the main branch
+
+on:
+  pull_request:
+    branches: [ "main" ]
+    paths-ignore:
+      - ".github/**"
+      - "docs/**"
+      - "assets/**"
+      - "demo/public/**"
+      - "*.yml"
+      - "*.json"
+      - "*.config"
+      - "*.md"
+      - "!package.json"
+      - "!github/workflows/**"
+  workflow_dispatch:
+    inputs: { }
+  workflow_call:
+  workflow_run:
+    workflows: [ "Build PR" ]
+    types: [ completed ]
+
+jobs:
+  test_library:
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    environment: FSI_DEP_NodeJs
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Bun - Version ${{ vars.BUN_VERSION }}
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: ${{ vars.BUN_VERSION }}
+
+      - name: Install dependencies
+        run: bun install
+
+      - name: Test Lint (Library)
+        run: bun run lint:lib
+
+      - name: Test TypeScript (Library)
+        run: bun run type-check:lib
+
+      - name: Test library
+        run: bun run test-ci_cd:lib
+
+  test_demo:
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    environment: FSI_DEP_NodeJs
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Bun - Version ${{ vars.BUN_VERSION }}
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: ${{ vars.BUN_VERSION }}
+
+      - name: Install dependencies
+        run: bun install
+
+      - name: Test Lint (Demo)
+        run: bun run lint:demo
+
+      - name: Test TypeScript (Demo)
+        run: bun run type-check:demo

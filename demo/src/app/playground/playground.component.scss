@@ -1,0 +1,32 @@
+::ng-deep {
+  .outlet-wrapper {
+    max-width: calc(100% - 20rem) !important;
+  }
+}
+
+.playground {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  flex-wrap: wrap;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
+
+  .editor {
+    flex: 1 1 100%; // takes up 45% of the container width
+    margin: 2%; // provides a 2% margin
+    box-sizing: border-box; // includes padding and border in element's total width and height
+    height: 100%; // takes up 100% of the container height
+
+    @media (max-width: 768px) {
+      flex: 1 1 100%; // takes up 100% of the container width on small screens
+    }
+  }
+
+  .editor {
+    position: sticky;
+    top: 80px;
+  }
+}

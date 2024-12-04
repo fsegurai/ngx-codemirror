@@ -1,0 +1,51 @@
+@use 'sass:map';
+@use '@angular/material' as mat;
+
+$dark-text: map.get(mat.$m2-light-theme-foreground-palette, text);
+$light-text: map.get(mat.$m2-dark-theme-foreground-palette, text);
+
+$primary-palette: (
+  50 : #d6ebff,
+  100 : #8ac4ff,
+  200 : #52a8ff,
+  300 : #0a85ff,
+  400 : #0075eb,
+  500 : #0066cc,
+  600 : #0057ad,
+  700 : #00478f,
+  800 : #003870,
+  900 : #002952,
+  A100 : #cce5ff,
+  A200 : #66b2ff,
+  A400 : #007fff,
+  A700 : #0073e6,
+  contrast: (
+    50 : $dark-text,
+    100 : $dark-text,
+    200 : $dark-text,
+    300 : $light-text,
+    400 : $light-text,
+    500 : $light-text,
+    600 : $light-text,
+    700 : $light-text,
+    800 : $light-text,
+    900 : $light-text,
+    A100 : $dark-text,
+    A200 : $dark-text,
+    A400 : $light-text,
+    A700 : $light-text,
+  )
+);
+
+$light-primary: mat.m2-define-palette($primary-palette);
+$light-accent: mat.m2-define-palette($primary-palette);
+$light-warn: mat.m2-define-palette(mat.$m2-red-palette);
+
+$theme: mat.m2-define-light-theme((
+  color: (
+    primary: $light-primary,
+    accent: $light-accent,
+    warn: $light-warn,
+  ),
+  density: 0,
+));

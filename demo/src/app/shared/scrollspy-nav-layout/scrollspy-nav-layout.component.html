@@ -1,0 +1,24 @@
+<div fxLayout="row" fxLayoutGap="40px">
+  <div fxFlex="1 1 calc(100% - 220px)">
+    <ng-content></ng-content>
+    <div class="footer">
+      <mat-divider></mat-divider>
+      <markdown class="footer-text" [emoji]="true" fxLayout="row" fxLayoutAlign.gt-xs="center">
+        Made with :heart: by **fsegurai** <span style="margin:0 .15em;">•</span> Follow on
+        [GitHub](https://github.com/fsegurai)
+      </markdown>
+    </div>
+    <button (click)="onScrollUp()" *ngIf="showScrollUpButton" [@zoomAnimation] class="scrollup-button--fixed"
+            color="accent"
+            fxHide.gt-sm mat-fab>
+      <img src="icon-chevron-up.svg" alt="Scroll to top">
+    </button>
+  </div>
+  <div class="sticky" fxFlex="1 0 180px" fxFlexAlign="flex-start" fxHide.lt-md fxLayout="column">
+    <app-scrollspy-nav [headings]="headings"></app-scrollspy-nav>
+    <button (click)="onScrollUp()" *ngIf="showScrollUpButton" [@zoomAnimation] class="scrollup-button" color="accent"
+            mat-mini-fab>
+      <img src="icon-chevron-up.svg" alt="Scroll to top">
+    </button>
+  </div>
+</div>

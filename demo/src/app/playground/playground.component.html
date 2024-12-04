@@ -1,9 +1,81 @@
-<app-scrollspy-nav-layout [headings]="headings">
+<app-scrollspy-nav-layout [displayTOC]="false">
   <h1>Playground</h1>
 
   <section>
     <div class="playground">
-      <ngx-code-editor class="editor"/>
+      <div class="editor-options">
+        <mat-form-field class="editor-theme-selection" appearance="outline">
+          <mat-label>Theme</mat-label>
+          <mat-select [(value)]="selectedTheme">
+            @for (theme of CodeMirrorThemes; track theme) {
+              <mat-option [value]="theme">{{ theme.viewValue }}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field class="editor-theme-selection" appearance="outline">
+          <mat-label>Language</mat-label>
+          <mat-select [(value)]="selectedLanguage" (selectionChange)="onLanguageChange($event.value)">
+            @for (lang of CodeMirrorLanguages; track lang) {
+              <mat-option [value]="lang">{{ lang.name }}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field class="editor-theme-selection" appearance="outline">
+          <mat-label>Setup</mat-label>
+          <mat-select [(value)]="selectedSetup">
+            @for (setup of CodeMirrorSetup; track setup) {
+              <mat-option [value]="setup">{{ setup.viewValue }}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+
+        <p class="editor-theme-selection">
+          <mat-slide-toggle [(ngModel)]="isDisabled">Disabled</mat-slide-toggle>
+        </p>
+
+        <p class="editor-theme-selection">
+          <mat-slide-toggle [(ngModel)]="isReadOnly">Readonly</mat-slide-toggle>
+        </p>
+
+        <mat-form-field>
+          <mat-label>Placeholder</mat-label>
+          <input [(ngModel)]="placeholder" matInput>
+        </mat-form-field>
+
+        <p class="editor-theme-selection">
+          <mat-slide-toggle [(ngModel)]="isTabIndent">Indent with tab</mat-slide-toggle>
+        </p>
+
+        <mat-form-field>
+          <mat-label>Indent unit</mat-label>
+          <input [(ngModel)]="indentUnit" matInput [type]="'number'" [disabled]="!isTabIndent">
+        </mat-form-field>
+
+        <p class="editor-theme-selection">
+          <mat-slide-toggle [(ngModel)]="isLineWrapping">Line wrapping</mat-slide-toggle>
+        </p>
+
+        <p class="editor-theme-selection">
+          <mat-slide-toggle [(ngModel)]="isHighlightWhitespace">Highlight line (...)</mat-slide-toggle>
+        </p>
+
+      </div>
+      <ngx-code-editor class="editor"
+                       [style.height]="'650px'"
+                       [(ngModel)]="editorContent"
+                       [theme]="selectedTheme.value"
+                       [language]="selectedLanguage.name"
+                       [languages]="CodeMirrorLanguages"
+                       [setup]="selectedSetup.value"
+                       [disabled]="isDisabled"
+                       [readonly]="isReadOnly"
+                       [placeholder]="placeholder"
+                       [indentWithTab]="isTabIndent"
+                       [indentUnit]="indentUnit"
+                       [lineWrapping]="isLineWrapping"
+                       [highlightWhitespace]="isHighlightWhitespace"/>
     </div>
   </section>
 </app-scrollspy-nav-layout>

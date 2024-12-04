@@ -28,11 +28,7 @@
               {
                 "glob": "**/*",
                 "input": "demo/public"
-              },
-              "demo/src/app/bindings/remote",
-              "demo/src/app/cheat-sheet/remote",
-              "demo/src/app/syntax-highlight/remote",
-              "demo/src/app/plugins/remote"
+              }
             ],
             "styles": [
               "demo/src/scss/material-theme.scss",

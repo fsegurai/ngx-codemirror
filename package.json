@@ -42,7 +42,10 @@
     "test-ci_cd:lib": "ng test --no-watch --no-progress --browsers=ChromeHeadless",
     "gh-pages:build": "bun build:demo --aot --base-href=./",
     "gh-pages:copy404": "cpy ./dist/demo/browser/index.html . --rename=404.html",
-    "gh-pages:postBuild": "cpy ./dist/demo/3rdpartylicenses.txt ./dist/demo/browser --flat"
+    "gh-pages:postBuild": "cpy ./dist/demo/3rdpartylicenses.txt ./dist/demo/browser --flat",
+    "registry:npm": "npm config set registry https://registry.npmjs.org/",
+    "registry:gh-npm": "npm config set registry https://npm.pkg.github.com/",
+    "registry:yarn": "npm config set registry https://registry.yarnpkg.com/"
   },
   "dependencies": {
     "@angular/animations": "^19.0.0",

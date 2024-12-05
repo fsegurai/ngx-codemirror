@@ -1,6 +1,10 @@
 ::ng-deep {
   .outlet-wrapper {
     max-width: calc(100% - 20rem) !important;
+
+    @media (max-width: 768px) {
+      max-width: 100% !important;
+    }
   }
 }
 

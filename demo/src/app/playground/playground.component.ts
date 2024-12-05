@@ -73,7 +73,10 @@ export default class PlaygroundComponent implements OnInit, OnDestroy {
     this.changeDetector.detach();
   }
 
-  // Add this method to the PlaygroundComponent class
+  /**
+   * Change the editor's language sample.
+   * @param lang The selected language.
+   */
   onLanguageChange(lang: any) {
     this.selectedLanguage = lang;
 
@@ -81,6 +84,10 @@ export default class PlaygroundComponent implements OnInit, OnDestroy {
     this.getLangSample(langFormated);
   }
 
+  /**
+   * Get the language sample from the server.
+   * @param lang The language name.
+   */
   getLangSample(lang: string): void {
     try {
       fetch(`lang_samples/${ lang.toLowerCase() }.txt`).then(async response => {

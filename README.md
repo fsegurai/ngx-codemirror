@@ -47,7 +47,7 @@ To add `@fsegurai/ngx-codemirror` along with the required codemirror library to 
 commands.
 
 ```bash
-npm install @fsegurai/ngx-codemirror codemirror@^6.0.1 --save
+npm install @fsegurai/ngx-codemirror --save
 ```
 
 ## Configuration
@@ -95,7 +95,7 @@ import { CodeDiffEditorComponent } from '@fsegurai/ngx-codemirror';
         [language]="'javascript'"
         [placeholder]="'Type your code here...'"
         [lineWrapping]="true"
-        (change)="onEditorChange($event)">
+        (ngModelChange)="onEditorChange($event)">
 </ngx-code-editor>
 ```
 
@@ -127,7 +127,7 @@ Customize themes, languages, and editor behavior dynamically:
         [setup]="editorSetup"
         [indentWithTab]="true"
         [lineWrapping]="true"
-        (change)="onEditorChange($event)">
+        (ngModelChange)="onEditorChange($event)">
 </ngx-code-editor>
 ```
 

@@ -22,7 +22,7 @@ jobs:
 
       - name: Install dependencies
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_GH_TOKEN }}
         run: bun install
 
       - name: Build library
@@ -51,6 +51,8 @@ jobs:
           bun-version: ${{ vars.BUN_VERSION }}
 
       - name: Install dependencies
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_GH_TOKEN }}
         run: bun install
 
       - name: Build demo

@@ -38,6 +38,7 @@ jobs:
 
       - name: Install dependencies
         env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NODE_AUTH_TOKEN: ${{ secrets.NPM_GH_TOKEN }}
         run: bun install
 
@@ -64,6 +65,9 @@ jobs:
           bun-version: ${{ vars.BUN_VERSION }}
 
       - name: Install dependencies
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_GH_TOKEN }}
         run: bun install
 
       - name: Test Lint (Demo)

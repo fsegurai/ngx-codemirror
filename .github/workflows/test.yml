@@ -37,6 +37,8 @@ jobs:
           bun-version: ${{ vars.BUN_VERSION }}
 
       - name: Install dependencies
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_GH_TOKEN }}
         run: bun install
 
       - name: Test Lint (Library)

@@ -22,6 +22,9 @@ on:
     workflows: [ "Build PR" ]
     types: [ completed ]
 
+permissions:
+  packages: read
+
 jobs:
   test_library:
     runs-on: ubuntu-latest

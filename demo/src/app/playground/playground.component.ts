@@ -5,8 +5,10 @@ import {
   OnDestroy,
   OnInit
 } from '@angular/core';
-import { CodeEditorComponent } from "ngx-codemirror";
+import { CodeDiffEditorComponent, CodeEditorComponent } from "ngx-codemirror";
 import { FlexModule } from '@angular/flex-layout/flex';
+import { CodeMirrorDiffOrientation, CodeMirrorDiffRevControls } from "@app/constants/const-codemirror-diff-orientation";
+import { CodeMirrorMode } from "@app/constants/const-codemirror-mode";
 import { CodeMirrorThemes } from "@app/constants/const-codemirror-themes";
 import { CodeMirrorSetup } from "@app/constants/const-codemirror-setup";
 import { languages } from '@codemirror/language-data';
@@ -16,6 +18,9 @@ import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatOption, MatSelectModule } from "@angular/material/select";
 import { MatSlideToggle } from "@angular/material/slide-toggle";
 import { MatInput } from "@angular/material/input";
+
+import { unifiedMergeView } from '@codemirror/merge';
+import { MatDivider } from "@angular/material/divider";
 
 @Component({
   selector: 'app-playground',
@@ -29,18 +34,28 @@ import { MatInput } from "@angular/material/input";
     MatOption,
     MatSlideToggle,
     MatInput,
+    MatDivider,
+    CodeDiffEditorComponent,
   ],
   templateUrl: './playground.component.html',
   styleUrl: './playground.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export default class PlaygroundComponent implements OnInit, OnDestroy {
-  protected readonly CodeMirrorThemes = CodeMirrorThemes;
+  protected readonly CodeMirrorDiffOrientation = CodeMirrorDiffOrientation;
+  protected readonly CodeMirrorDiffRevControls = CodeMirrorDiffRevControls;
+  protected readonly CodeMirrorMode = CodeMirrorMode;
   protected readonly CodeMirrorSetup = CodeMirrorSetup;
-  protected readonly CodeMirrorLanguages = languages;
+  protected readonly CodeMirrorThemes = CodeMirrorThemes;
+  protected readonly CodeMirrorLanguages = languages.sort((a, b) => a.name.localeCompare(b.name));
+
+  protected selectedDiffOrientation = this.CodeMirrorDiffOrientation[0];
+  protected selectedDiffRevControl = this.CodeMirrorDiffRevControls[0];
+
+  protected selectedMode = this.CodeMirrorMode[0];
+  protected selectedSetup = this.CodeMirrorSetup[0];
   protected selectedTheme = this.CodeMirrorThemes[0];
   protected selectedLanguage = languages[0];
-  protected selectedSetup = this.CodeMirrorSetup[0];
   protected isDisabled = false;
   protected isReadOnly = false;
   protected placeholder = 'Type your code here...';
@@ -48,7 +63,11 @@ export default class PlaygroundComponent implements OnInit, OnDestroy {
   protected indentUnit = 2;
   protected isLineWrapping = true;
   protected isHighlightWhitespace = false;
+  protected isOutputDisplayed = false;
+  protected isChangeHighlighted = true;
+  protected isGutter = true;
 
+  /* Code Editor Content */
   private _editorContent = '';
 
   get editorContent() {
@@ -59,6 +78,20 @@ export default class PlaygroundComponent implements OnInit, OnDestroy {
     this._editorContent = value;
     this.changeDetector.detectChanges();
   }
+
+  /* Code Editor Diff Content */
+  protected originalDiffCode = `one
+two
+three
+four
+five`;
+  protected modifiedDiffCode = this.originalDiffCode.replace(/t/g, 'T') + '\nSix';
+
+  protected unifiedExtension = [
+    unifiedMergeView({
+      original: this.originalDiffCode,
+    }),
+  ];
 
   constructor(
     private changeDetector: ChangeDetectorRef,
@@ -73,7 +106,10 @@ export default class PlaygroundComponent implements OnInit, OnDestroy {
     this.changeDetector.detach();
   }
 
-  // Add this method to the PlaygroundComponent class
+  /**
+   * Change the editor's language sample.
+   * @param lang The selected language.
+   */
   onLanguageChange(lang: any) {
     this.selectedLanguage = lang;
 
@@ -81,6 +117,10 @@ export default class PlaygroundComponent implements OnInit, OnDestroy {
     this.getLangSample(langFormated);
   }
 
+  /**
+   * Get the language sample from the server.
+   * @param lang The language name.
+   */
   getLangSample(lang: string): void {
     try {
       fetch(`lang_samples/${ lang.toLowerCase() }.txt`).then(async response => {

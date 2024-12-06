@@ -15,10 +15,10 @@ import {
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { DiffConfig, MergeView } from '@codemirror/merge';
-import { Compartment, Extension } from '@codemirror/state';
+import { Compartment, Extension, StateEffect } from '@codemirror/state';
 import { EditorView } from '@codemirror/view';
 import { basicSetup, minimalSetup } from 'codemirror';
-import { External, Setup } from 'ngx-codemirror';
+import { External, Setup, Theme } from 'ngx-codemirror';
 
 export type Orientation = 'a-b' | 'b-a';
 export type RevertControls = 'a-to-b' | 'b-to-a';
@@ -63,6 +63,9 @@ export interface DiffEditorModel {
   ],
 })
 export class CodeDiffEditorComponent implements OnChanges, OnInit, OnDestroy, ControlValueAccessor {
+  /** The editor's theme. */
+  @Input() theme: Theme = 'light';
+
   /**
    * The editor's built-in setup. The value can be set to
    * [`basic`](https://codemirror.net/docs/ref/#codemirror.basicSetup),
@@ -89,8 +92,6 @@ export class CodeDiffEditorComponent implements OnChanges, OnInit, OnDestroy, Co
   /**
    * The MergeView modified config's
    * [extensions](https://codemirror.net/docs/ref/#state.EditorStateConfig.extensions).
-   *
-   * Don't support change dynamically!
    */
   @Input() modifiedExtensions: Extension[] = [];
 
@@ -145,10 +146,10 @@ export class CodeDiffEditorComponent implements OnChanges, OnInit, OnDestroy, Co
   @Output() modifiedBlur = new EventEmitter<void>();
 
   private _onChange: (value: DiffEditorModel) => void = () => {
-    this._onTouched();
+    // Intentionally left blank
   };
   private _onTouched: () => void = () => {
-    this._onChange({ original: this.originalValue, modified: this.modifiedValue });
+    // Intentionally left blank
   };
 
   constructor(private _elementRef: ElementRef<Element>) {
@@ -165,7 +166,7 @@ export class CodeDiffEditorComponent implements OnChanges, OnInit, OnDestroy, Co
           this._onChange({ original: value, modified: this.modifiedValue });
           this.originalValue = value;
           this.originalValueChange.emit(value);
-        } else if (editor == 'b') {
+        } else {
           this._onChange({ original: this.originalValue, modified: value });
           this.modifiedValue = value;
           this.modifiedValueChange.emit(value);
@@ -175,6 +176,18 @@ export class CodeDiffEditorComponent implements OnChanges, OnInit, OnDestroy, Co
   };
 
   private _editableConf = new Compartment();
+  private _themeConf = new Compartment();
+
+  private _getAllExtensions(editor: 'a' | 'b'): Extension[] {
+    return [
+      this._editableConf.of([]),
+      this._themeConf.of([]),
+
+      this._updateListener(editor),
+      this.setup === 'basic' ? basicSetup : this.setup === 'minimal' ? minimalSetup : [],
+      ...(editor === 'a' ? this.originalExtensions : this.modifiedExtensions),
+    ];
+  }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['originalValue']) {
@@ -183,85 +196,20 @@ export class CodeDiffEditorComponent implements OnChanges, OnInit, OnDestroy, Co
     if (changes['modifiedValue']) {
       this.setValue('b', this.modifiedValue);
     }
-    if (changes['orientation']) {
-      this.mergeView?.reconfigure({ orientation: this.orientation });
-    }
-    if (changes['revertControls']) {
-      this.mergeView?.reconfigure({ revertControls: this.revertControls });
-    }
-    if (changes['renderRevertControl']) {
-      this.mergeView?.reconfigure({ renderRevertControl: this.renderRevertControl });
-    }
-    if (changes['highlightChanges']) {
-      this.mergeView?.reconfigure({ highlightChanges: this.highlightChanges });
-    }
-    if (changes['gutter']) {
-      this.mergeView?.reconfigure({ gutter: this.gutter });
-    }
-    if (changes['collapseUnchanged']) {
-      this.mergeView?.reconfigure({ collapseUnchanged: this.collapseUnchanged });
-    }
-    if (changes['diffConfig']) {
-      this.mergeView?.reconfigure({ diffConfig: this.diffConfig });
-    }
     if (changes['disabled']) {
-      this.setEditable('a', !this.disabled);
-      this.setEditable('b', !this.disabled);
+      this.setEditable(!this.disabled);
     }
+    if (changes['theme']) {
+      this.setTheme(this.theme);
+    }
+    this.reconfigureMergeView(changes);
   }
 
   ngOnInit(): void {
-    this.mergeView = new MergeView({
-      parent: this._elementRef.nativeElement,
-      a: {
-        doc: this.originalValue,
-        extensions: [
-          this._updateListener('a'),
-          this._editableConf.of([]),
-          this.setup === 'basic' ? basicSetup : this.setup === 'minimal' ? minimalSetup : [],
-          ...this.originalExtensions,
-        ],
-      },
-      b: {
-        doc: this.modifiedValue,
-        extensions: [
-          this._updateListener('b'),
-          this._editableConf.of([]),
-          this.setup === 'basic' ? basicSetup : this.setup === 'minimal' ? minimalSetup : [],
-          ...this.modifiedExtensions,
-        ],
-      },
-      orientation: this.orientation,
-      revertControls: this.revertControls,
-      renderRevertControl: this.renderRevertControl,
-      highlightChanges: this.highlightChanges,
-      gutter: this.gutter,
-      collapseUnchanged: this.collapseUnchanged,
-      diffConfig: this.diffConfig,
-    });
-
-    this.mergeView?.a.contentDOM.addEventListener('focus', () => {
-      this._onTouched();
-      this.originalFocus.emit();
-    });
-
-    this.mergeView?.a.contentDOM.addEventListener('blur', () => {
-      this._onTouched();
-      this.originalBlur.emit();
-    });
-
-    this.mergeView?.b.contentDOM.addEventListener('focus', () => {
-      this._onTouched();
-      this.modifiedFocus.emit();
-    });
-
-    this.mergeView?.b.contentDOM.addEventListener('blur', () => {
-      this._onTouched();
-      this.modifiedBlur.emit();
-    });
-
-    this.setEditable('a', !this.disabled);
-    this.setEditable('b', !this.disabled);
+    this.initializeMergeView();
+    this.addEventListeners();
+    this.setEditable(!this.disabled);
+    this.setTheme(this.theme);
   }
 
   ngOnDestroy(): void {
@@ -287,21 +235,107 @@ export class CodeDiffEditorComponent implements OnChanges, OnInit, OnDestroy, Co
 
   setDisabledState(isDisabled: boolean) {
     this.disabled = isDisabled;
-    this.setEditable('a', !isDisabled);
-    this.setEditable('b', !isDisabled);
+    this.setEditable(!isDisabled);
   }
 
   /** Sets diff-editor's value. */
-  setValue(editor: 'a' | 'b', value: string) {
+  private setValue(editor: 'a' | 'b', value: string) {
     this.mergeView?.[editor].dispatch({
       changes: { from: 0, to: this.mergeView[editor].state.doc.length, insert: value },
     });
   }
 
-  /** Sets diff-editor's editable state. */
-  setEditable(editor: 'a' | 'b', value: boolean) {
+  /** Sets editor's editable state. */
+  private setEditable(value: boolean) {
+    this._dispatchEffects(this._editableConf.reconfigure(EditorView.editable.of(value)));
+  }
+
+  /** Sets editor's theme. */
+  private setTheme(value: Theme) {
+    this._dispatchEffects(this._themeConf.reconfigure(value === 'light' ? [] : value));
+  }
+
+  /** Sets the root extensions of the editor state. */
+  private setExtensions(editor: 'a' | 'b', value: Extension[]) {
     this.mergeView?.[editor].dispatch({
-      effects: this._editableConf.reconfigure(EditorView.editable.of(value)),
+      effects: StateEffect.reconfigure.of(value),
     });
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  private _dispatchEffects(effects: StateEffect<any> | readonly StateEffect<any>[]) {
+    this.mergeView?.a.dispatch({ effects });
+    this.mergeView?.b.dispatch({ effects });
+  }
+
+  private initializeMergeView() {
+    this.mergeView = new MergeView({
+      parent: this._elementRef.nativeElement,
+      a: {
+        doc: this.originalValue,
+        extensions: this._getAllExtensions('a'),
+      },
+      b: {
+        doc: this.modifiedValue,
+        extensions: this._getAllExtensions('b'),
+      },
+      orientation: this.orientation,
+      revertControls: this.revertControls,
+      renderRevertControl: this.renderRevertControl,
+      highlightChanges: this.highlightChanges,
+      gutter: this.gutter,
+      collapseUnchanged: this.collapseUnchanged,
+      diffConfig: this.diffConfig,
+    });
+  }
+
+  private addEventListeners() {
+    this.mergeView?.a.contentDOM.addEventListener('focus', () => {
+      this._onTouched();
+      this.originalFocus.emit();
+    });
+
+    this.mergeView?.a.contentDOM.addEventListener('blur', () => {
+      this._onTouched();
+      this.originalBlur.emit();
+    });
+
+    this.mergeView?.b.contentDOM.addEventListener('focus', () => {
+      this._onTouched();
+      this.modifiedFocus.emit();
+    });
+
+    this.mergeView?.b.contentDOM.addEventListener('blur', () => {
+      this._onTouched();
+      this.modifiedBlur.emit();
+    });
+  }
+
+  private reconfigureMergeView(changes: SimpleChanges) {
+    if (changes['orientation']) {
+      this.mergeView?.reconfigure({ orientation: this.orientation });
+    }
+    if (changes['revertControls']) {
+      this.mergeView?.reconfigure({ revertControls: this.revertControls });
+    }
+    if (changes['renderRevertControl']) {
+      this.mergeView?.reconfigure({ renderRevertControl: this.renderRevertControl });
+    }
+    if (changes['highlightChanges']) {
+      this.mergeView?.reconfigure({ highlightChanges: this.highlightChanges });
+    }
+    if (changes['gutter']) {
+      this.mergeView?.reconfigure({ gutter: this.gutter });
+    }
+    if (changes['collapseUnchanged']) {
+      this.mergeView?.reconfigure({ collapseUnchanged: this.collapseUnchanged });
+    }
+    if (changes['diffConfig']) {
+      this.mergeView?.reconfigure({ diffConfig: this.diffConfig });
+    }
+    if (changes['setup'] || changes['originalExtensions'] || changes['modifiedExtensions']) {
+      this.setExtensions('a', this._getAllExtensions('a'));
+      this.setExtensions('b', this._getAllExtensions('b'));
+    }
   }
 }

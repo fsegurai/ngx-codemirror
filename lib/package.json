@@ -1,6 +1,6 @@
 {
   "name": "@fsegurai/ngx-codemirror",
-  "version": "19.0.0-beta.1",
+  "version": "19.0.0",
   "description": "Angular library that uses codemirror to create a code editor",
   "homepage": "https://github.com/fsegurai/ngx-codemirror",
   "license": "MIT",

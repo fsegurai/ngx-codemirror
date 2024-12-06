@@ -47,14 +47,128 @@ To add `@fsegurai/ngx-codemirror` along with the required codemirror library to 
 commands.
 
 ```bash
-npm install @fsegurai/ngx-codemirror codemirror@^6.0.1 --save
+npm install @fsegurai/ngx-codemirror --save
 ```
 
 ## Configuration
-[PENDING]
+
+### Component Module
+
+For Not-Standalone mode, you need to import the `CodemirrorModule` in your Angular module.
+
+```typescript
+import { CodemirrorModule } from '@fsegurai/ngx-codemirror';
+
+@NgModule({
+    imports: [
+        CodemirrorModule.forRoot({
+            // codemirror options
+        }),
+    ],
+})
+export class AppModule {
+}
+```
+
+### Standalone Component
+
+For Standalone mode, you just need to import the components you want to use.
+
+```typescript
+/* CodemirrorComponent */
+import { CodemirrorComponent } from '@fsegurai/ngx-codemirror';
+
+// or
+
+/* CodeDiffEditorComponent */
+import { CodeDiffEditorComponent } from '@fsegurai/ngx-codemirror';
+```
 
 ## Usage
-[PENDING]
+
+### Basic Usage
+
+```html
+<ngx-code-editor
+        [value]="editorContent"
+        [theme]="'dark'"
+        [language]="'javascript'"
+        [placeholder]="'Type your code here...'"
+        [lineWrapping]="true"
+        (ngModelChange)="onEditorChange($event)">
+</ngx-code-editor>
+```
+
+```typescript
+import { Component } from '@angular/core';
+
+@Component({
+    selector: 'app-root',
+    templateUrl: './app.component.html',
+})
+export class AppComponent {
+    editorContent = '// Start coding...';
+
+    onEditorChange(content: string) {
+        console.log('Editor Content:', content);
+    }
+}
+```
+
+### Advanced Usage
+
+Customize themes, languages, and editor behavior dynamically:
+
+```html
+<ngx-code-editor
+        [(ngModel)]="editorContent"
+        [theme]="selectedTheme"
+        [language]="selectedLanguage"
+        [setup]="editorSetup"
+        [indentWithTab]="true"
+        [lineWrapping]="true"
+        (ngModelChange)="onEditorChange($event)">
+</ngx-code-editor>
+```
+
+```typescript
+@Component({
+    selector: 'app-advanced-editor',
+    templateUrl: './advanced-editor.component.html',
+})
+export class AdvancedEditorComponent {
+    editorContent = '';
+    selectedTheme = 'dark';
+    selectedLanguage = 'javascript';
+    editorSetup = 'basic';
+
+    onEditorChange(updatedContent: string) {
+        console.log('Updated Content:', updatedContent);
+    }
+}
+```
+
+### Integration
+
+The library provides a customizable editor component with various inputs and outputs for flexible usage.
+
+#### Inputs
+
+- `value` - The initial content of the editor.
+- `theme` - The theme of the editor.
+- `language` - The language mode of the editor.
+- `placeholder` - The placeholder text of the editor.
+- `lineWrapping` - Enable line wrapping in the editor.
+- `indentWithTab` - Enable indentation with tabs in the editor.
+- `setup` - The setup of the editor.
+- `extensions` - The extensions of the editor.
+- and more...
+
+#### Outputs
+
+- `change` - The output event when the editor content changes.
+- `focus` - The output event when the editor is focused.
+- `blur` - The output event when the editor is blurred.
 
 ## Demo application
 
@@ -72,6 +186,7 @@ application @ [http://localhost:4200](http://localhost:4200)
 
 ```bash
 git clone https://github.com/fsegurai/ngx-codemirror.git
+cd ngx-codemirror
 bun install
 bun start
 ```

@@ -1,20 +1,24 @@
 ::ng-deep {
   .outlet-wrapper {
     max-width: calc(100% - 20rem) !important;
+
+    @media (max-width: 768px) {
+      max-width: 100% !important;
+    }
   }
 }
 
 .playground {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: space-evenly;
   flex-wrap: nowrap;
 
   @media (max-width: 768px) {
     flex-direction: column;
   }
 
-  .editor-options, .editor {
+  & .editor-options, & .editor {
     margin: 0 1%;
     box-sizing: border-box; // includes padding and border in element's total width and height
     height: 100%; // takes up 100% of the container height
@@ -24,18 +28,42 @@
     }
   }
 
-  .editor-options {
+  & .editor-options {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     flex: 0 1 35%; // takes up 45% of the container width
     position: sticky;
-    top: 80px;
+    top: 80px;;
+
+    & .editor-options-group {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-around;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    & .editor-option {
+      width: 100%;
+
+      &:first-child {
+        margin-right: 0.5rem;
+      }
+
+      &:last-child {
+        margin-left: 0.5rem;
+      }
+    }
+
+    mat-divider {
+      margin: 0 0 1rem;
+    }
   }
 
-  .editor {
+  & .editor {
     flex: 1 1 45%; // takes up 45% of the container width
-    height: 100%;
+    height: calc(100vh - 20rem);
     margin: auto;
     position: sticky;
     top: 80px;

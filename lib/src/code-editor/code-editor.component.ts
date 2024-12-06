@@ -128,10 +128,10 @@ export class CodeEditorComponent implements OnChanges, OnInit, OnDestroy, Contro
   @Output() blur = new EventEmitter<void>();
 
   private _onChange: (value: string) => void = () => {
-    this.view?.focus();
+    // Intentionally left blank
   };
   private _onTouched: () => void = () => {
-    this.view?.focus();
+    // Intentionally left blank
   };
 
   constructor(private _elementRef: ElementRef<Element>) {
@@ -162,7 +162,7 @@ export class CodeEditorComponent implements OnChanges, OnInit, OnDestroy, Contro
   private _highlightWhitespaceConf = new Compartment();
   private _languageConf = new Compartment();
 
-  private _getAllExtensions() {
+  private _getAllExtensions(): Extension[] {
     return [
       this._updateListener,
 
@@ -225,19 +225,9 @@ export class CodeEditorComponent implements OnChanges, OnInit, OnDestroy, Contro
       state: EditorState.create({ doc: this.value, extensions: this._getAllExtensions() }),
     });
 
-    if (this.autoFocus) {
-      this.view?.focus();
-    }
+    if (this.autoFocus) this.view?.focus();
 
-    this.view?.contentDOM.addEventListener('focus', () => {
-      this._onTouched();
-      this.focus.emit();
-    });
-
-    this.view?.contentDOM.addEventListener('blur', () => {
-      this._onTouched();
-      this.blur.emit();
-    });
+    this.addEventListeners();
 
     this.setEditable(!this.disabled);
     this.setReadonly(this.readonly);
@@ -274,80 +264,75 @@ export class CodeEditorComponent implements OnChanges, OnInit, OnDestroy, Contro
   }
 
   /** Sets editor's value. */
-  setValue(value: string) {
+  private setValue(value: string) {
     this.view?.dispatch({
       changes: { from: 0, to: this.view.state.doc.length, insert: value },
     });
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  private _dispatchEffects(effects: StateEffect<any> | readonly StateEffect<any>[]) {
-    return this.view?.dispatch({ effects });
-  }
-
-  /** Sets the root extensions of the editor. */
-  setExtensions(value: Extension[]) {
-    this._dispatchEffects(StateEffect.reconfigure.of(value));
-  }
-
   /** Sets editor's editable state. */
-  setEditable(value: boolean) {
+  private setEditable(value: boolean) {
     this._dispatchEffects(this._editableConf.reconfigure(EditorView.editable.of(value)));
   }
 
   /** Sets editor's readonly state. */
-  setReadonly(value: boolean) {
+  private setReadonly(value: boolean) {
     this._dispatchEffects(this._readonlyConf.reconfigure(EditorState.readOnly.of(value)));
   }
 
   /** Sets editor's theme. */
-  setTheme(value: Theme) {
+  private setTheme(value: Theme) {
     this._dispatchEffects(
       this._themeConf.reconfigure(value === 'light' ? [] : value),
     );
   }
 
   /** Sets editor's placeholder. */
-  setPlaceholder(value: string) {
+  private setPlaceholder(value: string) {
     this._dispatchEffects(this._placeholderConf.reconfigure(value ? placeholder(value) : []));
   }
 
   /** Sets editor' indentWithTab. */
-  setIndentWithTab(value: boolean) {
+  private setIndentWithTab(value: boolean) {
     this._dispatchEffects(
       this._indentWithTabConf.reconfigure(value ? keymap.of([indentWithTab]) : []),
     );
   }
 
   /** Sets editor's indentUnit. */
-  setIndentUnit(value: number) {
+  private setIndentUnit(value: number) {
     const spaceCount = Array.from({ length: value }).map(() => ' ').join('');
     this._dispatchEffects(this._indentUnitConf.reconfigure(value ? indentUnit.of(spaceCount) : []));
   }
 
   /** Sets editor's lineWrapping. */
-  setLineWrapping(value: boolean) {
+  private setLineWrapping(value: boolean) {
     this._dispatchEffects(this._lineWrappingConf.reconfigure(value ? EditorView.lineWrapping : []));
   }
 
   /** Sets editor's highlightWhitespace. */
-  setHighlightWhitespace(value: boolean) {
+  private setHighlightWhitespace(value: boolean) {
     this._dispatchEffects(
       this._highlightWhitespaceConf.reconfigure(value ? highlightWhitespace() : []),
     );
   }
 
+  /** Sets the root extensions of the editor. */
+  private setExtensions(value: Extension[]) {
+    this._dispatchEffects(StateEffect.reconfigure.of(value));
+  }
+
   /** Sets editor's language dynamically. */
-  setLanguage(lang: string) {
-    if (!lang) {
-      return;
-    }
+  private setLanguage(lang: string) {
+    if (!lang) return;
+
     if (this.languages.length === 0) {
       if (this.view) {
         console.error('No supported languages. Please set the `languages` prop at first.');
       }
       return;
     }
+
     const langDesc = this._findLanguage(lang);
     langDesc?.load().then(lang => {
       this._dispatchEffects(this._languageConf.reconfigure([lang]));
@@ -366,5 +351,22 @@ export class CodeEditorComponent implements OnChanges, OnInit, OnDestroy, Contro
     console.error('Language not found:', name);
     console.info('Supported language names:', this.languages.map(lang => lang.name).join(', '));
     return null;
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  private _dispatchEffects(effects: StateEffect<any> | readonly StateEffect<any>[]) {
+    return this.view?.dispatch({ effects });
+  }
+
+  private addEventListeners() {
+    this.view?.contentDOM.addEventListener('focus', () => {
+      this._onTouched();
+      this.focus.emit();
+    });
+
+    this.view?.contentDOM.addEventListener('blur', () => {
+      this._onTouched();
+      this.blur.emit();
+    });
   }
 }

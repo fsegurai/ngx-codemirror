@@ -4,7 +4,27 @@
   <section>
     <div class="playground">
       <div class="editor-options">
-        <mat-form-field class="editor-theme-selection" appearance="outline">
+        <div class="editor-options-group">
+          <mat-form-field class="editor-option" appearance="outline">
+            <mat-label>Mode</mat-label>
+            <mat-select [(value)]="selectedMode">
+              @for (mode of CodeMirrorMode; track mode) {
+                <mat-option [value]="mode">{{ mode.viewValue }}</mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field class="editor-option" appearance="outline">
+            <mat-label>Setup</mat-label>
+            <mat-select [(value)]="selectedSetup">
+              @for (setup of CodeMirrorSetup; track setup) {
+                <mat-option [value]="setup">{{ setup.viewValue }}</mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <mat-form-field class="editor-option" appearance="outline">
           <mat-label>Theme</mat-label>
           <mat-select [(value)]="selectedTheme">
             @for (theme of CodeMirrorThemes; track theme) {
@@ -13,69 +33,153 @@
           </mat-select>
         </mat-form-field>
 
-        <mat-form-field class="editor-theme-selection" appearance="outline">
-          <mat-label>Language</mat-label>
-          <mat-select [(value)]="selectedLanguage" (selectionChange)="onLanguageChange($event.value)">
-            @for (lang of CodeMirrorLanguages; track lang) {
-              <mat-option [value]="lang">{{ lang.name }}</mat-option>
-            }
-          </mat-select>
-        </mat-form-field>
+        @if (selectedMode.index !== 2) {
+          <mat-form-field class="editor-option" appearance="outline">
+            <mat-label>Language</mat-label>
+            <mat-select [(value)]="selectedLanguage" (selectionChange)="onLanguageChange($event.value)"
+                        [disabled]="selectedMode.index !== 0">
+              @for (lang of CodeMirrorLanguages; track lang) {
+                <mat-option [value]="lang">{{ lang.name }}</mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+        } @else {
+          <mat-form-field class="editor-option" appearance="outline">
+            <mat-label>Orientation</mat-label>
+            <mat-select [(value)]="selectedDiffOrientation"
+                        [disabled]="selectedMode.index !== 2">
+              @for (orientation of CodeMirrorDiffOrientation; track orientation) {
+                <mat-option [value]="orientation">{{ orientation.viewValue }}</mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
 
-        <mat-form-field class="editor-theme-selection" appearance="outline">
-          <mat-label>Setup</mat-label>
-          <mat-select [(value)]="selectedSetup">
-            @for (setup of CodeMirrorSetup; track setup) {
-              <mat-option [value]="setup">{{ setup.viewValue }}</mat-option>
-            }
-          </mat-select>
-        </mat-form-field>
+          <mat-form-field class="editor-option" appearance="outline">
+            <mat-label>Revert Controls</mat-label>
+            <mat-select [(value)]="selectedDiffRevControl"
+                        [disabled]="selectedMode.index !== 2">
+              @for (revControl of CodeMirrorDiffRevControls; track revControl) {
+                <mat-option [value]="revControl">{{ revControl.viewValue }}</mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+        }
 
-        <p class="editor-theme-selection">
-          <mat-slide-toggle [(ngModel)]="isDisabled">Disabled</mat-slide-toggle>
-        </p>
+        <div class="editor-options-group">
+          <p class="editor-option">
+            <mat-slide-toggle [(ngModel)]="isDisabled">Disabled</mat-slide-toggle>
+          </p>
 
-        <p class="editor-theme-selection">
-          <mat-slide-toggle [(ngModel)]="isReadOnly">Readonly</mat-slide-toggle>
-        </p>
+          @if (selectedMode.index !== 2) {
+            <p class="editor-option">
+              <mat-slide-toggle [(ngModel)]="isReadOnly">Readonly</mat-slide-toggle>
+            </p>
+          }
+        </div>
 
-        <mat-form-field>
-          <mat-label>Placeholder</mat-label>
-          <input [(ngModel)]="placeholder" matInput>
-        </mat-form-field>
+        @if (selectedMode.index !== 2) {
+          <mat-form-field>
+            <mat-label>Placeholder</mat-label>
+            <input [(ngModel)]="placeholder" matInput>
+          </mat-form-field>
 
-        <p class="editor-theme-selection">
-          <mat-slide-toggle [(ngModel)]="isTabIndent">Indent with tab</mat-slide-toggle>
-        </p>
+          <div class="editor-options-group">
+            <p class="editor-option">
+              <mat-slide-toggle [(ngModel)]="isTabIndent">Indent with tab</mat-slide-toggle>
+            </p>
+          </div>
 
-        <mat-form-field>
-          <mat-label>Indent unit</mat-label>
-          <input [(ngModel)]="indentUnit" matInput [type]="'number'" [disabled]="!isTabIndent">
-        </mat-form-field>
+          <mat-form-field>
+            <mat-label>Indent unit</mat-label>
+            <input [(ngModel)]="indentUnit" matInput [type]="'number'" [disabled]="!isTabIndent">
+          </mat-form-field>
 
-        <p class="editor-theme-selection">
-          <mat-slide-toggle [(ngModel)]="isLineWrapping">Line wrapping</mat-slide-toggle>
-        </p>
+          <div class="editor-options-group">
+            <p class="editor-option">
+              <mat-slide-toggle [(ngModel)]="isLineWrapping">Line wrapping</mat-slide-toggle>
+            </p>
 
-        <p class="editor-theme-selection">
-          <mat-slide-toggle [(ngModel)]="isHighlightWhitespace">Highlight line (...)</mat-slide-toggle>
-        </p>
+            <p class="editor-option">
+              <mat-slide-toggle [(ngModel)]="isHighlightWhitespace">Highlight line (...)</mat-slide-toggle>
+            </p>
+          </div>
 
+          <mat-divider/>
+
+          <div class="editor-options-group">
+            <p class="editor-option">
+              <mat-slide-toggle [(ngModel)]="isOutputDisplayed" [disabled]="selectedMode.index !== 0">
+                Display output
+              </mat-slide-toggle>
+            </p>
+          </div>
+        } @else {
+          <div class="editor-options-group">
+            <p class="editor-option">
+              <mat-slide-toggle [(ngModel)]="isChangeHighlighted" [disabled]="selectedMode.index !== 2">
+                Highlight changes
+              </mat-slide-toggle>
+            </p>
+
+            <p class="editor-option">
+              <mat-slide-toggle [(ngModel)]="isGutter" [disabled]="selectedMode.index !== 2">
+                Gutter
+              </mat-slide-toggle>
+            </p>
+          </div>
+        }
       </div>
-      <ngx-code-editor class="editor"
-                       [style.height]="'650px'"
-                       [(ngModel)]="editorContent"
-                       [theme]="selectedTheme.value"
-                       [language]="selectedLanguage.name"
-                       [languages]="CodeMirrorLanguages"
-                       [setup]="selectedSetup.value"
-                       [disabled]="isDisabled"
-                       [readonly]="isReadOnly"
-                       [placeholder]="placeholder"
-                       [indentWithTab]="isTabIndent"
-                       [indentUnit]="indentUnit"
-                       [lineWrapping]="isLineWrapping"
-                       [highlightWhitespace]="isHighlightWhitespace"/>
+
+      @switch (selectedMode.index) {
+        @case (0) {
+          <ngx-code-editor class="editor"
+                           [(ngModel)]="editorContent"
+                           [theme]="selectedTheme.value"
+                           [language]="selectedLanguage.name"
+                           [languages]="CodeMirrorLanguages"
+                           [setup]="selectedSetup.value"
+                           [disabled]="isDisabled"
+                           [readonly]="isReadOnly"
+                           [placeholder]="placeholder"
+                           [indentWithTab]="isTabIndent"
+                           [indentUnit]="indentUnit"
+                           [lineWrapping]="isLineWrapping"
+                           [highlightWhitespace]="isHighlightWhitespace"/>
+
+          @if (isOutputDisplayed) {
+            <mat-form-field class="editor" subscriptSizing="dynamic">
+              <mat-label>Output</mat-label>
+              <textarea [(ngModel)]="editorContent" matInput rows="35"></textarea>
+            </mat-form-field>
+          }
+        }
+        @case (1) {
+          <ngx-code-editor class="editor"
+                           [value]="modifiedDiffCode"
+                           [theme]="selectedTheme.value"
+                           [setup]="selectedSetup.value"
+                           [disabled]="isDisabled"
+                           [readonly]="isReadOnly"
+                           [placeholder]="placeholder"
+                           [indentWithTab]="isTabIndent"
+                           [indentUnit]="indentUnit"
+                           [lineWrapping]="isLineWrapping"
+                           [highlightWhitespace]="isHighlightWhitespace"
+                           [extensions]="unifiedExtension"/>
+        }
+        @case (2) {
+          <ngx-code-diff-editor class="editor"
+                                [originalValue]="originalDiffCode"
+                                [modifiedValue]="modifiedDiffCode"
+                                [theme]="selectedTheme.value"
+                                [setup]="selectedSetup.value"
+                                [disabled]="isDisabled"
+                                [orientation]="selectedDiffOrientation.value"
+                                [revertControls]="selectedDiffRevControl.value"
+                                [highlightChanges]="isChangeHighlighted"
+                                [gutter]="isGutter"/>
+        }
+      }
     </div>
   </section>
 </app-scrollspy-nav-layout>

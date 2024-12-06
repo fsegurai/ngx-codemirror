@@ -17,6 +17,7 @@ on:
 permissions:
   pull-requests: write
   checks: write
+  packages: read
 
 concurrency:
   group: pr-checks-${{ github.event.number }}

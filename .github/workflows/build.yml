@@ -6,9 +6,6 @@ on:
 env:
   LIB_ARTIFACT_NAME: "build-lib-artifact"
 
-permissions:
-  packages: read
-
 jobs:
   build_library:
     runs-on: ubuntu-latest

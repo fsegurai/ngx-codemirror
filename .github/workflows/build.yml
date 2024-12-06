@@ -15,9 +15,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Set up authentication for GitHub Package Registry
-        run: echo "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}" > ~/.npmrc
-
       - name: Set up Bun - Version ${{ vars.BUN_VERSION }}
         uses: oven-sh/setup-bun@v2
         with:
@@ -25,8 +22,7 @@ jobs:
 
       - name: Install dependencies
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_GH_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: bun install
 
       - name: Build library

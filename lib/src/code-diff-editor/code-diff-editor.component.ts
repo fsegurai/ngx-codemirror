@@ -145,8 +145,12 @@ export class CodeDiffEditorComponent implements OnChanges, OnInit, OnDestroy, Co
   /** Event emitted when blur on the modified editor. */
   @Output() modifiedBlur = new EventEmitter<void>();
 
-  private _onChange: (value: DiffEditorModel) => void = () => {};
-  private _onTouched: () => void = () => {};
+  private _onChange: (value: DiffEditorModel) => void = () => {
+    // Intentionally left blank
+  };
+  private _onTouched: () => void = () => {
+    // Intentionally left blank
+  };
 
   constructor(private _elementRef: ElementRef<Element>) {
   }

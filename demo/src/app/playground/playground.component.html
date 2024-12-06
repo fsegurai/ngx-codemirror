@@ -33,11 +33,11 @@
           </mat-select>
         </mat-form-field>
 
-        @if (selectedMode.index != 2) {
+        @if (selectedMode.index !== 2) {
           <mat-form-field class="editor-option" appearance="outline">
             <mat-label>Language</mat-label>
             <mat-select [(value)]="selectedLanguage" (selectionChange)="onLanguageChange($event.value)"
-                        [disabled]="selectedMode.index != 0">
+                        [disabled]="selectedMode.index !== 0">
               @for (lang of CodeMirrorLanguages; track lang) {
                 <mat-option [value]="lang">{{ lang.name }}</mat-option>
               }
@@ -47,7 +47,7 @@
           <mat-form-field class="editor-option" appearance="outline">
             <mat-label>Orientation</mat-label>
             <mat-select [(value)]="selectedDiffOrientation"
-                        [disabled]="selectedMode.index != 2">
+                        [disabled]="selectedMode.index !== 2">
               @for (orientation of CodeMirrorDiffOrientation; track orientation) {
                 <mat-option [value]="orientation">{{ orientation.viewValue }}</mat-option>
               }
@@ -57,7 +57,7 @@
           <mat-form-field class="editor-option" appearance="outline">
             <mat-label>Revert Controls</mat-label>
             <mat-select [(value)]="selectedDiffRevControl"
-                        [disabled]="selectedMode.index != 2">
+                        [disabled]="selectedMode.index !== 2">
               @for (revControl of CodeMirrorDiffRevControls; track revControl) {
                 <mat-option [value]="revControl">{{ revControl.viewValue }}</mat-option>
               }
@@ -70,14 +70,14 @@
             <mat-slide-toggle [(ngModel)]="isDisabled">Disabled</mat-slide-toggle>
           </p>
 
-          @if (selectedMode.index != 2) {
+          @if (selectedMode.index !== 2) {
             <p class="editor-option">
               <mat-slide-toggle [(ngModel)]="isReadOnly">Readonly</mat-slide-toggle>
             </p>
           }
         </div>
 
-        @if (selectedMode.index != 2) {
+        @if (selectedMode.index !== 2) {
           <mat-form-field>
             <mat-label>Placeholder</mat-label>
             <input [(ngModel)]="placeholder" matInput>
@@ -108,7 +108,7 @@
 
           <div class="editor-options-group">
             <p class="editor-option">
-              <mat-slide-toggle [(ngModel)]="isOutputDisplayed" [disabled]="selectedMode.index != 0">
+              <mat-slide-toggle [(ngModel)]="isOutputDisplayed" [disabled]="selectedMode.index !== 0">
                 Display output
               </mat-slide-toggle>
             </p>
@@ -116,13 +116,13 @@
         } @else {
           <div class="editor-options-group">
             <p class="editor-option">
-              <mat-slide-toggle [(ngModel)]="isChangeHighlighted" [disabled]="selectedMode.index != 2">
+              <mat-slide-toggle [(ngModel)]="isChangeHighlighted" [disabled]="selectedMode.index !== 2">
                 Highlight changes
               </mat-slide-toggle>
             </p>
 
             <p class="editor-option">
-              <mat-slide-toggle [(ngModel)]="isGutter" [disabled]="selectedMode.index != 2">
+              <mat-slide-toggle [(ngModel)]="isGutter" [disabled]="selectedMode.index !== 2">
                 Gutter
               </mat-slide-toggle>
             </p>

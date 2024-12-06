@@ -127,8 +127,12 @@ export class CodeEditorComponent implements OnChanges, OnInit, OnDestroy, Contro
   /** Event emitted when the editor has lost focus. */
   @Output() blur = new EventEmitter<void>();
 
-  private _onChange: (value: string) => void = () => {};
-  private _onTouched: () => void = () => {};
+  private _onChange: (value: string) => void = () => {
+    // Intentionally left blank
+  };
+  private _onTouched: () => void = () => {
+    // Intentionally left blank
+  };
 
   constructor(private _elementRef: ElementRef<Element>) {
   }

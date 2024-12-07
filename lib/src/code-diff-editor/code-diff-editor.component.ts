@@ -4,15 +4,15 @@ import {
   Component,
   ElementRef,
   forwardRef,
+  inject,
+  input,
   Input,
   OnChanges,
   OnDestroy,
   OnInit,
+  output,
   SimpleChanges,
   ViewEncapsulation,
-  input,
-  output,
-  inject
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { DiffConfig, MergeView } from '@codemirror/merge';

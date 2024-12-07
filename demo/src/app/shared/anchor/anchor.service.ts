@@ -1,5 +1,5 @@
 import { LocationStrategy, ViewportScroller } from '@angular/common';
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { ActivatedRoute, Router, UrlTree } from '@angular/router';
 
 /**
@@ -33,14 +33,10 @@ import { ActivatedRoute, Router, UrlTree } from '@angular/router';
  */
 @Injectable({ providedIn: 'root' })
 export class AnchorService {
-
-  constructor(
-    private locationStrategy: LocationStrategy,
-    private route: ActivatedRoute,
-    private router: Router,
-    private viewportScroller: ViewportScroller,
-  ) {
-  }
+  private locationStrategy = inject(LocationStrategy);
+  private route = inject(ActivatedRoute);
+  private router = inject(Router);
+  private viewportScroller = inject(ViewportScroller);
 
   /**
    * Intercept clicks on `HTMLAnchorElement` to use `Router.navigate()`
@@ -49,13 +45,11 @@ export class AnchorService {
    */
   interceptClick(event: Event): void {
     const element = event.target;
-    if (!(element instanceof HTMLAnchorElement)) {
-      return;
-    }
+    if (!(element instanceof HTMLAnchorElement)) return;
+
     const href = element.getAttribute('href') || '';
-    if (this.isExternalUrl(href) || this.isRouterLink(element)) {
-      return;
-    }
+    if (this.isExternalUrl(href) || this.isRouterLink(element)) return;
+
     this.navigate(href);
     event.preventDefault();
   }
@@ -77,9 +71,8 @@ export class AnchorService {
    * @return Absolute URL based on the current route.
    */
   normalizeExternalUrl(url: string): string {
-    if (this.isExternalUrl(url)) {
-      return url;
-    }
+    if (this.isExternalUrl(url)) return url;
+
     const urlTree = this.getUrlTree(url);
     const serializedUrl = this.router.serializeUrl(urlTree);
     return this.locationStrategy.prepareExternalUrl(serializedUrl);
@@ -90,15 +83,13 @@ export class AnchorService {
    */
   scrollToAnchor(): void {
     const url = this.router.parseUrl(this.router.url);
-    if (url.fragment) {
-      this.navigate(this.router.url, true);
-    }
+    if (url.fragment) this.navigate(this.router.url, true);
   }
 
   /**
    * Configures the top offset used when scrolling to an anchor.
-   * @param offset A position in screen coordinates (a tuple with x and y values)
-   * or a function that returns the top offset position.
+   * @param params The top offset to use when scrolling to an anchor.
+   * @see ViewportScroller.setOffset()
    */
   setOffset(...params: Parameters<ViewportScroller['setOffset']>): void {
     this.viewportScroller.setOffset(...params);

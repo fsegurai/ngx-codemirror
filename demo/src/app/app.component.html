@@ -16,15 +16,17 @@
 
 <nav #tabHeader [tabPanel]="tabPanel" backgroundColor="primary" disableRipple fitInkBarToContent
      mat-stretch-tabs="false" mat-tab-nav-bar>
-  <a #tabLink="routerLinkActive" *ngFor="let route of routes" [active]="tabLink.isActive"
-     [routerLink]="route.path"
-     mat-tab-link
-     routerLinkActive>
-    <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="8px">
-      <img src="icon-{{route.path}}.svg" alt="{{ route.data?.['label'] }}">
-      <span>{{ route.data?.['label'] }}</span>
-    </div>
-  </a>
+  @for (route of routes; track route) {
+    <a #tabLink="routerLinkActive" [active]="tabLink.isActive"
+       [routerLink]="route.path"
+       mat-tab-link
+       routerLinkActive>
+      <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="8px">
+        <img src="icon-{{route.path}}.svg" alt="{{ route.data?.['label'] }}">
+        <span>{{ route.data?.['label'] }}</span>
+      </div>
+    </a>
+  }
 </nav>
 
 <mat-tab-nav-panel #tabPanel (@routeAnimation.Done)="handleFragment()"

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { CodeDiffEditorComponent, CodeEditorComponent } from "ngx-codemirror";
 import { FlexModule } from '@angular/flex-layout/flex';
 import { CodeMirrorDiffOrientation, CodeMirrorDiffRevControls } from "@app/constants/const-codemirror-diff-orientation";
@@ -36,6 +36,8 @@ import { MatDivider } from "@angular/material/divider";
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export default class PlaygroundComponent implements OnInit, OnDestroy {
+  private changeDetector = inject(ChangeDetectorRef);
+
   protected readonly CodeMirrorDiffOrientation = CodeMirrorDiffOrientation;
   protected readonly CodeMirrorDiffRevControls = CodeMirrorDiffRevControls;
   protected readonly CodeMirrorMode = CodeMirrorMode;
@@ -86,11 +88,6 @@ five`;
       original: this.originalDiffCode,
     }),
   ];
-
-  constructor(
-    private changeDetector: ChangeDetectorRef,
-  ) {
-  }
 
   ngOnInit(): void {
     this.onLanguageChange(this.selectedLanguage);

@@ -1,13 +1,13 @@
-import { NgFor } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
   ElementRef,
-  Input,
   NgZone,
   OnChanges,
   OnDestroy,
   SimpleChanges,
+  input,
+  inject
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import Gumshoe from 'gumshoejs';
@@ -19,22 +19,16 @@ import { first } from 'rxjs/operators';
   styleUrls: ['./scrollspy-nav.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
-    NgFor,
-    RouterLink,
+    RouterLink
   ]
 })
 export class ScrollspyNavComponent implements OnChanges, OnDestroy {
+  private elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
+  private zone = inject(NgZone);
 
-  @Input()
-  headings: Element[] | undefined;
+  readonly headings = input<Element[]>();
 
   private scrollSpy: Gumshoe | undefined;
-
-  constructor(
-    private elementRef: ElementRef<HTMLElement>,
-    private zone: NgZone,
-  ) {
-  }
 
   /**
    * Handle changes to the `headings` input.

@@ -1,10 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
-  Component,
-  OnDestroy,
-  OnInit
-} from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { CodeDiffEditorComponent, CodeEditorComponent } from "ngx-codemirror";
 import { FlexModule } from '@angular/flex-layout/flex';
 import { CodeMirrorDiffOrientation, CodeMirrorDiffRevControls } from "@app/constants/const-codemirror-diff-orientation";

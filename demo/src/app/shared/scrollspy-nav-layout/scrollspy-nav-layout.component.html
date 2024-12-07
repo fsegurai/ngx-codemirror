@@ -8,7 +8,7 @@
         [GitHub](https://github.com/fsegurai)
       </ngx-markdown>
     </div>
-    @if (displayTOC && showScrollUpButton) {
+    @if (displayTOC() && showScrollUpButton) {
       <button (click)="onScrollUp()" [@zoomAnimation] class="scrollup-button--fixed"
               color="accent"
               fxHide.gt-sm mat-fab>
@@ -16,9 +16,9 @@
       </button>
     }
   </div>
-  @if (displayTOC) {
+  @if (displayTOC()) {
     <div class="sticky" fxFlex="1 0 180px" fxFlexAlign="flex-start" fxHide.lt-md fxLayout="column">
-      <app-scrollspy-nav [headings]="headings"></app-scrollspy-nav>
+      <app-scrollspy-nav [headings]="headings()"></app-scrollspy-nav>
       @if (showScrollUpButton) {
         <button (click)="onScrollUp()" [@zoomAnimation] class="scrollup-button" color="accent"
                 mat-mini-fab>

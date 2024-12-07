@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, HostListener, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, HostListener, input } from '@angular/core';
 import { ExtendedModule } from '@angular/flex-layout/extended';
 import { FlexModule } from '@angular/flex-layout/flex';
 import { MatButtonModule } from '@angular/material/button';
@@ -23,12 +23,9 @@ import { ZOOM_ANIMATION } from './scrollspy-nav-layout.animation';
   ]
 })
 export class ScrollspyNavLayoutComponent {
+  readonly headings = input<Element[]>();
 
-  @Input()
-  headings: Element[] | undefined;
-
-  @Input()
-  displayTOC: boolean | undefined;
+  readonly displayTOC = input<boolean>(true);
 
   protected showScrollUpButton = false;
 

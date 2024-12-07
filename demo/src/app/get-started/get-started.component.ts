@@ -1,38 +1,44 @@
-import { ChangeDetectionStrategy, Component, ElementRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, inject } from '@angular/core';
 import { MarkdownComponent } from '@fsegurai/ngx-markdown';
 import { ScrollspyNavLayoutComponent } from '@shared/scrollspy-nav-layout';
 
 @Component({
-    selector: 'app-get-started',
-    templateUrl: './get-started.component.html',
-    styleUrls: ['./get-started.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    imports: [MarkdownComponent, ScrollspyNavLayoutComponent]
+  selector: 'app-get-started',
+  templateUrl: './get-started.component.html',
+  styleUrls: ['./get-started.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [MarkdownComponent, ScrollspyNavLayoutComponent]
 })
 export default class GetStartedComponent {
-  headings: Element[] | undefined;
+  private elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
 
-  constructor(private elementRef: ElementRef<HTMLElement>) {
-  }
+  headings: Element[] | undefined;
 
   onLoad(): void {
     this.stripContent();
     this.setHeadings();
   }
 
+  /**
+   * Set the headings for the scrollspy
+   * @private - This method is private and should not be accessed outside of this class
+   */
   private setHeadings(): void {
-    const headings: Element[] = [];
-    this.elementRef.nativeElement
-      .querySelectorAll('h2')
-      .forEach((x) => headings.push(x));
-    this.headings = headings;
+    this.headings = Array.from(this.elementRef.nativeElement.querySelectorAll('h2')).map((heading) => {
+      if (!heading.id) heading.id = heading.textContent!.toLowerCase().replace(/\s/g, '-');
+      return heading;
+    });
   }
 
+  /**
+   * Strip the content of the markdown to remove the first two paragraphs and the table of contents
+   * @private - This method is private and should not be accessed outside of this class
+   */
   private stripContent(): void {
     this.elementRef.nativeElement
-      .querySelector('markdown')!
+      .querySelector('ngx-markdown')!
       .querySelectorAll(
-        'markdown > p:nth-child(-n + 2), #ngx-markdown, #table-of-contents + ul, #table-of-contents',
+        'ngx-markdown > p:nth-child(-n + 2), #ngx-markdown, #table-of-contents + ul, #table-of-contents',
       )
       .forEach((x) => x.remove());
   }

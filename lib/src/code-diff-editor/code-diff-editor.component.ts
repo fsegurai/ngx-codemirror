@@ -3,13 +3,14 @@ import {
   ChangeDetectionStrategy,
   Component,
   ElementRef,
-  EventEmitter,
   forwardRef,
+  inject,
+  input,
   Input,
   OnChanges,
   OnDestroy,
   OnInit,
-  Output,
+  output,
   SimpleChanges,
   ViewEncapsulation,
 } from '@angular/core';
@@ -63,8 +64,10 @@ export interface DiffEditorModel {
   ],
 })
 export class CodeDiffEditorComponent implements OnChanges, OnInit, OnDestroy, ControlValueAccessor {
+  private _elementRef = inject<ElementRef<Element>>(ElementRef);
+
   /** The editor's theme. */
-  @Input() theme: Theme = 'light';
+  readonly theme = input<Theme>('light');
 
   /**
    * The editor's built-in setup. The value can be set to
@@ -73,7 +76,7 @@ export class CodeDiffEditorComponent implements OnChanges, OnInit, OnDestroy, Co
    *
    * Don't support change dynamically!
    */
-  @Input() setup: Setup = 'basic';
+  readonly setup = input<Setup>('basic');
 
   /** The diff-editor's original value. */
   @Input() originalValue = '';
@@ -84,7 +87,7 @@ export class CodeDiffEditorComponent implements OnChanges, OnInit, OnDestroy, Co
    *
    * Don't support change dynamically!
    */
-  @Input() originalExtensions: Extension[] = [];
+  readonly originalExtensions = input<Extension[]>([]);
 
   /** The diff-editor's modified value. */
   @Input() modifiedValue = '';
@@ -93,25 +96,25 @@ export class CodeDiffEditorComponent implements OnChanges, OnInit, OnDestroy, Co
    * The MergeView modified config's
    * [extensions](https://codemirror.net/docs/ref/#state.EditorStateConfig.extensions).
    */
-  @Input() modifiedExtensions: Extension[] = [];
+  readonly modifiedExtensions = input<Extension[]>([]);
 
   /** Controls whether editor A or editor B is shown first. Defaults to `"a-b"`. */
-  @Input() orientation?: Orientation;
+  readonly orientation = input<Orientation>();
 
   /** Controls whether revert controls are shown between changed chunks. */
-  @Input() revertControls?: RevertControls;
+  readonly revertControls = input<RevertControls>();
 
   /** When given, this function is called to render the button to revert a chunk. */
-  @Input() renderRevertControl?: RenderRevertControl;
+  readonly renderRevertControl = input<RenderRevertControl>();
 
   /**
    * By default, the merge view will mark inserted and deleted text
    * in changed chunks. Set this to false in order to turn that off.
    */
-  @Input({ transform: booleanAttribute }) highlightChanges = true;
+  readonly highlightChanges = input(true, { transform: booleanAttribute });
 
   /** Controls whether a gutter marker is shown next to changed lines. */
-  @Input({ transform: booleanAttribute }) gutter = true;
+  readonly gutter = input(true, { transform: booleanAttribute });
 
   /** Whether the diff-editor is disabled. */
   @Input({ transform: booleanAttribute }) disabled = false;
@@ -122,28 +125,31 @@ export class CodeDiffEditorComponent implements OnChanges, OnInit, OnDestroy, Co
    * a change (default is 3), and `minSize` gives the minimum amount
    * of collapsible lines that need to be present (defaults to 4).
    */
-  @Input() collapseUnchanged?: { margin?: number; minSize?: number };
+  readonly collapseUnchanged = input<{
+    margin?: number;
+    minSize?: number;
+  }>();
 
   /** Pass options to the diff algorithm. */
-  @Input() diffConfig?: DiffConfig;
+  readonly diffConfig = input<DiffConfig>();
 
   /** Event emitted when the editor's original value changes. */
-  @Output() originalValueChange = new EventEmitter<string>();
+  readonly originalValueChange = output<string>();
 
   /** Event emitted when focus on the original editor. */
-  @Output() originalFocus = new EventEmitter<void>();
+  readonly originalFocus = output<void>();
 
   /** Event emitted when blur on the original editor. */
-  @Output() originalBlur = new EventEmitter<void>();
+  readonly originalBlur = output<void>();
 
   /** Event emitted when the editor's modified value changes. */
-  @Output() modifiedValueChange = new EventEmitter<string>();
+  readonly modifiedValueChange = output<string>();
 
   /** Event emitted when focus on the modified editor. */
-  @Output() modifiedFocus = new EventEmitter<void>();
+  readonly modifiedFocus = output<void>();
 
   /** Event emitted when blur on the modified editor. */
-  @Output() modifiedBlur = new EventEmitter<void>();
+  readonly modifiedBlur = output<void>();
 
   private _onChange: (value: DiffEditorModel) => void = () => {
     // Intentionally left blank
@@ -151,9 +157,6 @@ export class CodeDiffEditorComponent implements OnChanges, OnInit, OnDestroy, Co
   private _onTouched: () => void = () => {
     // Intentionally left blank
   };
-
-  constructor(private _elementRef: ElementRef<Element>) {
-  }
 
   /** The merge view instance. */
   mergeView?: MergeView;
@@ -179,13 +182,14 @@ export class CodeDiffEditorComponent implements OnChanges, OnInit, OnDestroy, Co
   private _themeConf = new Compartment();
 
   private _getAllExtensions(editor: 'a' | 'b'): Extension[] {
+    const setup = this.setup();
     return [
       this._editableConf.of([]),
       this._themeConf.of([]),
 
       this._updateListener(editor),
-      this.setup === 'basic' ? basicSetup : this.setup === 'minimal' ? minimalSetup : [],
-      ...(editor === 'a' ? this.originalExtensions : this.modifiedExtensions),
+      setup === 'basic' ? basicSetup : setup === 'minimal' ? minimalSetup : [],
+      ...(editor === 'a' ? this.originalExtensions() : this.modifiedExtensions()),
     ];
   }
 
@@ -200,7 +204,7 @@ export class CodeDiffEditorComponent implements OnChanges, OnInit, OnDestroy, Co
       this.setEditable(!this.disabled);
     }
     if (changes['theme']) {
-      this.setTheme(this.theme);
+      this.setTheme(this.theme());
     }
     this.reconfigureMergeView(changes);
   }
@@ -209,7 +213,7 @@ export class CodeDiffEditorComponent implements OnChanges, OnInit, OnDestroy, Co
     this.initializeMergeView();
     this.addEventListeners();
     this.setEditable(!this.disabled);
-    this.setTheme(this.theme);
+    this.setTheme(this.theme());
   }
 
   ngOnDestroy(): void {
@@ -279,13 +283,13 @@ export class CodeDiffEditorComponent implements OnChanges, OnInit, OnDestroy, Co
         doc: this.modifiedValue,
         extensions: this._getAllExtensions('b'),
       },
-      orientation: this.orientation,
-      revertControls: this.revertControls,
-      renderRevertControl: this.renderRevertControl,
-      highlightChanges: this.highlightChanges,
-      gutter: this.gutter,
-      collapseUnchanged: this.collapseUnchanged,
-      diffConfig: this.diffConfig,
+      orientation: this.orientation(),
+      revertControls: this.revertControls(),
+      renderRevertControl: this.renderRevertControl(),
+      highlightChanges: this.highlightChanges(),
+      gutter: this.gutter(),
+      collapseUnchanged: this.collapseUnchanged(),
+      diffConfig: this.diffConfig(),
     });
   }
 
@@ -313,25 +317,25 @@ export class CodeDiffEditorComponent implements OnChanges, OnInit, OnDestroy, Co
 
   private reconfigureMergeView(changes: SimpleChanges) {
     if (changes['orientation']) {
-      this.mergeView?.reconfigure({ orientation: this.orientation });
+      this.mergeView?.reconfigure({ orientation: this.orientation() });
     }
     if (changes['revertControls']) {
-      this.mergeView?.reconfigure({ revertControls: this.revertControls });
+      this.mergeView?.reconfigure({ revertControls: this.revertControls() });
     }
     if (changes['renderRevertControl']) {
-      this.mergeView?.reconfigure({ renderRevertControl: this.renderRevertControl });
+      this.mergeView?.reconfigure({ renderRevertControl: this.renderRevertControl() });
     }
     if (changes['highlightChanges']) {
-      this.mergeView?.reconfigure({ highlightChanges: this.highlightChanges });
+      this.mergeView?.reconfigure({ highlightChanges: this.highlightChanges() });
     }
     if (changes['gutter']) {
-      this.mergeView?.reconfigure({ gutter: this.gutter });
+      this.mergeView?.reconfigure({ gutter: this.gutter() });
     }
     if (changes['collapseUnchanged']) {
-      this.mergeView?.reconfigure({ collapseUnchanged: this.collapseUnchanged });
+      this.mergeView?.reconfigure({ collapseUnchanged: this.collapseUnchanged() });
     }
     if (changes['diffConfig']) {
-      this.mergeView?.reconfigure({ diffConfig: this.diffConfig });
+      this.mergeView?.reconfigure({ diffConfig: this.diffConfig() });
     }
     if (changes['setup'] || changes['originalExtensions'] || changes['modifiedExtensions']) {
       this.setExtensions('a', this._getAllExtensions('a'));

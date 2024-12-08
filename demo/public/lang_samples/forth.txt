@@ -1,0 +1,19 @@
+\ This program demonstrates basic arithmetic operations in Forth
+
+: add ( n1 n2 -- sum )
+  + ;
+
+: subtract ( n1 n2 -- difference )
+  - ;
+
+: multiply ( n1 n2 -- product )
+  * ;
+
+: divide ( n1 n2 -- quotient )
+  / ;
+
+\ Perform arithmetic operations
+10 5 add . cr       \ Prints 15
+20 10 subtract . cr  \ Prints 10
+4 3 multiply . cr    \ Prints 12
+100 25 divide . cr   \ Prints 4

@@ -1,0 +1,14 @@
+msc {
+  hscale = "1.5";
+
+  Client, Server;
+
+  Client->Server [label="Request"];
+  Server->Client [label="Response"];
+
+  Client->Server [label="Data"];
+  Server->Client [label="Acknowledge"];
+
+  Client->Server [label="Terminate"];
+  Server->Client [label="Goodbye"];
+}

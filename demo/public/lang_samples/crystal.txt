@@ -1,0 +1,42 @@
+# A class representing a single task
+class Task
+  property name : String
+  property completed : Bool = false
+
+  def initialize(name : String)
+    @name = name
+  end
+
+  # Mark the task as completed
+  def complete
+    @completed = true
+  end
+
+  # Display the task
+  def to_s
+    status = completed ? "✓" : "✗"
+    "#{status} #{@name}"
+  end
+end
+
+# A class to manage a list of tasks
+class TaskManager
+  def initialize
+    @tasks = Array(Task).new
+  end
+
+  # Add a new task
+  def add_task(name : String)
+    @tasks << Task.new(name)
+  end
+
+  # Mark a task as completed
+  def complete_task(index : Int32)
+    @tasks[index].complete if index < @tasks.size
+  end
+
+  # List all tasks
+  def list_tasks
+    puts "Tasks:"
+    @tasks.each_with_index do |task, index|
+      puts "#

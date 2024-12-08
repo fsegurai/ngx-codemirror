@@ -68,6 +68,7 @@
     position: sticky;
     top: 80px;
     box-sizing: border-box; // includes padding and border in element's total width and height
+    overflow-x: auto;
 
     @media (max-width: 768px) {
       width: 100%;

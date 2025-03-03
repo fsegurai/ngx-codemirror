@@ -12,7 +12,7 @@ import {
   OnInit,
   output,
   SimpleChanges,
-  ViewEncapsulation
+  ViewEncapsulation,
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { indentWithTab } from '@codemirror/commands';
@@ -323,7 +323,7 @@ export class CodeEditorComponent implements OnChanges, OnInit, OnDestroy, Contro
   private _findLanguage(name: string) {
     const normalizedInput = name.toLowerCase();
     const lang = this.languages().find(lang =>
-      [lang.name, ...lang.alias].some(alias => normalizedInput === alias.toLowerCase())
+      [lang.name, ...lang.alias].some(alias => normalizedInput === alias.toLowerCase()),
     );
 
     if (!lang) {

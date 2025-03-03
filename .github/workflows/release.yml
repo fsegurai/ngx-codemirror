@@ -1,0 +1,72 @@
+name: Publish Release
+
+on:
+  workflow_run:
+    workflows: [ "Release Library" ]
+    types: [ completed ]
+  workflow_dispatch:
+    inputs: { }
+
+jobs:
+  create_release:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    environment: FSI_DEP_NodeJs
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js - Version ${{ vars.NODE_VERSION }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ vars.NODE_VERSION }}
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Generate release notes
+        id: generate_release_notes
+        run: |
+          # Get current date
+          DATE=$(date +"%Y-%m-%d")
+
+          # Pass the date to the GitHub Actions output
+          echo "RELEASE_DATE=$DATE" >> $GITHUB_ENV
+        env:
+          RELEASE_DATE: ${{ steps.generate_release_notes.outputs.RELEASE_DATE }}
+
+      - name: Get version from package.json
+        id: get_version
+        run: echo "VERSION=$(jq -r .version < package.json)" >> $GITHUB_ENV
+        env:
+          VERSION: ${{ steps.get_version.outputs.VERSION }}
+
+      - name: Determine if pre-release
+        id: determine_prerelease
+        run: |
+          VERSION=${{ steps.get_version.outputs.VERSION }}
+          if [[ "$VERSION" == *"-beta"* ]] || [[ "$VERSION" == *"-alpha"* ]] || [[ "$VERSION" == *"-rc"* ]] || [[ "$VERSION" == *"-next"* ]]; then
+            echo "PRERELEASE=true" >> $GITHUB_ENV
+          else
+            echo "PRERELEASE=false" >> $GITHUB_ENV
+          fi
+
+      - name: Create GitHub Release
+        id: create_release
+        uses: comnoco/create-release-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: v${{ env.VERSION }}
+          release_name: ${{ env.VERSION }}
+          body: |
+            (${{ env.RELEASE_DATE }})
+            ---
+          draft: false
+          prerelease: ${{ steps.determine_prerelease.outputs.PRERELEASE }}
+
+      - name: Handle no release (skip release if no changes)
+        run: |
+          if [[ "${{ steps.generate_release_notes.outputs.RELEASE_NOTES }}" == "No release notes available." ]]; then
+            echo "No release created, skipping GitHub release creation."
+          fi

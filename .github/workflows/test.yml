@@ -15,15 +15,9 @@ on:
       - "*.md"
       - "!package.json"
       - "!github/workflows/**"
-  workflow_dispatch:
-    inputs: { }
-  workflow_call:
-  workflow_run:
-    workflows: [ "Build PR" ]
-    types: [ completed ]
 
 permissions:
-  packages: read
+  packages: read # Required for private libraries
 
 jobs:
   test_library:

@@ -26,7 +26,7 @@ env:
   ARTIFACT_NAME: "build-lib-artifact"
 
 jobs:
-  build:
+  release_library:
     if: |
       github.ref == 'refs/heads/main' &&
       github.event.repository.fork == false &&
@@ -38,39 +38,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Set up Bun - Version ${{ vars.BUN_VERSION }}
-        uses: oven-sh/setup-bun@v2
-        with:
-          bun-version: ${{ vars.BUN_VERSION }}
-
-      - name: Install dependencies
-        run: bun install
-
-      - name: Build library
-        run: |
-          bun run build:lib
-          bun run postBuild:lib
-
-      - name: Upload build artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: ${{ env.ARTIFACT_NAME }}
-          path: ${{ vars.DEMO_PATH }}
-          if-no-files-found: error
-
-  release:
-    if: |
-      github.ref == 'refs/heads/main' &&
-      github.event.repository.fork == false &&
-      github.actor != 'dependabot[bot]'
-    needs: [ build ]
-    runs-on: ubuntu-latest
-    timeout-minutes: 2
-    environment: FSI_DEP_NodeJs
-    steps:
-      - name: Checkout Code
-        uses: actions/checkout@v4
-
       - name: Set up Node.js ${{ vars.NODE_VERSION }} for NPM registry
         uses: actions/setup-node@v4
         with:
@@ -79,11 +46,13 @@ jobs:
           scope: ${{ vars.NPM_ORG }}
           always-auth: true
 
-      - name: Download build artifacts
-        uses: actions/download-artifact@v4
-        with:
-          name: ${{ env.ARTIFACT_NAME }}
-          path: ${{ vars.DEMO_PATH }}
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build library
+        run: |
+          npm run build:lib
+          npm run postBuild:lib
 
       - name: Get package version
         id: get_version

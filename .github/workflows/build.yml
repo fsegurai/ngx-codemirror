@@ -28,13 +28,6 @@ jobs:
           bun run build:lib
           bun run postBuild:lib
 
-      - name: Upload build library artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: ${{ env.LIB_ARTIFACT_NAME }}
-          path: ${{ vars.DEMO_PATH }}
-          if-no-files-found: error
-
   build_demo:
     runs-on: ubuntu-latest
     timeout-minutes: 2

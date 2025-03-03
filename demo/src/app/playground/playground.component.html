@@ -38,7 +38,7 @@
             <mat-label>Language</mat-label>
             <mat-select [(value)]="selectedLanguage" (selectionChange)="onLanguageChange($event.value)"
                         [disabled]="selectedMode.index !== 0">
-              @for (lang of CodeMirrorLanguages; track lang) {
+              @for (lang of CodeMirrorCustomLanguages; track lang) {
                 <mat-option [value]="lang">{{ lang.name }}</mat-option>
               }
             </mat-select>

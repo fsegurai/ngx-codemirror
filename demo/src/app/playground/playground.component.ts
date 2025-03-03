@@ -43,7 +43,13 @@ export default class PlaygroundComponent implements OnInit, OnDestroy {
   protected readonly CodeMirrorMode = CodeMirrorMode;
   protected readonly CodeMirrorSetup = CodeMirrorSetup;
   protected readonly CodeMirrorThemes = CodeMirrorThemes;
-  protected readonly CodeMirrorLanguages = languages.sort((a, b) => a.name.localeCompare(b.name));
+  // protected readonly CodeMirrorLanguages = languages.sort((a, b) => a.name.localeCompare(b.name));
+  protected readonly CodeMirrorCustomLanguages = languages
+    .map(lang => ({ name: lang.name, alias: lang.alias }))
+    .concat([{ name: 'Plain Text', alias: ['plaintext'] }])
+    .sort((a, b) => a.name.localeCompare(b.name));
+  protected CodeMirrorLanguages = languages;
+
 
   protected selectedDiffOrientation = this.CodeMirrorDiffOrientation[0];
   protected selectedDiffRevControl = this.CodeMirrorDiffRevControls[0];
@@ -51,7 +57,7 @@ export default class PlaygroundComponent implements OnInit, OnDestroy {
   protected selectedMode = this.CodeMirrorMode[0];
   protected selectedSetup = this.CodeMirrorSetup[0];
   protected selectedTheme = this.CodeMirrorThemes[0];
-  protected selectedLanguage = languages[0];
+  protected selectedLanguage = this.CodeMirrorCustomLanguages[0];
   protected isDisabled = false;
   protected isReadOnly = false;
   protected placeholder = 'Type your code here...';

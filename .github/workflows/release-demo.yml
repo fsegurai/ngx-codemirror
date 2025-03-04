@@ -22,7 +22,7 @@ env:
   ARTIFACT_NAME: "build-demo-artifact"
 
 jobs:
-  build:
+  release_demo:
     if: |
       github.ref == 'refs/heads/main' &&
       github.event.repository.fork == false &&
@@ -47,32 +47,6 @@ jobs:
           bun run gh-pages:build
           bun run gh-pages:copy404
           bun run gh-pages:postBuild
-
-      - name: Upload build artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: ${{ env.ARTIFACT_NAME }}
-          path: ${{ vars.DEMO_PATH }}
-          if-no-files-found: error
-
-  release:
-    if: |
-      github.ref == 'refs/heads/main' &&
-      github.event.repository.fork == false &&
-      github.actor != 'dependabot[bot]'
-    runs-on: ubuntu-latest
-    timeout-minutes: 2
-    environment: github-pages
-    needs: [ build ]
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Download build artifacts
-        uses: actions/download-artifact@v4
-        with:
-          name: ${{ env.ARTIFACT_NAME }}
-          path: ${{ vars.DEMO_PATH }}
 
       #      - name: Deploy to gh-pages branch
       #        uses: peaceiris/actions-gh-pages@v4

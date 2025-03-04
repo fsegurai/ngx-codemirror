@@ -113,11 +113,11 @@ export const CodeMirrorThemes = [
     value: volcano,
   },
   {
-    viewValue: 'vsCodeLight',
+    viewValue: 'vsCode light',
     value: vsCodeLight
   },
   {
-    viewValue: 'vsCodeDark',
+    viewValue: 'vsCode dark',
     value: vsCodeDark
   }
 ];

@@ -1,4 +1,19 @@
-import { booleanAttribute, ChangeDetectionStrategy, Component, ElementRef, forwardRef, inject, input, Input, OnChanges, OnDestroy, OnInit, output, SimpleChanges, ViewEncapsulation } from '@angular/core';
+import {
+  booleanAttribute,
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  forwardRef,
+  inject,
+  input,
+  Input,
+  OnChanges,
+  OnDestroy,
+  OnInit,
+  output,
+  SimpleChanges,
+  ViewEncapsulation,
+} from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { indentWithTab } from '@codemirror/commands';
 import { indentUnit, LanguageDescription } from '@codemirror/language';
@@ -125,7 +140,7 @@ export class CodeEditorComponent implements OnChanges, OnInit, OnDestroy, Contro
   /**
    * The instance of [EditorView](https://codemirror.net/docs/ref/#view.EditorView).
    */
-  view?: EditorView;
+  private view?: EditorView;
 
   private _updateListener = EditorView.updateListener.of(vu => {
     if (vu.docChanged && !vu.transactions.some(tr => tr.annotation(External))) {
@@ -169,46 +184,27 @@ export class CodeEditorComponent implements OnChanges, OnInit, OnDestroy, Contro
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['value']) {
-      this.setValue(this.value());
-    }
-    if (changes['disabled']) {
-      this.setEditable(!this.disabled);
-    }
-    if (changes['readonly']) {
-      this.setReadonly(this.readonly());
-    }
-    if (changes['theme']) {
-      this.setTheme(this.theme());
-    }
-    if (changes['placeholder']) {
-      this.setPlaceholder(this.placeholder());
-    }
-    if (changes['indentWithTab']) {
-      this.setIndentWithTab(this.indentWithTab());
-    }
-    if (changes['indentUnit']) {
-      this.setIndentUnit(this.indentUnit());
-    }
-    if (changes['lineWrapping']) {
-      this.setLineWrapping(this.lineWrapping());
-    }
-    if (changes['highlightWhitespace']) {
-      this.setHighlightWhitespace(this.highlightWhitespace());
-    }
-    if (changes['language']) {
-      this.setLanguage(this.language());
-    }
-    if (changes['setup'] || changes['extensions']) {
-      this.setExtensions(this._getAllExtensions());
-    }
+    if (changes['value']) this.setValue(this.value());
+    if (changes['disabled']) this.setEditable(!this.disabled);
+    if (changes['readonly']) this.setReadonly(this.readonly());
+    if (changes['theme']) this.setTheme(this.theme());
+    if (changes['placeholder']) this.setPlaceholder(this.placeholder());
+    if (changes['indentWithTab']) this.setIndentWithTab(this.indentWithTab());
+    if (changes['indentUnit']) this.setIndentUnit(this.indentUnit());
+    if (changes['lineWrapping']) this.setLineWrapping(this.lineWrapping());
+    if (changes['highlightWhitespace']) this.setHighlightWhitespace(this.highlightWhitespace());
+    if (changes['language']) this.setLanguage(this.language());
+    if (changes['setup'] || changes['extensions']) this.setExtensions(this._getAllExtensions());
   }
 
   ngOnInit(): void {
     this.view = new EditorView({
       root: this.root(),
       parent: this._elementRef.nativeElement,
-      state: EditorState.create({ doc: this.value(), extensions: this._getAllExtensions() }),
+      state: EditorState.create({
+        doc: this.value(),
+        extensions: this._getAllExtensions(),
+      }),
     });
 
     if (this.autoFocus()) this.view?.focus();
@@ -231,9 +227,7 @@ export class CodeEditorComponent implements OnChanges, OnInit, OnDestroy, Contro
   }
 
   writeValue(value: string): void {
-    if (this.view) {
-      this.setValue(value);
-    }
+    if (this.view) this.setValue(value);
   }
 
   registerOnChange(fn: (value: string) => void) {
@@ -310,33 +304,38 @@ export class CodeEditorComponent implements OnChanges, OnInit, OnDestroy, Contro
 
   /** Sets editor's language dynamically. */
   private setLanguage(lang: string) {
-    if (!lang) return;
+    if (!lang || lang === 'Plain Text') {
+      this._dispatchEffects(this._languageConf.reconfigure([]));
+      return;
+    }
 
     if (this.languages().length === 0) {
-      if (this.view) {
-        console.error('No supported languages. Please set the `languages` prop at first.');
-      }
+      if (this.view) console.error('No supported languages. Please set the `languages` prop at first.');
       return;
     }
 
     const langDesc = this._findLanguage(lang);
-    langDesc?.load().then(lang => {
-      this._dispatchEffects(this._languageConf.reconfigure([lang]));
-    });
+    if (langDesc) {
+      langDesc.load().then(lang => {
+        this._dispatchEffects(this._languageConf.reconfigure([lang]));
+      });
+    }
   }
 
   /** Find the language's extension by its name. Case-insensitive. */
   private _findLanguage(name: string) {
-    for (const lang of this.languages()) {
-      for (const alias of [lang.name, ...lang.alias]) {
-        if (name.toLowerCase() === alias.toLowerCase()) {
-          return lang;
-        }
-      }
+    const normalizedInput = name.toLowerCase();
+    const lang = this.languages().find(lang =>
+      [lang.name, ...lang.alias].some(alias => normalizedInput === alias.toLowerCase()),
+    );
+
+    if (!lang) {
+      console.error('Language not found:', name);
+      console.info('Supported language names:', this.languages().map(lang => lang.name).join(', '));
+      return null;
     }
-    console.error('Language not found:', name);
-    console.info('Supported language names:', this.languages().map(lang => lang.name).join(', '));
-    return null;
+
+    return lang;
   }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

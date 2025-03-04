@@ -1,6 +1,6 @@
 {
   "name": "@fsegurai/ngx-codemirror",
-  "version": "19.1.0",
+  "version": "19.2.0",
   "description": "Angular library that uses codemirror to create a code editor",
   "homepage": "https://github.com/fsegurai/ngx-codemirror",
   "license": "MIT",
@@ -21,10 +21,6 @@
     "diff-editor",
     "ngx-codemirror"
   ],
-  "engines": {
-    "bun": ">= 1.0.0 < 2.0.0",
-    "npm": "Please use Bun instead of NPM to install dependencies"
-  },
   "scripts": {
     "ng": "ng",
     "start": "bun link:lib && ng serve",
@@ -33,8 +29,8 @@
     "postBuild:lib": "cpy ./README.md ./dist/lib && cpy ./LICENSE ./dist/lib",
     "link:lib": "rimraf --glob node_modules/ngx-codemirror && linklocal",
     "lint": "bun lint:lib && bun lint:demo",
-    "lint:demo": "ng lint demo",
-    "lint:lib": "ng lint lib",
+    "lint:demo": "ng lint demo --fix",
+    "lint:lib": "ng lint lib --fix",
     "type-check:demo": "tsc --project ./demo/tsconfig.app.json --inlineSourceMap --noEmit",
     "type-check:lib": "tsc --project ./lib/tsconfig.lib.json --inlineSourceMap --noEmit",
     "watch": "ng build --watch --configuration development",
@@ -42,10 +38,7 @@
     "test-ci_cd:lib": "ng test --no-watch --no-progress --browsers=ChromeHeadless",
     "gh-pages:build": "bun build:demo --aot --base-href=./",
     "gh-pages:copy404": "cpy ./dist/demo/browser/index.html . --rename=404.html",
-    "gh-pages:postBuild": "cpy ./dist/demo/3rdpartylicenses.txt ./dist/demo/browser --flat",
-    "registry:npm": "npm config set registry https://registry.npmjs.org/",
-    "registry:gh-npm": "npm config set registry https://npm.pkg.github.com/",
-    "registry:yarn": "npm config set registry https://registry.yarnpkg.com/"
+    "gh-pages:postBuild": "cpy ./dist/demo/3rdpartylicenses.txt ./dist/demo/browser --flat"
   },
   "dependencies": {
     "@angular/animations": "^19.0.0",
@@ -60,9 +53,9 @@
     "@angular/platform-browser-dynamic": "^19.0.0",
     "@angular/router": "^19.0.0",
     "@codemirror/language-data": "^6.5.1",
-    "@codemirror/merge": "^6.7.4",
-    "@fsegurai/codemirror-theme-bundle": "^6.1.1",
-    "@fsegurai/ngx-markdown": "^19.1.0",
+    "@codemirror/merge": "^6.9.0",
+    "@fsegurai/codemirror-theme-bundle": "^6.1.2",
+    "@fsegurai/ngx-markdown": "^19.2.0",
     "clipboard": "^2.0.11",
     "codemirror": "^6.0.1",
     "emoji-toolkit": "^9.0.1",
@@ -71,7 +64,7 @@
     "marked-gfm-heading-id": "^4.1.1",
     "ngx-codemirror": "file:lib",
     "prismjs": "^1.29.0",
-    "rxjs": "~7.8.1",
+    "rxjs": "~7.8.2",
     "tslib": "^2.8.1",
     "zone.js": "~0.15.0"
   },
@@ -80,20 +73,20 @@
     "@angular/cli": "~19.0.0",
     "@angular/compiler-cli": "^19.0.0",
     "@angular/language-service": "^19.0.0",
-    "@eslint/js": "^9.16.0",
-    "@types/jasmine": "~5.1.5",
-    "@types/node": "^22.10.1",
-    "@typescript-eslint/eslint-plugin": "^8.17.0",
-    "@typescript-eslint/parser": "^8.17.0",
-    "@typescript-eslint/types": "8.17.0",
-    "@typescript-eslint/utils": "^8.17.0",
-    "angular-eslint": "^19.0.1",
+    "@eslint/js": "^9.21.0",
+    "@types/jasmine": "~5.1.7",
+    "@types/node": "^22.13.9",
+    "@typescript-eslint/eslint-plugin": "^8.26.0",
+    "@typescript-eslint/parser": "^8.26.0",
+    "@typescript-eslint/types": "8.26.0",
+    "@typescript-eslint/utils": "^8.26.0",
+    "angular-eslint": "^19.2.0",
     "cpy-cli": "^5.0.0",
-    "eslint": "^9.16.0",
+    "eslint": "^9.21.0",
     "eslint-formatter-checkstyle": "^8.40.0",
-    "eslint-import-resolver-typescript": "^3.7.0",
+    "eslint-import-resolver-typescript": "^3.8.3",
     "eslint-plugin-import": "^2.31.0",
-    "jasmine-core": "~5.5.0",
+    "jasmine-core": "~5.6.0",
     "karma": "~6.4.4",
     "karma-chrome-launcher": "~3.2.0",
     "karma-coverage": "~2.2.1",
@@ -101,9 +94,9 @@
     "karma-jasmine-html-reporter": "~2.1.0",
     "karma-junit-reporter": "^2.0.1",
     "linklocal": "^2.8.2",
-    "ng-packagr": "^19.0.1",
+    "ng-packagr": "^19.2.0",
     "rimraf": "^6.0.1",
     "typescript": "~5.6.3",
-    "typescript-eslint": "^8.17.0"
+    "typescript-eslint": "^8.26.0"
   }
 }

@@ -17,7 +17,7 @@ on:
 permissions:
   pull-requests: write
   checks: write
-  packages: read
+  packages: read # Required for private libraries
 
 concurrency:
   group: pr-checks-${{ github.event.number }}

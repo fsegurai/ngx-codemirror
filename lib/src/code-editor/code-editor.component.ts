@@ -201,7 +201,10 @@ export class CodeEditorComponent implements OnChanges, OnInit, OnDestroy, Contro
     this.view = new EditorView({
       root: this.root(),
       parent: this._elementRef.nativeElement,
-      state: EditorState.create({ doc: this.value(), extensions: this._getAllExtensions() }),
+      state: EditorState.create({
+        doc: this.value(),
+        extensions: this._getAllExtensions()
+      }),
     });
 
     if (this.autoFocus()) this.view?.focus();

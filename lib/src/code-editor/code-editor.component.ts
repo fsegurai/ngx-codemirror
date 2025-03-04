@@ -203,7 +203,7 @@ export class CodeEditorComponent implements OnChanges, OnInit, OnDestroy, Contro
       parent: this._elementRef.nativeElement,
       state: EditorState.create({
         doc: this.value(),
-        extensions: this._getAllExtensions()
+        extensions: this._getAllExtensions(),
       }),
     });
 

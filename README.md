@@ -75,8 +75,8 @@ export class AppModule {
 For Standalone mode, you just need to import the components you want to use.
 
 ```typescript
-/* CodemirrorComponent */
-import { CodemirrorComponent } from '@fsegurai/ngx-codemirror';
+/* CodeEditorComponent */
+import { CodeEditorComponent } from '@fsegurai/ngx-codemirror';
 
 // or
 

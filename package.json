@@ -78,7 +78,7 @@
     "@types/node": "^22.13.9",
     "@typescript-eslint/eslint-plugin": "^8.26.0",
     "@typescript-eslint/parser": "^8.26.0",
-    "@typescript-eslint/types": "8.26.0",
+    "@typescript-eslint/types": "8.33.0",
     "@typescript-eslint/utils": "^8.26.0",
     "angular-eslint": "^19.2.0",
     "cpy-cli": "^5.0.0",

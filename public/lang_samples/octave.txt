@@ -1,0 +1,44 @@
+% This is a simple Octave script demonstrating basic operations
+
+% Define variables
+a = 5;            % Scalar variable
+b = 3;            % Another scalar variable
+c = a + b;        % Add the two variables
+
+% Display the result of addition
+disp(['Sum of a and b: ', num2str(c)])
+
+% Create a vector
+vec = [1, 2, 3, 4, 5];  % A row vector
+
+% Perform element-wise operations on the vector
+vec_squared = vec .^ 2;  % Element-wise squaring of the vector
+
+% Display the squared vector
+disp('Squared vector:');
+disp(vec_squared);
+
+% Matrix manipulation
+M = [1, 2, 3;   % A 2x3 matrix
+     4, 5, 6];
+
+% Matrix multiplication
+result = M * M';  % Multiply the matrix M by its transpose
+
+% Display the matrix multiplication result
+disp('Matrix multiplication result:');
+disp(result);
+
+% Plotting a sine wave
+x = linspace(0, 2 * pi, 100);  % Create a range of values from 0 to 2*pi
+y = sin(x);                    % Compute the sine of each value
+
+% Create a plot
+figure;
+plot(x, y);
+title('Sine Wave');
+xlabel('x');
+ylabel('sin(x)');
+
+% Save the plot as a PNG image
+print('sine_wave.png', '-dpng');

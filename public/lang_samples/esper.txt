@@ -1,0 +1,22 @@
+-- Define a simple event type to represent a stock price update
+create schema StockPriceEvent (
+    symbol string,
+    price double,
+    timestamp long
+);
+
+-- Define an event stream that receives stock price updates
+insert into StockPriceStream
+select symbol, price, timestamp
+from StockPriceEvent;
+
+-- Query to find when a stock price increases by more than 5% within 1 minute
+select symbol, price, timestamp
+from StockPriceStream.win:time(1 min)
+where price > (select price * 1.05 from StockPriceStream where symbol = StockPriceStream.symbol)
+group by symbol;
+
+-- Query to get the maximum price for each stock in the last 5 minutes
+select symbol, max(price) as max_price
+from StockPriceStream.win:time(5 min)
+group by symbol;

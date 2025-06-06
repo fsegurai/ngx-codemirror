@@ -1,0 +1,16 @@
+title User Interaction with Web Server
+
+actor User
+actor WebServer
+
+User -> WebServer: Request Page
+WebServer -> User: Return Page
+
+User -> WebServer: Submit Form
+WebServer -> User: Acknowledge Submission
+
+User -> WebServer: Request Another Page
+WebServer -> User: Return Another Page
+
+User -> WebServer: Log Out
+WebServer -> User: Goodbye

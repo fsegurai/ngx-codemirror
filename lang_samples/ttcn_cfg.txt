@@ -1,0 +1,41 @@
+# TTCN_CFG - Configuration File for TTCN Test Execution
+
+# Define the Test Component (TC)
+[tc]
+name = "TestComponent1"
+type = "network"
+host = "192.168.1.100"
+port = 5000
+
+# Test Execution Settings
+[test_execution]
+timeout = 60           # Timeout for each test case in seconds
+retries = 3            # Number of retries for failed test cases
+log_level = "INFO"     # Log level (e.g., DEBUG, INFO, WARN, ERROR)
+log_file = "test.log"  # Log file for storing execution details
+
+# Test Case Configuration
+[test_case]
+# Test case file to be executed
+test_case_file = "TestExample.ttcn"
+
+# Resource Allocation Settings
+[resources]
+memory = "4GB"         # Memory allocated for test execution
+cpu = "2"              # Number of CPUs allocated for testing
+
+# Connection Settings for Test Components
+[connections]
+component_1 = "192.168.1.101:6000"
+component_2 = "192.168.1.102:7000"
+
+# Test Framework Settings
+[framework]
+version = "1.2.3"      # Version of the TTCN framework
+test_type = "functional"  # Type of tests (e.g., functional, performance)
+
+# Optional Debug Settings
+[debug]
+enable_debug = true    # Enable debugging
+debug_level = "high"   # Debug level (e.g., low, medium, high)
+debug_output = "debug.log"  # Output file for debug information

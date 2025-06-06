@@ -1,0 +1,30 @@
+From user1@example.com Thu Dec  7 08:45:22 2024
+From: user1@example.com
+Date: Thu, 7 Dec 2024 08:45:22 +0000
+Subject: Meeting at 10am
+To: user2@example.com
+Message-ID: <12345@example.com>
+Content-Type: text/plain; charset=UTF-8
+
+Hello,
+
+Just a reminder about the meeting at 10am today. Let me know if you need anything.
+
+Best regards,
+User1
+
+From user2@example.com Thu Dec  7 09:00:00 2024
+From: user2@example.com
+Date: Thu, 7 Dec 2024 09:00:00 +0000
+Subject: Re: Meeting at 10am
+To: user1@example.com
+Message-ID: <67890@example.com>
+In-Reply-To: <12345@example.com>
+Content-Type: text/plain; charset=UTF-8
+
+Hi User1,
+
+Thanks for the reminder. I'll see you at 10am.
+
+Regards,
+User2

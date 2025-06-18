@@ -1,0 +1,30 @@
+# Define a simple function
+greet = (name) ->
+  "Hello, #{name}!"
+
+# Call the function with a name
+console.log greet("Alice")
+
+# Use a list and map over it
+numbers = [1, 2, 3, 4, 5]
+squared = numbers.map (x) -> x * x
+console.log squared
+
+# Using an arrow function with filter
+evenNumbers = numbers.filter (x) -> x % 2 == 0
+console.log evenNumbers
+
+# Using classes and inheritance
+class Animal
+  constructor: (@name) ->
+  speak: -> console.log "#{@name} makes a sound"
+
+class Dog extends Animal
+  speak: -> console.log "#{@name} barks"
+
+dog = new Dog("Rex")
+dog.speak
+
+# A simple list comprehension
+squares = for x in numbers when x > 2 then x * x
+console.log squares

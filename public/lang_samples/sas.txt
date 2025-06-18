@@ -1,0 +1,28 @@
+* This is a simple SAS program to import data and perform basic analysis;
+
+/* Import data from a CSV file */
+proc import datafile='/path/to/your/data.csv'
+            out=mydata
+            dbms=csv
+            replace;
+     getnames=yes;
+run;
+
+/* Display first few rows of the dataset */
+proc print data=mydata(obs=10);
+run;
+
+/* Descriptive statistics */
+proc means data=mydata;
+   var age height weight;
+run;
+
+/* Save a dataset in SAS format */
+data mydata_sas;
+    set mydata;
+run;
+
+/* Create a basic plot */
+proc sgplot data=mydata;
+    scatter x=height y=weight;
+run;

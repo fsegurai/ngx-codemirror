@@ -1,0 +1,8 @@
+@prefix ex: <http://example.org/> .
+
+ex:John ex:hasAge 25 .
+ex:John ex:hasName "John Doe" .
+ex:John ex:hasFriend ex:Jane .
+
+ex:Jane ex:hasAge 28 .
+ex:Jane ex:hasName "Jane Smith" .

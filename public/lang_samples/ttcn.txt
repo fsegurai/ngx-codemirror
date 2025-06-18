@@ -1,0 +1,48 @@
+// Example of a simple TTCN file
+
+module TestExample {
+
+  // Importing necessary libraries (if needed)
+  import from INTEGER all;
+
+  // Type definition: a simple integer
+  type component IntegerType {
+    integer;
+  }
+
+  // Template definition for the test case
+  template TExample {
+    integer value;
+  }
+
+  // Test case 1: Check simple assignment
+  testcase TestCase1() runs on TestComponent {
+    var TExample testVar := (value := 10);
+
+    // Check if the value is 10
+    if (testVar.value == 10) {
+      log("Test passed");
+    } else {
+      log("Test failed");
+    }
+  }
+
+  // Test case 2: Check for value assignment failure
+  testcase TestCase2() runs on TestComponent {
+    var TExample testVar := (value := 20);
+
+    // Check if the value is 10
+    if (testVar.value != 10) {
+      log("Test passed");
+    } else {
+      log("Test failed");
+    }
+  }
+
+  // Start the test suite
+  control {
+    execute(TestCase1);
+    execute(TestCase2);
+  }
+
+}

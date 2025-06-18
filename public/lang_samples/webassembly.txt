@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>WebAssembly Example</title>
+  <script>
+    async function loadWasm() {
+      // Fetch the .wasm file
+      const response = await fetch('example.wasm');
+      const wasmBinary = await response.arrayBuffer();
+
+      // Instantiate the WebAssembly module
+      const wasmModule = await WebAssembly.instantiate(wasmBinary);
+
+      // Access the 'add' function exported from the .wasm file
+      const add = wasmModule.instance.exports.add;
+
+      // Call the 'add' function and display the result
+      const result = add(3, 4);
+      console.log("Result of adding 3 and 4:", result);
+    }
+
+    loadWasm();
+  </script>
+</head>
+<body>
+  <h1>WebAssembly in Action</h1>
+  <p>Check the console for the result of adding 3 and 4.</p>
+</body>
+</html>

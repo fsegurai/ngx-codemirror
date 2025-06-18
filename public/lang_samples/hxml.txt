@@ -1,0 +1,22 @@
+# This is a simple HXML file to compile a Haxe project
+
+# Define the output file
+--output bin/Main.js
+
+# Specify the main entry point
+--main Main
+
+# Include standard libraries
+--library hxjava
+
+# Enable debugging (optional)
+--debug
+
+# Set the target platform to JavaScript
+--target js
+
+# Include additional directories for source files
+--source src
+
+# Optimize the generated code (optional)
+--no-optimize

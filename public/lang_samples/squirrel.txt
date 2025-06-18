@@ -1,0 +1,30 @@
+// Define a class named "Person"
+class Person {
+    // Constructor
+    constructor(name, age) {
+        this.name = name;
+        this.age = age;
+    }
+
+    // Method to display information
+    function introduce() {
+        print("Hello, my name is " + this.name + " and I am " + this.age + " years old.");
+    }
+
+    // Static method to create a new Person
+    static function createPerson(name, age) {
+        return Person(name, age);
+    }
+}
+
+// Create a new instance of Person
+local person1 = Person.createPerson("John", 30);
+person1.introduce();
+
+// Use global function
+function greet(name) {
+    print("Hello, " + name + "!");
+}
+
+// Call the global function
+greet("Alice");

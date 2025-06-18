@@ -1,0 +1,37 @@
+/* Define variables */
+@def BASE_COLOR #3498db;  /* Primary blue */
+@def FONT_SIZE 16px;
+@def PADDING 10px;
+
+/* Style rules */
+body {
+  background-color: BASE_COLOR;
+  color: white;
+  font-size: FONT_SIZE;
+  padding: PADDING;
+}
+
+button {
+  background-color: lighten(BASE_COLOR, 20%);
+  border: none;
+  padding: PADDING;
+  color: white;
+  font-size: FONT_SIZE;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* Conditional styling */
+@def SCREEN_WIDTH 600px;
+
+@media (max-width: SCREEN_WIDTH) {
+  body {
+    font-size: 14px;
+    padding: 5px;
+  }
+
+  button {
+    font-size: 14px;
+    padding: 8px;
+  }
+}

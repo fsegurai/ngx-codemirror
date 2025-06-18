@@ -1,0 +1,22 @@
+\documentclass{article}
+
+\title{Sample Document}
+\author{John Doe}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section{Introduction}
+This is a sample LaTeX document. LaTeX is great for typesetting documents with high-quality math formatting.
+
+\section{Mathematics}
+Here is an inline math expression: \( E = mc^2 \).
+
+And here is a block equation:
+\[
+  F = ma
+\]
+
+\end{document}

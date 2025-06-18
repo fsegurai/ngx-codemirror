@@ -1,0 +1,16 @@
+; Asterisk PBX configuration file
+; This is a sample configuration for Asterisk
+
+[general]
+static=yes
+writeprotect=no
+
+[globals]
+CONSOLE=Console/dsp
+IAXINFO=guest
+TRUNK=Zap/g2
+
+[default]
+exten => 1000,1,Dial(SIP/1000)
+exten => 1001,1,Dial(SIP/1001)
+exten => 1002,1,Dial(SIP/1002)

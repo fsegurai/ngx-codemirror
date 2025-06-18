@@ -1,0 +1,23 @@
+# math_operations.pyx
+
+# Define a function with type annotations for better performance
+def add_numbers(double x, double y) -> double:
+    return x + y
+
+# Define a function to compute the factorial of a number using a loop
+def factorial(int n) -> int:
+    if n < 0:
+        raise ValueError("Factorial is not defined for negative numbers.")
+    cdef int result = 1
+    cdef int i
+    for i in range(1, n + 1):
+        result *= i
+    return result
+
+# Define a function that uses a C array for summing elements
+def sum_array(double[:] arr) -> double:
+    cdef int i
+    cdef double total = 0.0
+    for i in range(arr.shape[0]):
+        total += arr[i]
+    return total

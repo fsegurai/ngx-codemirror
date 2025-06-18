@@ -1,0 +1,11 @@
+(* Define a functor that adds a function to double a number *)
+functor Double (structure Base: sig val x: int end) = struct
+  fun double () = Base.x * 2
+end
+
+(* Using the functor with a structure that provides a value for x *)
+structure MyBase = struct
+  val x = 5
+end
+
+val doubled = Double(MyBase).double ()  (* Result will be 10 *)

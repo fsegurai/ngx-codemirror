@@ -1,0 +1,9 @@
+gpg --gen-key
+
+gpg --armor --export your-email@example.com > public_key.pgp
+
+gpg --encrypt --recipient your-email@example.com --armor message.txt
+
+gpg --decrypt message.txt.pgp
+
+gpg --armor --export-secret-keys your-email@example.com > private_key.pgp

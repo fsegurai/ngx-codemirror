@@ -1,0 +1,14 @@
+-- Load the data from a text file
+raw_data = LOAD 'data.txt' USING PigStorage(',') AS (name:chararray, age:int, city:chararray);
+
+-- Filter the data to only include people older than 30
+filtered_data = FILTER raw_data BY age > 30;
+
+-- Group the data by city
+grouped_data = GROUP filtered_data BY city;
+
+-- Calculate the average age for each city
+average_age = FOREACH grouped_data GENERATE group AS city, AVG(filtered_data.age) AS avg_age;
+
+-- Store the results into a new file
+STORE average_age INTO 'output' USING PigStorage(',');

@@ -1,0 +1,33 @@
+-- PL/SQL sample code
+
+-- Create a new user-defined type
+CREATE OR REPLACE TYPE user_type AS OBJECT (
+    id NUMBER,
+    username VARCHAR2(50),
+    email VARCHAR2(100),
+    created_at DATE
+);
+
+-- Create a new table using the user-defined type
+CREATE TABLE users OF user_type (
+    CONSTRAINT pk_users PRIMARY KEY (id)
+);
+
+-- Insert sample data into the table
+INSERT INTO users VALUES (1, 'john_doe', 'john@example.com', SYSDATE);
+INSERT INTO users VALUES (2, 'jane_doe', 'jane@example.com', SYSDATE);
+
+-- Select all data from the table
+SELECT * FROM users;
+
+-- Update a record in the table
+UPDATE users SET email = 'john.doe@example.com' WHERE username = 'john_doe';
+
+-- Delete a record from the table
+DELETE FROM users WHERE username = 'jane_doe';
+
+-- Drop the table
+DROP TABLE users;
+
+-- Drop the user-defined type
+DROP TYPE user_type;

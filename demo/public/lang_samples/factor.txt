@@ -1,0 +1,30 @@
+! Simple calculator with Factor
+
+: add ( n1 n2 -- sum )  \ Adds two numbers
+  +
+;
+
+: subtract ( n1 n2 -- diff )  \ Subtracts n2 from n1
+  -
+;
+
+: multiply ( n1 n2 -- product )  \ Multiplies two numbers
+  *
+;
+
+: divide ( n1 n2 -- quotient )  \ Divides n1 by n2
+  /
+;
+
+: calculate ( operation n1 n2 -- result )
+  operation
+  swap
+  swap
+  evaluate
+;
+
+! Usage of calculator
+10 5 add .   \ Outputs 15
+10 5 subtract .  \ Outputs 5
+10 5 multiply .  \ Outputs 50
+10 5 divide .    \ Outputs 2

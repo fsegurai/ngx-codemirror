@@ -1,0 +1,10 @@
+;; EDN file representing user data
+
+{:users [{:id 1, :name "Alice", :email "alice@example.com", :active true}
+         {:id 2, :name "Bob", :email "bob@example.com", :active false}
+         {:id 3, :name "Charlie", :email "charlie@example.com", :active true}]
+ :settings {:theme :dark
+            :notifications true
+            :language :en}
+ :metadata {:created-at "2024-12-07T12:00:00Z"
+            :last-updated "2024-12-07T14:00:00Z"}}

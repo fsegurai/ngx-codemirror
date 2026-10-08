@@ -1,0 +1,54 @@
+/* Sample Cygnus ld-script file (.XU) */
+
+/* Define the memory regions for the target system */
+MEMORY
+{
+    /* Define a region for the text (code) section */
+    TEXT (rx) : ORIGIN = 0x10000, LENGTH = 0x20000
+
+    /* Define a region for the data section */
+    DATA (rw) : ORIGIN = 0x30000, LENGTH = 0x10000
+
+    /* Define a region for the BSS section */
+    BSS (rw) : ORIGIN = 0x40000, LENGTH = 0x20000
+}
+
+/* Entry point for the program */
+ENTRY(_start)
+
+/* Define the sections of the program */
+SECTIONS
+{
+    /* Text section - code */
+    .text :
+    {
+        *(.text)          /* All text (code) sections from object files */
+    } > TEXT
+
+    /* Data section - initialized data */
+    .data :
+    {
+        *(.data)          /* All data sections from object files */
+    } > DATA
+
+    /* BSS section - uninitialized data */
+    .bss :
+    {
+        *(.bss)           /* All bss sections from object files */
+        *(COMMON)         /* Common data (variables) */
+    } > BSS
+
+    /* Stack and heap */
+    .stack :
+    {
+        *(.stack)         /* Stack section */
+    } > BSS
+
+    .heap :
+    {
+        *(.heap)          /* Heap section */
+    } > BSS
+}
+
+/* Define symbol for the program's end */
+PROVIDE (_end = .);

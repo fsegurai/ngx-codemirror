@@ -1,0 +1,20 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Product",
+  "name": "Wireless Mouse",
+  "image": "https://www.example.com/images/wireless-mouse.jpg",
+  "description": "A wireless mouse with ergonomic design and long battery life.",
+  "sku": "WM-12345",
+  "brand": {
+    "@type": "Brand",
+    "name": "Tech Accessories"
+  },
+  "offers": {
+    "@type": "Offer",
+    "url": "https://www.example.com/product/wireless-mouse",
+    "priceCurrency": "USD",
+    "price": "29.99",
+    "itemCondition": "https://schema.org/NewCondition",
+    "availability": "https://schema.org/InStock"
+  }
+}

@@ -1,0 +1,14 @@
+// This is a basic example of a Web IDL file that defines a simple API
+
+interface MyAPI {
+  // A method that returns a string
+  // This method will be accessible as `myAPIInstance.sayHello()`
+  DOMString sayHello();
+
+  // A method with parameters
+  // This method will be accessible as `myAPIInstance.addNumbers(5, 3)`
+  long addNumbers(long a, long b);
+};
+
+// You can also define types in Web IDL
+typedef DOMString myString;

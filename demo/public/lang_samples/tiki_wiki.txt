@@ -1,0 +1,33 @@
+!! Welcome to TikiWiki
+This is a sample page in **TikiWiki** CMS/Groupware.
+
+== Features ==
+* Wiki syntax
+* Collaboration tools
+* Project management
+* Blog integration
+
+== Links ==
+You can create links to other pages using double square brackets:
+[[Another Page]]
+
+== Images ==
+You can embed images like this:
+{{image filename="logo.png" alt="TikiWiki Logo"}}
+
+== Tables ==
+TikiWiki also supports tables:
+{|
+|Header1|Header2|
+|Row1, Col1|Row1, Col2|
+|Row2, Col1|Row2, Col2|
+|}
+
+== Code Example ==
+Here’s a code block:
+{{{
+echo "Hello, World!";
+}}}
+
+== Blockquote ==
+> This is a blockquote in TikiWiki. You can use this for quotes or important notes.

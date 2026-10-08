@@ -1,0 +1,144 @@
+import { LocationStrategy, ViewportScroller } from '@angular/common';
+import { DOCUMENT, Injectable, inject } from '@angular/core';
+import { ActivatedRoute, Router, type UrlTree } from '@angular/router';
+
+/**
+ * Service to handle links generated through markdown parsing.
+ * #### Using `RouterModule`
+ * The following `RouterModule` configuration is required to enabled anchors
+ * to be scrolled to when URL has a fragment via the Angular router:
+ * ```
+ * RouterModule.forRoot(routes, {
+ *  anchorScrolling: 'enabled',
+ *  scrollOffset: [0, 64], // (optional)
+ *  scrollPositionRestoration: 'enabled',
+ * })
+ * ```
+ * #### Using `provideRouter`
+ * The following `provideRouter` configuration is required to enabled anchors
+ * to be scrolled to when URL has a fragment via the Angular router:
+ * ```
+ * provideRouter(appRoutes, withInMemoryScrolling({
+ *   anchorScrolling: 'enabled',
+ *   scrollPositionRestoration: 'enabled',
+ * }))
+ * ```
+ * To set the `scrollOffset` when scrolling to an element use the
+ * `AnchorService.setOffset()` in your `AppComponent` (optional):
+ * ```
+ * constructor(private anchorService: AnchorService) {
+ *   this.anchorService.setOffset([0, 64]);
+ * }
+ * ```
+ */
+@Injectable({ providedIn: 'root' })
+export class AnchorService {
+  private document = inject(DOCUMENT);
+  private locationStrategy = inject(LocationStrategy);
+  private route = inject(ActivatedRoute);
+  private router = inject(Router);
+  private viewportScroller = inject(ViewportScroller);
+
+  /**
+   * Intercept clicks on `HTMLAnchorElement` to use `Router.navigate()`
+   * when `href` is an internal URL not handled by `routerLink` directive.
+   * @param event The event to evaluated for link click.
+   */
+  interceptClick(event: Event): void {
+    const element = event.target;
+    if (!(element instanceof HTMLAnchorElement)) return;
+
+    const href = element.getAttribute('href') || '';
+    if (this.isExternalUrl(href) || this.isRouterLink(element)) return;
+
+    this.navigate(href);
+    event.preventDefault();
+  }
+
+  /**
+   * Navigate to URL using angular `Router`.
+   * @param url Destination path to navigate to.
+   * @param replaceUrl If `true`, replaces current state in browser history.
+   */
+  navigate(url: string, replaceUrl = false): void {
+    const urlTree = this.getUrlTree(url);
+    this.router.navigated = false;
+    void this.router.navigateByUrl(urlTree, { replaceUrl });
+  }
+
+  /**
+   * Transform a relative URL to its absolute representation according to current router state.
+   * @param url Relative URL path.
+   * @return Absolute URL based on the current route.
+   */
+  normalizeExternalUrl(url: string): string {
+    if (this.isExternalUrl(url)) return url;
+
+    const urlTree = this.getUrlTree(url);
+    const serializedUrl = this.router.serializeUrl(urlTree);
+    return this.locationStrategy.prepareExternalUrl(serializedUrl);
+  }
+
+  /**
+   * Scroll view to the anchor corresponding to current route fragment.
+   */
+  scrollToAnchor(): void {
+    const url = this.router.parseUrl(this.router.url);
+    if (url.fragment) this.navigate(this.router.url, true);
+  }
+
+  /**
+   * Configures the top offset used when scrolling to an anchor.
+   * @param params The top offset to use when scrolling to an anchor.
+   * @see ViewportScroller.setOffset()
+   */
+  setOffset(...params: Parameters<ViewportScroller['setOffset']>): void {
+    this.viewportScroller.setOffset(...params);
+  }
+
+  /**
+   * Get the top offset used when scrolling to an anchor.
+   * @param url The URL to get the top offset for.
+   * @private - This method is private and should not be accessed outside of this class
+   */
+  private getUrlTree(url: string): UrlTree {
+    const urlPath = this.stripFragment(url) || this.stripFragment(this.router.url);
+    const urlFragment = this.router.parseUrl(url).fragment || undefined;
+    return this.router.createUrlTree([urlPath], { relativeTo: this.route, fragment: urlFragment });
+  }
+
+  /**
+   * Check if the URL is an external URL.
+   * @param url The URL to check.
+   * @private - This method is private and should not be accessed outside of this class
+   */
+  private isExternalUrl(url: string): boolean {
+    // Check if the URL starts with any of the following protocols:
+    try {
+      const parsedUrl = new URL(url, this.document.location?.origin ?? 'http://localhost');
+      return ['http:', 'https:', 'ftp:', 'ftps:', 'mailto:', 'tel:', 'sms:', 'geo:', 'file:', 'data:'].includes(
+        parsedUrl.protocol,
+      );
+    } catch (e) {
+      return false;
+    }
+  }
+
+  /**
+   * Check if the anchor element is a router link (i.e. has an Angular attribute).
+   * @param element The anchor element to check.
+   * @private - This method is private and should not be accessed outside of this class
+   */
+  private isRouterLink(element: HTMLAnchorElement): boolean {
+    return element.getAttributeNames().some((n) => n.startsWith('_ngcontent'));
+  }
+
+  /**
+   * Strip the fragment from a URL.
+   * @param url The URL to strip the fragment from.
+   * @private - This method is private and should not be accessed outside of this class
+   */
+  private stripFragment(url: string): string {
+    return /[^#]*/.exec(url)![0];
+  }
+}

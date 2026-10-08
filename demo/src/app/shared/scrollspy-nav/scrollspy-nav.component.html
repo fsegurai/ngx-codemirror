@@ -1,0 +1,8 @@
+<ul class="scrollspy-nav">
+  @for (heading of headings(); track heading.id) {
+    <li>
+      <!-- biome-ignore lint/a11y/useValidAnchor: routerLink renders the href at runtime -->
+      <a [fragment]="heading.id" routerLink=".">{{ sanitizeInnerHTML(heading.innerHTML) }}</a>
+    </li>
+  }
+</ul>

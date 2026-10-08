@@ -1,0 +1,41 @@
+h1. Welcome to My Textile Page
+
+This is a paragraph of text in **Textile** format. You can use simple markup to format text.
+
+h2. Features
+
+* Point 1
+* Point 2
+* Point 3
+
+h3. Links and Images
+
+You can add a link like this: "Google":http://www.google.com
+
+You can also add an image: !http://example.com/image.jpg!
+
+h4. Code Example
+
+Here's a code block:
+
+bc.
+  #include <stdio.h>
+  int main() {
+      printf("Hello, World!\n");
+      return 0;
+  }
+
+h5. Blockquotes
+
+bq. This is a blockquote. It's often used to highlight quotes or important information.
+
+h6. Emphasized Text
+
+This is an *italic* text and this is an _underlined_ text.
+
+h7. Strong Text
+
+This is **bold** text.
+
+p. This is a paragraph with some inline formatting.
+

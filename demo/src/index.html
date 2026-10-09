@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>&#64;fsegurai/ngx-codemirror | Demo</title>
+  <base href="/">
+  <meta name="description" content="A CodeMirror component for Angular applications.">
+  <meta content="width=device-width, initial-scale=1" name="viewport">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans:400,500,700|Roboto:300,400,500" rel="stylesheet">
+  <link href="favicon.ico" rel="icon" type="image/x-icon">
+</head>
+<body class="mat-app-background">
+<script>
+  // Apply the stored theme before the app boots, so there is no light/dark flash.
+  // Keep the key and values in sync with LOCAL_STORAGE_THEME_KEY and Theme in demo/src/app.
+  (() => {
+    var theme = 'light';
+    var stored;
+    try {
+      stored = localStorage.getItem('ngx-codemirror:theme');
+      if (stored === 'light' || stored === 'dark') theme = stored;
+    } catch (e) {}
+    document.body.classList.add(theme + '-theme');
+  })();
+</script>
+<app-root></app-root>
+</body>
+</html>

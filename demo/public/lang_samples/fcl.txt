@@ -1,0 +1,43 @@
+FUNCTION_BLOCK Example1
+  VAR_INPUT
+    Temperature: REAL;  ! Input: Temperature in Celsius
+    Humidity: REAL;     ! Input: Humidity percentage
+  END_VAR
+
+  VAR_OUTPUT
+    FanSpeed: REAL;     ! Output: Fan speed as a percentage
+  END_VAR
+
+  VAR
+    FanSpeed_Fuzzy: REAL;
+  END_VAR
+
+  FUZZIFY Temperature
+    TERM Cold := (0, 1) (20, 0);
+    TERM Warm := (20, 0) (30, 1) (40, 0);
+    TERM Hot := (40, 0) (50, 1);
+  END_FUZZIFY
+
+  FUZZIFY Humidity
+    TERM Low := (0, 1) (40, 0);
+    TERM Medium := (30, 0) (60, 1) (80, 0);
+    TERM High := (60, 0) (100, 1);
+  END_FUZZIFY
+
+  DEFUZZIFY FanSpeed
+    METHOD : COG;  ! Center of gravity method for defuzzification
+    TERM Low := (0, 0) (25, 1);
+    TERM Medium := (25, 0) (50, 1) (75, 0);
+    TERM High := (75, 0) (100, 1);
+  END_DEFUZZIFY
+
+  RULEBLOCK
+    AND : MIN;
+    OR : MAX;
+    ACCU : SUM;
+
+    RULE 1 : Temperature Cold AND Humidity High -> FanSpeed Low;
+    RULE 2 : Temperature Warm AND Humidity Medium -> FanSpeed Medium;
+    RULE 3 : Temperature Hot AND Humidity Low -> FanSpeed High;
+  END_RULEBLOCK
+END_FUNCTION_BLOCK

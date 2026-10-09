@@ -1,0 +1,44 @@
+-- Create a new database (this is typically done from the psql command line, not within a script)
+-- CREATE DATABASE my_database;
+
+-- Connect to the database (this is also done via psql or GUI tools, not directly in the script)
+-- \c my_database;
+
+-- Create a table for storing user information
+CREATE TABLE users (
+    user_id SERIAL PRIMARY KEY,
+    first_name VARCHAR(50),
+    last_name VARCHAR(50),
+    email VARCHAR(100),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Insert some sample data into the users table
+INSERT INTO users (first_name, last_name, email)
+VALUES
+    ('Alice', 'Smith', 'alice.smith@example.com'),
+    ('Bob', 'Johnson', 'bob.johnson@example.com'),
+    ('Charlie', 'Brown', 'charlie.brown@example.com');
+
+-- Select all records from the users table
+SELECT * FROM users;
+
+-- Select a specific user by email
+SELECT * FROM users WHERE email = 'alice.smith@example.com';
+
+-- Update a user's information
+UPDATE users
+SET email = 'alice.smith@newdomain.com'
+WHERE user_id = 1;
+
+-- Delete a user record
+DELETE FROM users WHERE user_id = 2;
+
+-- Add a new column to the users table
+ALTER TABLE users ADD COLUMN phone_number VARCHAR(20);
+
+-- Create an index on the email column for faster lookups
+CREATE INDEX idx_email ON users (email);
+
+-- Drop the users table (use with caution)
+-- DROP TABLE users;

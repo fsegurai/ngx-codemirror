@@ -1,0 +1,50 @@
+-- Eiffel class for representing a Bank Account
+
+class BANK_ACCOUNT
+
+-- Attributes (fields)
+   balance: REAL
+   account_holder: STRING
+
+-- Initialization (constructor)
+   create
+      make
+
+-- Creation procedure
+   make (an_account_holder: STRING)
+      do
+         account_holder := an_account_holder
+         balance := 0.0
+      ensure
+         account_holder_set: account_holder = an_account_holder
+         balance_initialized: balance = 0.0
+      end
+
+-- Deposit money into the account
+   deposit (amount: REAL)
+      require
+         valid_amount: amount > 0
+      do
+         balance := balance + amount
+      ensure
+         balance_increased: balance = old balance + amount
+      end
+
+-- Withdraw money from the account
+   withdraw (amount: REAL)
+      require
+         valid_amount: amount > 0
+         sufficient_balance: balance >= amount
+      do
+         balance := balance - amount
+      ensure
+         balance_decreased: balance = old balance - amount
+      end
+
+-- Get the current balance
+   get_balance: REAL
+      do
+         Result := balance
+      end
+
+end

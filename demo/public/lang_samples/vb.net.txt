@@ -1,0 +1,11 @@
+Module Program
+    Sub Main()
+        ' Call the AddNumbers function and display the result
+        Dim result As Integer = AddNumbers(5, 10)
+        Console.WriteLine("The sum is: " & result)
+    End Sub
+
+    Function AddNumbers(a As Integer, b As Integer) As Integer
+        Return a + b
+    End Function
+End Module

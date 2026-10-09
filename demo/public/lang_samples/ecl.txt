@@ -1,0 +1,19 @@
+// ECL Program to process a list of people and filter by age
+
+// Define a record structure to hold data about a person
+Person := RECORD
+    STRING name;
+    UNSIGNED age;
+END;
+
+// Load data from a CSV file
+peopleData := CSVFile('people.csv', PERSON);
+
+// Filter data to include only people older than 30
+olderThan30 := PEOPLEData(peopleData, age > 30);
+
+// Sort the filtered data by name
+sortedPeople := SORT(olderThan30, name);
+
+// Output the sorted data to a new file
+OUTPUT(sortedPeople, CSVFile('people_over_30.csv'));

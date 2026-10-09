@@ -1,0 +1,33 @@
+# This is a simple Velocity template
+Hello, $name!
+
+# Conditional Example
+# If the user is an admin, greet them as an administrator
+# Otherwise, greet them as a regular user
+# The condition checks if the value of $role is 'admin'
+
+# Checking if the role is admin
+# You can replace this with the actual data provided by your application
+
+# Checking condition using #if directive
+#if ($role == 'admin')
+  Welcome, Administrator $name!
+#else
+  Welcome, User $name!
+#end
+
+# Looping Example
+# Here we loop through a list of items
+
+# Let's assume $items is a list of items passed to the template
+# Each item in the list is printed
+
+# Checking if the items list is not empty
+#if ($items.size() > 0)
+  Here are your items:
+  #foreach($item in $items)
+    - $item
+  #end
+#else
+  You have no items.
+#end

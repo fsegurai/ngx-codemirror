@@ -1,0 +1,10 @@
+* Wed Oct 25 2023 John Doe <john.doe@example.com> - 1.0.0-1
+- Initial release
+
+* Thu Oct 26 2023 Jane Smith <jane.smith@example.com> - 1.0.1-1
+- Fixed bug in the installation script
+- Updated documentation
+
+* Fri Oct 27 2023 John Doe <john.doe@example.com> - 1.0.2-1
+- Improved performance of the main application
+- Added new feature for user management

@@ -1,0 +1,38 @@
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <h1 class="lib-title">&#64;fsegurai/ngx-codemirror</h1>
+    <span class="spacer"></span>
+    <button (click)="toggleTheme()" mat-icon-button aria-label="Toggle theme" type="button">
+      <mat-icon>
+        @if (theme() === 'dark') {
+          <img [ngSrc]="'icon-light-off.svg'" alt="Dark theme" fill priority>
+        } @else {
+          <img [ngSrc]="'icon-light-on.svg'" alt="Light theme" fill priority>
+        }
+      </mat-icon>
+    </button>
+    <a href="https://github.com/fsegurai/ngx-codemirror" mat-icon-button>
+      <img class="github-icon" [ngSrc]="'icon-github.svg'" alt="GitHub" width="24" height="24" priority>
+    </a>
+  </mat-toolbar-row>
+</mat-toolbar>
+
+<nav #tabHeader [tabPanel]="tabPanel" backgroundColor="primary" disableRipple fitInkBarToContent
+     mat-stretch-tabs="false" mat-tab-nav-bar>
+  @for (route of routes; track route) {
+    <!-- biome-ignore lint/a11y/useValidAnchor: routerLink renders the href at runtime -->
+    <a #tabLink="routerLinkActive" [active]="tabLink.isActive"
+       [routerLink]="route.path"
+       mat-tab-link
+       routerLinkActive>
+      <div class="tab-label">
+        <img [ngSrc]="'icon-' + route.path + '.svg'" alt="{{ route.data?.['label'] }} Path" priority width="24" height="24">
+        <span>{{ route.data?.['label'] }}</span>
+      </div>
+    </a>
+  }
+</nav>
+
+<mat-tab-nav-panel #tabPanel (animationend)="onRouteAnimationEnd($event)" class="outlet-wrapper">
+  <router-outlet #outlet="outlet" />
+</mat-tab-nav-panel>

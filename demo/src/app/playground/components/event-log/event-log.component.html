@@ -1,0 +1,30 @@
+<div class="controls">
+  <mat-form-field class="filter" appearance="outline" subscriptSizing="dynamic">
+    <mat-label>Filter events</mat-label>
+    <input #filterInput matInput type="search" [value]="filter()" (input)="filter.set(filterInput.value)">
+  </mat-form-field>
+  <mat-slide-toggle [checked]="errorsOnly()" (change)="errorsOnly.set($event.checked)">Errors only</mat-slide-toggle>
+  <button mat-stroked-button type="button" (click)="clear.emit()" [disabled]="!entries().length">Clear</button>
+</div>
+
+<p class="count">{{ visible().length }} of {{ entries().length }} events (the latest 100 are kept)</p>
+
+<ol class="entries" aria-live="polite" aria-label="Editor events, most recent first">
+  @for (entry of visible(); track entry.id) {
+    <li class="entry" [class.failed]="entry.failed">
+      <time class="time">{{ entry.time }}</time>
+      <code class="name">{{ entry.name }}</code>
+      @if (entry.detail) {
+        <span class="detail">{{ entry.detail }}</span>
+      }
+    </li>
+  } @empty {
+    <li class="empty">
+      @if (entries().length) {
+        No event matches the filter.
+      } @else {
+        Focus, blur or edit an editor: its outputs show up here.
+      }
+    </li>
+  }
+</ol>

@@ -1,0 +1,29 @@
+! This program multiplies two 2x2 matrices in Fortran
+
+program MatrixMultiplication
+  integer, parameter :: n = 2
+  integer :: A(n,n), B(n,n), C(n,n)
+  integer :: i, j, k
+
+  ! Initialize matrices A and B
+  A = reshape([1, 2, 3, 4], [n, n])
+  B = reshape([5, 6, 7, 8], [n, n])
+
+  ! Matrix multiplication C = A * B
+  C = 0
+  do i = 1, n
+     do j = 1, n
+        do k = 1, n
+           C(i, j) = C(i, j) + A(i, k) * B(k, j)
+        end do
+     end do
+  end do
+
+  ! Print the result matrix C
+  print *, "Matrix A:"
+  print *, A
+  print *, "Matrix B:"
+  print *, B
+  print *, "Matrix C (A * B):"
+  print *, C
+end program MatrixMultiplication

@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+// A simple message representing a Person
+message Person {
+    string name = 1;
+    int32 id = 2;
+    string email = 3;
+}
+
+// A message representing a Company
+message Company {
+    string name = 1;
+    repeated Person employees = 2;  // List of employees in the company
+    string location = 3;
+}
+
+// A message representing a request to create a new person
+message CreatePersonRequest {
+    Person person = 1;  // Person object to create
+}
+
+// A message representing the response after creating a person
+message CreatePersonResponse {
+    bool success = 1;  // Whether the creation was successful
+    string message = 2;  // Optional message (e.g., error message)
+}

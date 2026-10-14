@@ -1,0 +1,146 @@
+<h2 class="title">Options</h2>
+
+<mat-accordion multi displayMode="flat">
+  <mat-expansion-panel expanded>
+    <mat-expansion-panel-header>
+      <mat-panel-title>Behaviour</mat-panel-title>
+    </mat-expansion-panel-header>
+    <fieldset class="toggles">
+      <legend class="visually-hidden">Behaviour</legend>
+      <ul>
+        @for (control of behaviour(); track control.key) {
+          <li>
+            <mat-slide-toggle [checked]="options()[control.key]" (change)="toggle(control.key, $event.checked)"
+                              [matTooltip]="control.hint" matTooltipPosition="right">
+              {{ control.label }}
+            </mat-slide-toggle>
+          </li>
+        }
+      </ul>
+    </fieldset>
+    <mat-form-field class="field" appearance="outline">
+      <mat-label>Placeholder</mat-label>
+      <input #placeholderInput matInput type="text" maxlength="200" [value]="options().placeholder"
+             (change)="setPlaceholder(placeholderInput.value)">
+      <mat-hint>Shown while the document is empty</mat-hint>
+    </mat-form-field>
+  </mat-expansion-panel>
+
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>Formatting</mat-panel-title>
+    </mat-expansion-panel-header>
+    <fieldset class="toggles">
+      <legend class="visually-hidden">Formatting</legend>
+      <ul>
+        @for (control of formatting(); track control.key) {
+          <li>
+            <mat-slide-toggle [checked]="options()[control.key]" (change)="toggle(control.key, $event.checked)"
+                              [matTooltip]="control.hint" matTooltipPosition="right">
+              {{ control.label }}
+            </mat-slide-toggle>
+          </li>
+        }
+      </ul>
+    </fieldset>
+    <div class="row">
+      <mat-form-field class="field" appearance="outline">
+        <mat-label>Indent unit</mat-label>
+        <input #indentInput matInput type="number" min="1" max="16" step="1" [value]="options().indentUnit"
+               (change)="setNumber('indentUnit', indentInput)">
+        <mat-hint>Spaces per indentation level</mat-hint>
+      </mat-form-field>
+      <mat-form-field class="field" appearance="outline">
+        <mat-label>Tab size</mat-label>
+        <input #tabSizeInput matInput type="number" min="1" max="16" step="1" [value]="options().tabSize"
+               (change)="setNumber('tabSize', tabSizeInput)">
+        <mat-hint>Columns of a tab character</mat-hint>
+      </mat-form-field>
+    </div>
+  </mat-expansion-panel>
+
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>Extensions</mat-panel-title>
+    </mat-expansion-panel-header>
+    <fieldset class="toggles">
+      <legend class="visually-hidden">Extensions</legend>
+      <ul>
+        @for (control of extensions(); track control.key) {
+          <li>
+            <mat-slide-toggle [checked]="options()[control.key]" (change)="toggle(control.key, $event.checked)"
+                              [matTooltip]="control.hint" matTooltipPosition="right">
+              {{ control.label }}
+            </mat-slide-toggle>
+          </li>
+        }
+      </ul>
+    </fieldset>
+  </mat-expansion-panel>
+
+  @if (isDiff()) {
+    <mat-expansion-panel class="diff-section" expanded>
+      <mat-expansion-panel-header>
+        <mat-panel-title>Diff</mat-panel-title>
+      </mat-expansion-panel-header>
+      @if (mode() === 'diff') {
+        <mat-form-field class="field" appearance="outline">
+          <mat-label>Layout</mat-label>
+          <mat-select [value]="options().orientation" (selectionChange)="select('orientation', orientations, $event.value)">
+            @for (option of orientations; track option.value) {
+              <mat-option [value]="option.value">{{ option.viewValue }}</mat-option>
+            }
+          </mat-select>
+          <mat-hint>Which side shows which document</mat-hint>
+        </mat-form-field>
+        <mat-form-field class="field" appearance="outline">
+          <mat-label>Revert buttons</mat-label>
+          <mat-select [value]="options().revertControls"
+                      (selectionChange)="select('revertControls', revertControls, $event.value)">
+            @for (option of revertControls; track option.value) {
+              <mat-option [value]="option.value">{{ option.viewValue }}</mat-option>
+            }
+          </mat-select>
+          <mat-hint>Buttons that copy a change from one side to the other</mat-hint>
+        </mat-form-field>
+      }
+      <fieldset class="toggles">
+      <legend class="visually-hidden">Diff</legend>
+      <ul>
+        @for (control of diff(); track control.key) {
+          <li>
+            <mat-slide-toggle [checked]="options()[control.key]" (change)="toggle(control.key, $event.checked)"
+                              [matTooltip]="control.hint" matTooltipPosition="right">
+              {{ control.label }}
+            </mat-slide-toggle>
+          </li>
+        }
+      </ul>
+    </fieldset>
+    </mat-expansion-panel>
+  }
+
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>Advanced</mat-panel-title>
+    </mat-expansion-panel-header>
+    <mat-form-field class="field" appearance="outline">
+      <mat-label>Setup</mat-label>
+      <mat-select [value]="options().setup" (selectionChange)="select('setup', setups, $event.value)">
+        @for (option of setups; track option.value) {
+          <mat-option [value]="option.value">{{ option.viewValue }}</mat-option>
+        }
+      </mat-select>
+      <mat-hint>Basic: the full CodeMirror setup; Minimal: history and keymaps; None: a bare editor</mat-hint>
+    </mat-form-field>
+    <mat-form-field class="field" appearance="outline">
+      <mat-label>Presets</mat-label>
+      <mat-select multiple [value]="options().presets" (selectionChange)="setPresets($event.value)">
+        @for (preset of presets; track preset.value) {
+          <mat-option [value]="preset.value">{{ preset.viewValue }}</mat-option>
+        }
+      </mat-select>
+      <mat-hint>Named extensions registered with withExtensionPresets()</mat-hint>
+    </mat-form-field>
+  </mat-expansion-panel>
+</mat-accordion>

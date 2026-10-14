@@ -1,0 +1,59 @@
+<mat-button-toggle-group class="modes" aria-label="Editor mode" hideSingleSelectionIndicator
+                         [value]="mode()" (change)="onMode($event.value)">
+  @for (option of modes; track option.value) {
+    <mat-button-toggle [value]="option.value">{{ option.viewValue }}</mat-button-toggle>
+  }
+</mat-button-toggle-group>
+
+<div class="pickers">
+  <mat-form-field class="picker" appearance="outline" subscriptSizing="dynamic">
+    <mat-label>Language</mat-label>
+    <input #languageInput matInput type="text" autocomplete="off" aria-label="Language (type to filter)"
+           [value]="query()" (input)="query.set(languageInput.value)" (focus)="languageInput.select()"
+           [matAutocomplete]="languagePanel">
+    @if (sampleLoading()) {
+      <mat-progress-spinner matSuffix class="spinner" mode="indeterminate" diameter="18" aria-label="Loading the sample" />
+    }
+    <mat-autocomplete #languagePanel="matAutocomplete" (optionSelected)="onLanguage($event.option.value)"
+                      (closed)="query.set(language())">
+      @for (lang of languages(); track lang.name) {
+        <mat-option [value]="lang.name">{{ lang.name }}</mat-option>
+      } @empty {
+        <mat-option disabled>No language matches</mat-option>
+      }
+    </mat-autocomplete>
+  </mat-form-field>
+
+  <mat-form-field class="picker" appearance="outline" subscriptSizing="dynamic">
+    <mat-label>Theme</mat-label>
+    <mat-select [value]="theme()" (selectionChange)="onTheme($event.value)">
+      @for (group of themeGroups(); track group.label) {
+        <mat-optgroup [label]="group.label">
+          @for (option of group.options; track option.value) {
+            <mat-option [value]="option.value">{{ option.viewValue }}</mat-option>
+          }
+        </mat-optgroup>
+      }
+    </mat-select>
+    @if (themeLoading()) {
+      <mat-progress-spinner matSuffix class="spinner" mode="indeterminate" diameter="18" aria-label="Loading the theme" />
+    }
+  </mat-form-field>
+</div>
+
+<fieldset class="actions">
+  <legend class="visually-hidden">Playground actions</legend>
+  <button mat-button type="button" (click)="reset.emit()" matTooltip="Restore every option to its default">
+    Reset
+  </button>
+  <button mat-button type="button" (click)="copyLink.emit()" matTooltip="Copy a link that reproduces these options">
+    Copy share link
+  </button>
+  <button mat-button type="button" (click)="copySnippet.emit()"
+          matTooltip="Copy the editor template with the bindings that differ from the defaults">
+    Copy snippet
+  </button>
+  <button mat-button type="button" (click)="download.emit()" matTooltip="Download the editor content as a file">
+    Download
+  </button>
+</fieldset>

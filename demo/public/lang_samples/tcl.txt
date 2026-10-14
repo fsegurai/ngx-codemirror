@@ -1,0 +1,18 @@
+# This is a simple TCL script that defines a procedure and runs commands
+
+# Define a variable
+set message "Hello, World!"
+
+# Print the message
+puts $message
+
+# Define a procedure to add two numbers
+proc add_numbers {a b} {
+    return [expr $a + $b]
+}
+
+# Call the procedure and store the result
+set sum [add_numbers 5 3]
+
+# Print the result
+puts "The sum of 5 and 3 is: $sum"

@@ -1,0 +1,15 @@
+# Example of a basic Sieve script
+# Move all emails from "boss@example.com" to the "Important" folder
+if address :is "from" "boss@example.com" {
+    fileinto "Important";
+}
+
+# Discard all emails with the subject "Spam"
+if header :contains "subject" "Spam" {
+    discard;
+}
+
+# Redirect any emails that are marked as urgent to a different address
+if header :contains "X-Urgent" "yes" {
+    redirect "urgent@example.com";
+}

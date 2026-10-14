@@ -1,0 +1,22 @@
+Object subclass: #Person
+    instanceVariableNames: 'firstName lastName age'
+
+Person >> initialize
+    firstName := ''.
+    lastName := ''.
+    age := 0.
+
+Person >> setFirstName: aName
+    firstName := aName.
+
+Person >> setLastName: aName
+    lastName := aName.
+
+Person >> setAge: anAge
+    age := anAge.
+
+Person >> fullName
+    ^ firstName, ' ', lastName.
+
+Person >> printDetails
+    'Name: ', self fullName, ' Age: ', age printOn: String new.

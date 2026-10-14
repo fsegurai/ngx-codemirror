@@ -1,0 +1,21 @@
+xquery version "3.1";
+
+declare context item := doc("books.xml");
+
+let $books := //book
+let $sortedBooks := sort($books, function($b1, $b2) {
+    if ($b1/title < $b2/title) then -1
+    else if ($b1/title > $b2/title) then 1
+    else 0
+})
+return
+  <result>
+    {
+      for $book in $sortedBooks
+      return
+        <book>
+          <title>{ $book/title/text() }</title>
+          <author>{ $book/author/text() }</author>
+        </book>
+    }
+  </result>

@@ -1,0 +1,20 @@
+# This is a simple Puppet manifest to install Apache and ensure the service is running
+
+# Install the Apache package
+package { 'httpd':
+  ensure => installed,
+}
+
+# Ensure that the Apache service is running
+service { 'httpd':
+  ensure => running,
+  enable => true,
+  require => Package['httpd'],
+}
+
+# Create a basic index.html file for the Apache server
+file { '/var/www/html/index.html':
+  ensure  => file,
+  content => '<html><body><h1>Welcome to Apache!</h1></body></html>',
+  require => Service['httpd'],
+}

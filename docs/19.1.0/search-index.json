@@ -1,0 +1,506 @@
+[
+  {
+    "label": "Documentation Home",
+    "description": "Documentation for @fsegurai/ngx-codemirror 19.1.0, CodeMirror 6 code and diff editors for Angular 19.",
+    "route": "content/README",
+    "tags": ["documentation", "overview", "angular"],
+    "headings": ["Quick path", "Sections", "Version"],
+    "excerpt": "standalone components. Both implement , so they work with and reactive forms.",
+    "breadcrumb": [
+      {
+        "label": "Home",
+        "route": "content/README"
+      }
+    ]
+  },
+  {
+    "label": "API Reference",
+    "description": "Exact inputs, outputs, the NgModule and the types exported by @fsegurai/ngx-codemirror 19.1.0.",
+    "route": "content/api/README",
+    "tags": ["api", "overview"],
+    "excerpt": "Everything below is exported from .",
+    "breadcrumb": [
+      {
+        "label": "API",
+        "route": "content/api"
+      },
+      {
+        "label": "API",
+        "route": "content/api/README"
+      }
+    ]
+  },
+  {
+    "label": "CodeDiffEditorComponent",
+    "description": "Every input, output and public field of ngx-code-diff-editor in 19.1.0.",
+    "route": "content/api/code-diff-editor-component",
+    "tags": ["api", "diff"],
+    "headings": ["Inputs", "Outputs", "Public fields"],
+    "excerpt": "CodeDiffEditorComponent\n\nSelectors: , , . Host class . ,\n . Implements (value type ).\n\nInputs\n\nSignal inputs ( ) except , and , which are fields.\n\n|...",
+    "breadcrumb": [
+      {
+        "label": "API",
+        "route": "content/api"
+      },
+      {
+        "label": "CodeDiffEditorComponent",
+        "route": "content/api/code-diff-editor-component"
+      }
+    ]
+  },
+  {
+    "label": "CodeEditorComponent",
+    "description": "Every input and output of ngx-code-editor in 19.1.0.",
+    "route": "content/api/code-editor-component",
+    "tags": ["api", "editor"],
+    "headings": ["Inputs", "Outputs", "Public methods", "Public fields"],
+    "excerpt": "CodeEditorComponent\n\nSelectors: , , . Host class . ,\n . Implements (value type ).\n\nInputs\n\nAll inputs are signal inputs ( ) except , which is an...",
+    "breadcrumb": [
+      {
+        "label": "API",
+        "route": "content/api"
+      },
+      {
+        "label": "CodeEditorComponent",
+        "route": "content/api/code-editor-component"
+      }
+    ]
+  },
+  {
+    "label": "CodeEditorModule",
+    "description": "The NgModule that imports and exports both editor components.",
+    "route": "content/api/code-editor-module",
+    "tags": ["api", "ngmodule"],
+    "excerpt": "CodeEditorModule\n\n \n\nIt has no providers. Use it only in NgModule-based code; standalone components import the components directly. See\nSetup Styles.",
+    "breadcrumb": [
+      {
+        "label": "API",
+        "route": "content/api"
+      },
+      {
+        "label": "CodeEditorModule",
+        "route": "content/api/code-editor-module"
+      }
+    ]
+  },
+  {
+    "label": "Types",
+    "description": "The Theme, Setup, Orientation, RevertControls, RenderRevertControl and DiffEditorModel types and the External annotation.",
+    "route": "content/api/types",
+    "tags": ["api", "types"],
+    "excerpt": "Declared next to the components and exported from the package root.",
+    "breadcrumb": [
+      {
+        "label": "API",
+        "route": "content/api"
+      },
+      {
+        "label": "Types",
+        "route": "content/api/types"
+      }
+    ]
+  },
+  {
+    "label": "Examples",
+    "description": "Complete, copyable examples for the code editor and the diff editor.",
+    "route": "content/examples/README",
+    "tags": ["examples", "overview"],
+    "excerpt": "| Reactive Forms Editor | A JSON editor bound to a .",
+    "breadcrumb": [
+      {
+        "label": "Examples",
+        "route": "content/examples"
+      },
+      {
+        "label": "Examples",
+        "route": "content/examples/README"
+      }
+    ]
+  },
+  {
+    "label": "Code Review Diff",
+    "description": "Compare two versions side by side with revert controls, collapsed context and a language extension.",
+    "route": "content/examples/code-review-diff",
+    "tags": ["examples", "diff"],
+    "excerpt": "Code Review Diff\n\n \n\n is a separate package ( ).",
+    "breadcrumb": [
+      {
+        "label": "Examples",
+        "route": "content/examples"
+      },
+      {
+        "label": "Code Review Diff",
+        "route": "content/examples/code-review-diff"
+      }
+    ]
+  },
+  {
+    "label": "Playground Editor",
+    "description": "A configurable editor modeled on the 19.1.0 demo playground.",
+    "route": "content/examples/playground-editor",
+    "tags": ["examples", "editor"],
+    "excerpt": "The 19.1.0 demo binds every option to one editor.",
+    "breadcrumb": [
+      {
+        "label": "Examples",
+        "route": "content/examples"
+      },
+      {
+        "label": "Playground Editor",
+        "route": "content/examples/playground-editor"
+      }
+    ]
+  },
+  {
+    "label": "Reactive Forms Editor",
+    "description": "A JSON editor bound to a reactive FormControl with a required validator.",
+    "route": "content/examples/reactive-forms",
+    "tags": ["examples", "forms"],
+    "excerpt": "Reactive Forms Editor\n\n \n\n calls , which makes the editor non-editable.",
+    "breadcrumb": [
+      {
+        "label": "Examples",
+        "route": "content/examples"
+      },
+      {
+        "label": "Reactive Forms Editor",
+        "route": "content/examples/reactive-forms"
+      }
+    ]
+  },
+  {
+    "label": "Features",
+    "description": "What the code editor and diff editor do, and how languages, themes, extensions and forms work with them.",
+    "route": "content/features/README",
+    "tags": ["features", "overview"],
+    "excerpt": "| Code Editor | One CodeMirror configured through inputs.",
+    "breadcrumb": [
+      {
+        "label": "Features",
+        "route": "content/features"
+      },
+      {
+        "label": "Features",
+        "route": "content/features/README"
+      }
+    ]
+  },
+  {
+    "label": "Code Editor",
+    "description": "The ngx-code-editor component, a single CodeMirror EditorView configured through its inputs.",
+    "route": "content/features/code-editor",
+    "tags": ["features", "editor"],
+    "headings": ["What each input changes", "Events", "Lifecycle"],
+    "excerpt": "Code Editor\n\n wraps one CodeMirror . Selectors: , ,\n .\n\n \n\nWhat each input changes\n\n| Input | Effect | Updates live...",
+    "breadcrumb": [
+      {
+        "label": "Features",
+        "route": "content/features"
+      },
+      {
+        "label": "Code Editor",
+        "route": "content/features/code-editor"
+      }
+    ]
+  },
+  {
+    "label": "Diff Editor",
+    "description": "The ngx-code-diff-editor component, a side-by-side CodeMirror MergeView with typed diff options.",
+    "route": "content/features/diff-editor",
+    "tags": ["features", "diff"],
+    "headings": ["Inputs", "Events", "The mergeView field"],
+    "excerpt": " wraps a CodeMirror : editor A holds the original, editor B the modified text.",
+    "breadcrumb": [
+      {
+        "label": "Features",
+        "route": "content/features"
+      },
+      {
+        "label": "Diff Editor",
+        "route": "content/features/diff-editor"
+      }
+    ]
+  },
+  {
+    "label": "Extensions",
+    "description": "Choose the basic or minimal setup and append your own CodeMirror extensions.",
+    "route": "content/features/extensions",
+    "tags": ["features", "extensions"],
+    "headings": ["Setup", "Your own extensions", "Changing setup or extensions later", "The External annotation"],
+    "excerpt": " picks the built-in bundle from the package.",
+    "breadcrumb": [
+      {
+        "label": "Features",
+        "route": "content/features"
+      },
+      {
+        "label": "Extensions",
+        "route": "content/features/extensions"
+      }
+    ]
+  },
+  {
+    "label": "Forms Integration",
+    "description": "Use ngx-code-editor and ngx-code-diff-editor with ngModel and reactive forms.",
+    "route": "content/features/forms-integration",
+    "tags": ["features", "forms"],
+    "excerpt": "Forms Integration\n\nBoth components register .\n\n| Component | Form value | Touched when |\n|-----------|-----------|--------------|\n| | | the editor...",
+    "breadcrumb": [
+      {
+        "label": "Features",
+        "route": "content/features"
+      },
+      {
+        "label": "Forms Integration",
+        "route": "content/features/forms-integration"
+      }
+    ]
+  },
+  {
+    "label": "Languages",
+    "description": "How language and languages select and lazily load syntax highlighting in ngx-code-editor.",
+    "route": "content/features/languages",
+    "tags": ["features", "languages"],
+    "headings": ["How the lookup works"],
+    "excerpt": "Pass a list of objects to and a name to .",
+    "breadcrumb": [
+      {
+        "label": "Features",
+        "route": "content/features"
+      },
+      {
+        "label": "Languages",
+        "route": "content/features/languages"
+      }
+    ]
+  },
+  {
+    "label": "Themes",
+    "description": "Use the default light look or pass any CodeMirror theme Extension to the theme input.",
+    "route": "content/features/themes",
+    "tags": ["features", "themes"],
+    "excerpt": " takes the type: the string or a CodeMirror .",
+    "breadcrumb": [
+      {
+        "label": "Features",
+        "route": "content/features"
+      },
+      {
+        "label": "Themes",
+        "route": "content/features/themes"
+      }
+    ]
+  },
+  {
+    "label": "Getting Started",
+    "description": "Install @fsegurai/ngx-codemirror, render your first editor, and choose a setup style.",
+    "route": "content/getting-started/README",
+    "tags": ["getting-started", "overview"],
+    "excerpt": "Three steps take you from zero to a working editor.",
+    "breadcrumb": [
+      {
+        "label": "Getting Started",
+        "route": "content/getting-started"
+      },
+      {
+        "label": "Getting Started",
+        "route": "content/getting-started/README"
+      }
+    ]
+  },
+  {
+    "label": "Installation",
+    "description": "Install @fsegurai/ngx-codemirror 19.1.0 and check its Angular peer dependencies.",
+    "route": "content/getting-started/installation",
+    "tags": ["getting-started", "installation"],
+    "headings": ["Peer dependencies", "Compatibility", "Next step"],
+    "excerpt": "Installation\n\n \n\nCodeMirror is a regular dependency of the library, so it is installed for you:\n\n| Dependency | Range |\n|------------|-------|\n| |...",
+    "breadcrumb": [
+      {
+        "label": "Getting Started",
+        "route": "content/getting-started"
+      },
+      {
+        "label": "Installation",
+        "route": "content/getting-started/installation"
+      }
+    ]
+  },
+  {
+    "label": "Quick Start",
+    "description": "Import CodeEditorComponent, give it a height, and bind its value with ngModel or value plus change.",
+    "route": "content/getting-started/quick-start",
+    "tags": ["getting-started", "quick-start"],
+    "headings": ["Pick a binding", "Give it a height", "Language lookup", "Next step"],
+    "excerpt": "Import the standalone component, pass the language list, and bind the value.",
+    "breadcrumb": [
+      {
+        "label": "Getting Started",
+        "route": "content/getting-started"
+      },
+      {
+        "label": "Quick Start",
+        "route": "content/getting-started/quick-start"
+      }
+    ]
+  },
+  {
+    "label": "Setup Styles",
+    "description": "Use the standalone components directly or import CodeEditorModule in an NgModule application.",
+    "route": "content/getting-started/setup-styles",
+    "tags": ["getting-started", "setup"],
+    "headings": ["Standalone", "NgModule", "README differences", "Zone.js"],
+    "excerpt": "19.1.0 has no providers or global configuration. You only import components.",
+    "breadcrumb": [
+      {
+        "label": "Getting Started",
+        "route": "content/getting-started"
+      },
+      {
+        "label": "Setup Styles",
+        "route": "content/getting-started/setup-styles"
+      }
+    ]
+  },
+  {
+    "label": "Guides",
+    "description": "Task-focused guides for theme switching, unified diffs and upgrading to 19.1.0.",
+    "route": "content/guides/README",
+    "tags": ["guides", "overview"],
+    "excerpt": "| Theme Switching | Let users pick an editor theme at runtime.",
+    "breadcrumb": [
+      {
+        "label": "Guides",
+        "route": "content/guides"
+      },
+      {
+        "label": "Guides",
+        "route": "content/guides/README"
+      }
+    ]
+  },
+  {
+    "label": "Theme Switching",
+    "description": "Switch the editor theme at runtime by binding a signal that holds a theme Extension.",
+    "route": "content/guides/theme-switching",
+    "tags": ["guides", "themes"],
+    "headings": ["Checklist"],
+    "excerpt": "Keep the selected theme in a signal and bind it to . The component swaps the theme compartment on change.",
+    "breadcrumb": [
+      {
+        "label": "Guides",
+        "route": "content/guides"
+      },
+      {
+        "label": "Theme Switching",
+        "route": "content/guides/theme-switching"
+      }
+    ]
+  },
+  {
+    "label": "Unified Diff",
+    "description": "Render a one-column diff by adding unifiedMergeView from @codemirror/merge to ngx-code-editor.",
+    "route": "content/guides/unified-diff",
+    "tags": ["guides", "diff"],
+    "headings": ["Notes"],
+    "excerpt": "19.1.0 has no unified diff component. The demo builds one by passing to .",
+    "breadcrumb": [
+      {
+        "label": "Guides",
+        "route": "content/guides"
+      },
+      {
+        "label": "Unified Diff",
+        "route": "content/guides/unified-diff"
+      }
+    ]
+  },
+  {
+    "label": "Upgrading from 19.0",
+    "description": "Move an application from @fsegurai/ngx-codemirror 19.0.x to 19.1.0 and its signal inputs.",
+    "route": "content/guides/upgrading-from-19-0",
+    "tags": ["guides", "upgrade"],
+    "headings": ["What breaks", "Checklist"],
+    "excerpt": "Upgrading from 19.0\n\n19.1.0 migrates most inputs to signal inputs ( ) and every output to . Template bindings do not\nchange. Code that reads or...",
+    "breadcrumb": [
+      {
+        "label": "Guides",
+        "route": "content/guides"
+      },
+      {
+        "label": "Upgrading from 19.0",
+        "route": "content/guides/upgrading-from-19-0"
+      }
+    ]
+  },
+  {
+    "label": "Help",
+    "description": "Answers to common questions, troubleshooting steps, release notes and project links.",
+    "route": "content/help/README",
+    "tags": ["help", "overview"],
+    "headings": ["Project links"],
+    "excerpt": "| What's New in 19.1.0 | You want the release notes for this version.",
+    "breadcrumb": [
+      {
+        "label": "Help",
+        "route": "content/help"
+      },
+      {
+        "label": "Help",
+        "route": "content/help/README"
+      }
+    ]
+  },
+  {
+    "label": "FAQ",
+    "description": "Frequently asked questions about @fsegurai/ngx-codemirror 19.1.0.",
+    "route": "content/help/faq",
+    "tags": ["help", "faq"],
+    "excerpt": "FAQ\n\nDo I need Zone.js?\n is a peer dependency of 19.1.0.\n\nIs there an NgModule?\nYes. exports both components. It has no , although the README shows...",
+    "breadcrumb": [
+      {
+        "label": "Help",
+        "route": "content/help"
+      },
+      {
+        "label": "FAQ",
+        "route": "content/help/faq"
+      }
+    ]
+  },
+  {
+    "label": "Troubleshooting",
+    "description": "Fixes for a collapsed editor, missing highlighting, lost options, unexpected change events and import errors.",
+    "route": "content/help/troubleshooting",
+    "tags": ["help", "troubleshooting"],
+    "excerpt": "| The editor has no visible height | is of an unsized host.",
+    "breadcrumb": [
+      {
+        "label": "Help",
+        "route": "content/help"
+      },
+      {
+        "label": "Troubleshooting",
+        "route": "content/help/troubleshooting"
+      }
+    ]
+  },
+  {
+    "label": "What's New in 19.1.0",
+    "description": "Release notes for @fsegurai/ngx-codemirror 19.1.0 and what changes when upgrading from 19.0.",
+    "route": "content/help/whats-new",
+    "tags": ["help", "changelog", "release-notes"],
+    "headings": ["Fixes", "Changes", "Security", "Upgrade checklist"],
+    "excerpt": "What's New in 19.1.0\n\nReleased 2024-12-06, the same day as 19.0.0. The components move to signal inputs and .\n\nFixes\n\nDemo - improved the TOC...",
+    "breadcrumb": [
+      {
+        "label": "Help",
+        "route": "content/help"
+      },
+      {
+        "label": "What's New in 19.1.0",
+        "route": "content/help/whats-new"
+      }
+    ]
+  }
+]

@@ -1,0 +1,17 @@
+; This program will add two numbers and store the result in the HL register pair.
+
+    ORG 0x100          ; Set the starting address of the program in memory (common for many Z80 systems)
+
+START:
+    LD A, 5            ; Load the value 5 into the accumulator (A register)
+    LD B, 3            ; Load the value 3 into the B register
+
+    ADD A, B           ; Add the value in the B register to the value in the A register
+                        ; The result will be stored back in the A register (A = A + B)
+
+    LD H, A            ; Store the result (in A) into the high byte of HL register pair (H = result)
+    LD L, 0            ; Store 0 into the low byte of HL register pair (L = 0)
+
+    NOP                 ; No operation (just a placeholder instruction)
+    HALT                ; Halt the program
+

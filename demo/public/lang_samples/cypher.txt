@@ -1,0 +1,35 @@
+// Create nodes
+CREATE (a:Person {name: 'Alice', age: 30}),
+       (b:Person {name: 'Bob', age: 25}),
+       (c:Person {name: 'Charlie', age: 35}),
+       (d:Company {name: 'Acme Corp', industry: 'Tech'});
+
+// Create relationships
+CREATE (a)-[:FRIEND]->(b),
+       (b)-[:FRIEND]->(c),
+       (a)-[:WORKS_AT]->(d),
+       (c)-[:WORKS_AT]->(d);
+
+// Query to find all people and their relationships
+MATCH (p:Person)-[r]->(n)
+RETURN p.name AS Person, type(r) AS Relationship, n.name AS RelatedTo;
+
+// Query to find people who work in 'Tech'
+MATCH (p:Person)-[:WORKS_AT]->(c:Company {industry: 'Tech'})
+RETURN p.name AS Employee, c.name AS Company;
+
+// Query to find friends of Alice
+MATCH (a:Person {name: 'Alice'})-[:FRIEND]->(friend)
+RETURN friend.name AS AliceFriend;
+
+// Update Charlie's age
+MATCH (p:Person {name: 'Charlie'})
+SET p.age = 36;
+
+// Delete a node and its relationships
+MATCH (p:Person {name: 'Bob'})-[r]-()
+DELETE r, p;
+
+// Find all remaining nodes
+MATCH (n)
+RETURN n.name AS NodeName;

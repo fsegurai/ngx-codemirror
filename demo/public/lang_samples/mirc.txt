@@ -1,0 +1,68 @@
+; Sample mIRC Script File
+
+; --- Setting up basic aliases ---
+
+alias hello {
+  echo -a Hello, mIRC user! Welcome to this channel!
+}
+
+alias time {
+  var %currentTime = $time
+  echo -a Current time: %currentTime
+}
+
+; --- Responding to messages ---
+
+on *:TEXT:!hello:#channel {
+  msg $chan Hello, $nick! How can I help you today?
+}
+
+on *:TEXT:!time:#channel {
+  msg $chan The current time is $time
+}
+
+on *:TEXT:!joke:#channel {
+  msg $chan Why don’t skeletons fight each other? They don’t have the guts!
+}
+
+; --- Automatically join a channel on connect ---
+
+on *:CONNECT: {
+  join #examplechannel
+}
+
+; --- Set a custom user mode ---
+
+on *:LOGIN: {
+  mode $me +x
+}
+
+; --- Creating a custom command ---
+
+alias mycommand {
+  msg $chan This is a custom command response!
+}
+
+; --- Auto-response when someone joins the channel ---
+
+on *:JOIN:#channel {
+  msg $chan Welcome to the channel, $nick! Enjoy your stay.
+}
+
+; --- Example of a simple timer ---
+
+alias starttimer {
+  .timer myTimer 5 1 echo -a This message is displayed every 5 seconds.
+}
+
+; --- Example of a simple bot protection mechanism ---
+
+on *:TEXT:!banuser:#channel {
+  if ($nick == AdminUser) {
+    ban $chan $2
+    msg $chan Banned $2 for violating the rules.
+  }
+  else {
+    msg $chan You don't have permission to use this command.
+  }
+}

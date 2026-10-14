@@ -1,0 +1,40 @@
+// Variables
+primaryColor = #3498db
+fontSize = 16px
+
+// Mixin for center alignment
+center()
+  display: flex
+  justify-content: center
+  align-items: center
+
+// Basic Styles
+body
+  font-size: fontSize
+  color: primaryColor
+  margin: 0
+  padding: 0
+
+header
+  background-color: primaryColor
+  color: white
+  padding: 20px
+  center()  // Using mixin to center content
+
+h1
+  font-size: 2em
+  text-align: center
+  margin-bottom: 20px
+
+button
+  background-color: white
+  color: primaryColor
+  border: none
+  padding: 10px 20px
+  font-size: fontSize
+  border-radius: 5px
+  cursor: pointer
+
+  &:hover
+    background-color: primaryColor
+    color: white

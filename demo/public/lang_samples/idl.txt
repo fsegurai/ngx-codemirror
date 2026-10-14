@@ -1,0 +1,18 @@
+// This is an IDL for a simple calculator service
+
+module Calculator {
+    // A service interface for calculator operations
+    interface CalculatorService {
+        // Method to add two numbers
+        long add(in long num1, in long num2);
+
+        // Method to subtract two numbers
+        long subtract(in long num1, in long num2);
+
+        // Method to multiply two numbers
+        long multiply(in long num1, in long num2);
+
+        // Method to divide two numbers
+        float divide(in long num1, in long num2);
+    };
+};

@@ -1,0 +1,19 @@
+// Simple Graphviz Graph Description (in DOT format)
+
+// Define a directed graph
+digraph G {
+    // Node definitions
+    A [label="Node A", shape=circle, color=blue];
+    B [label="Node B", shape=ellipse, color=red];
+    C [label="Node C", shape=box, color=green];
+    D [label="Node D", shape=diamond, color=purple];
+
+    // Edges between nodes
+    A -> B [label="Edge A to B", color=black];
+    B -> C [label="Edge B to C", color=orange];
+    C -> D [label="Edge C to D", color=blue];
+    D -> A [label="Edge D to A", color=green];
+
+    // Additional edge without a label
+    B -> D;
+}

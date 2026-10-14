@@ -1,0 +1,66 @@
+<app-scrollspy-nav-layout [displayTOC]="false">
+  <h1 id="playground">Playground</h1>
+
+  <div class="playground">
+    <app-playground-toolbar class="toolbar"
+                            [mode]="state.mode()"
+                            [language]="state.language()"
+                            [theme]="state.options().theme"
+                            [themeLoading]="themeLoading()"
+                            [sampleLoading]="samples.loading()"
+                            (modeChange)="onMode($event)"
+                            (languageChange)="onLanguage($event)"
+                            (themeChange)="onTheme($event)"
+                            (reset)="reset()"
+                            (copyLink)="copyShareLink()"
+                            (copySnippet)="copySnippet()"
+                            (download)="download()" />
+
+    <aside class="options" aria-label="Editor options">
+      <app-options-panel [options]="state.options()" (patch)="patch($event)" />
+    </aside>
+
+    <section class="workspace" aria-label="Editor">
+      <div class="editor-frame" [class.fullscreen]="fullscreen()" [class.mat-app-background]="fullscreen()">
+        <div class="frame-bar">
+          <span class="frame-title">{{ modeLabel() }} · {{ state.language() }}</span>
+          <button mat-button type="button" (click)="toggleFullscreen()" [attr.aria-pressed]="fullscreen()"
+                  [matTooltip]="fullscreen() ? 'Back to the page (Esc)' : 'Fill the window (Esc to exit)'">
+            {{ fullscreen() ? 'Exit fullscreen' : 'Fullscreen' }}
+          </button>
+        </div>
+
+        <div class="frame-body">
+          @switch (state.mode()) {
+            @case ('editor') {
+              <app-editor-mode [common]="state.common()"
+                               [editor]="state.editor()"
+                               [field]="editorForm.code"
+                               (event)="onEditorEvent($event)" />
+            }
+            @case ('diff') {
+              <app-split-diff-mode [common]="state.common()"
+                                   [diff]="state.diff()"
+                                   [(value)]="diffValue"
+                                   (event)="onEditorEvent($event)" />
+            }
+            @case ('unified-diff') {
+              <app-unified-diff-mode [common]="state.common()"
+                                     [unified]="state.unified()"
+                                     [(original)]="unifiedOriginal"
+                                     [(value)]="unifiedValue"
+                                     (event)="onEditorEvent($event)" />
+            }
+          }
+        </div>
+      </div>
+
+      <app-inspector [entries]="log.entries()"
+                     [model]="model()"
+                     [modelLabel]="modelLabel()"
+                     [config]="state.changed()"
+                     (clearLog)="log.clear()"
+                     (modelCopied)="onModelCopied($event)" />
+    </section>
+  </div>
+</app-scrollspy-nav-layout>

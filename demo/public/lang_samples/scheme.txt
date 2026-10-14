@@ -1,0 +1,46 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "firstName": {
+      "type": "string"
+    },
+    "lastName": {
+      "type": "string"
+    },
+    "age": {
+      "type": "integer",
+      "minimum": 18
+    },
+    "email": {
+      "type": "string",
+      "format": "email"
+    }
+  },
+  "required": ["firstName", "lastName", "email"]
+}
+ ------------------------------
+ <?xml version="1.0" encoding="UTF-8"?>
+ <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+   <xs:element name="person">
+     <xs:complexType>
+       <xs:sequence>
+         <xs:element name="firstName" type="xs:string"/>
+         <xs:element name="lastName" type="xs:string"/>
+         <xs:element name="age" type="xs:int"/>
+         <xs:element name="email" type="xs:string"/>
+       </xs:sequence>
+     </xs:complexType>
+   </xs:element>
+ </xs:schema>
+------------------------------
+type Person {
+  firstName: String
+  lastName: String
+  age: Int
+  email: String
+}
+
+type Query {
+  getPerson(id: ID!): Person
+}

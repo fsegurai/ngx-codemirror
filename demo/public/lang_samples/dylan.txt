@@ -1,0 +1,7 @@
+#| Hello, World! in Dylan |#
+
+define method main() := begin
+    print("Hello, World!\n");
+end;
+
+main();

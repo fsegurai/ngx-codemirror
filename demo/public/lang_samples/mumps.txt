@@ -1,0 +1,53 @@
+; Sample MUMPS Program
+
+START
+  ; Define variables
+  NEW name, age, gender, response
+
+  ; Input data
+  WRITE "Enter your name: ", !
+  READ name
+  WRITE "Enter your age: ", !
+  READ age
+  WRITE "Enter your gender (M/F): ", !
+  READ gender
+
+  ; Store data in the database (global)
+  SET ^USERINFO(name, "age") = age
+  SET ^USERINFO(name, "gender") = gender
+
+  ; Output stored information
+  WRITE "Stored information: ", !
+  WRITE "Name: ", name, !
+  WRITE "Age: ", ^USERINFO(name, "age"), !
+  WRITE "Gender: ", ^USERINFO(name, "gender"), !
+
+  ; Ask for confirmation to continue
+  WRITE "Do you want to continue? (Y/N): ", !
+  READ response
+
+  ; Process user input
+  IF response="Y" DO CONTINUE
+  IF response="N" DO EXIT
+
+  QUIT
+
+CONTINUE
+  ; Example of a loop to ask for additional data
+  WRITE "Enter another name to store information: ", !
+  READ name
+  WRITE "Enter age for ", name, ": ", !
+  READ age
+  WRITE "Enter gender for ", name, ": ", !
+  READ gender
+
+  ; Store the new data
+  SET ^USERINFO(name, "age") = age
+  SET ^USERINFO(name, "gender") = gender
+
+  WRITE "Information stored for ", name, "!", !
+  QUIT
+
+EXIT
+  WRITE "Goodbye!", !
+  QUIT

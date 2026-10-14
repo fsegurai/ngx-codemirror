@@ -1,0 +1,32 @@
+-- Create a new database
+CREATE DATABASE sample_db;
+
+-- Use the newly created database
+USE sample_db;
+
+-- Create a new table
+CREATE TABLE users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50) NOT NULL,
+    email VARCHAR(100) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Insert sample data into the table
+INSERT INTO users (username, email) VALUES ('john_doe', 'john@example.com');
+INSERT INTO users (username, email) VALUES ('jane_doe', 'jane@example.com');
+
+-- Select all data from the table
+SELECT * FROM users;
+
+-- Update a record in the table
+UPDATE users SET email = 'john.doe@example.com' WHERE username = 'john_doe';
+
+-- Delete a record from the table
+DELETE FROM users WHERE username = 'jane_doe';
+
+-- Drop the table
+DROP TABLE users;
+
+-- Drop the database
+DROP DATABASE sample_db;

@@ -1,0 +1,224 @@
+<app-scrollspy-nav-layout [headings]="headings()">
+  <h1>Render</h1>
+
+  <ngx-markdown ngPreserveWhitespaces>
+    The library provides three standalone components: a code editor, a split diff editor and a unified diff editor.
+    They share most inputs, and every input left unset falls back to the options of `provideCodeEditor()`.
+  </ngx-markdown>
+
+  <section>
+    <h2 id="configuration">Configuration</h2>
+
+    <ngx-markdown ngPreserveWhitespaces>
+      `provideCodeEditor(options, ...features)` sets the default inputs of every editor of an injector (application,
+      route or component providers). A nested call merges over its ancestors.
+
+      ```typescript
+      import &#123; provideCodeEditor, withExtensionPresets, withExtensions, withThemes &#125; from '&#64;fsegurai/ngx-codemirror';
+
+      export const appConfig: ApplicationConfig = &#123;
+        providers: [
+          provideCodeEditor(
+            &#123; theme: 'auto', setup: 'basic', lineWrapping: true, languages &#125;,
+            withThemes(
+              &#123; nord: () => import('&#64;fsegurai/codemirror-theme-bundle').then((m) => m.nord) &#125;,
+              &#123; light: 'light', dark: 'nord' &#125;,
+            ),
+            withExtensions([myExtension]),
+            withExtensionPresets(&#123; vim: () => import('&#64;replit/codemirror-vim').then((m) => m.vim()) &#125;),
+          ),
+        ],
+      &#125;;
+      ```
+
+      | Feature | What it does |
+      |---------|--------------|
+      | `withThemes(themes, &#123; light?, dark? &#125;)` | Registers named themes (eager or lazy). `light`/`dark` pick the themes of `'auto'`. |
+      | `withExtensions(extensions, &#123; mode? &#125;)` | Global extensions for every editor. `mode: 'replace'` lets an instance `extensions` input replace them (default `'append'`). |
+      | `withExtensionPresets(presets)` | Named extensions, enabled per editor with `[presets]="['vim']"`. |
+
+      Precedence, lowest first: built-in defaults, providers (nested over parent), instance inputs.
+    </ngx-markdown>
+  </section>
+
+  <section>
+    <h2 id="themes">Themes</h2>
+
+    <ngx-markdown ngPreserveWhitespaces>
+      The `theme` input accepts:
+
+      - `'light'` (default) or `'dark'` - the built-in themes
+      - `'auto'` - follows `prefers-color-scheme`, using the `light`/`dark` names of `withThemes()`
+      - a name registered with `withThemes()` - lazy themes are loaded on first use and cached
+      - any CodeMirror theme extension
+
+      `CodeEditorThemeService` switches every editor without its own `theme` input at once:
+
+      ```typescript
+      inject(CodeEditorThemeService).set('nord');
+      ```
+
+      Theme precedence, highest first: the instance `theme` input, `CodeEditorThemeService`, the `theme` of
+      `provideCodeEditor()`, `'light'`.
+    </ngx-markdown>
+  </section>
+
+  <section>
+    <h2 id="code-editor">Code Editor</h2>
+
+    <ngx-markdown ngPreserveWhitespaces>
+      Selector: `ngx-code-editor`. The value works with Signal Forms, reactive forms and `ngModel` (the component
+      implements `FormValueControl`):
+
+      ```html
+      &lt;ngx-code-editor [formField]="editorForm.code" language="javascript" [languages]="languages" /&gt;
+      &lt;ngx-code-editor [formControl]="code" /&gt;
+      &lt;ngx-code-editor [(ngModel)]="code" /&gt;
+      &lt;ngx-code-editor [(value)]="code" /&gt;
+      ```
+
+      <h3>Inputs</h3>
+
+      - `value` - The editor's content (a `model`; two-way bindable)
+      - `disabled` - Whether the editor is disabled (not editable and read-only)
+      - `readonly` - Whether the editor is read-only (can be focused and selected)
+      - `invalid` / `required` / `touched` - Form state, set by the forms integration (`aria-invalid` / `aria-required`)
+      - `root` - The DOM root of the editor (`Document` or `ShadowRoot`; read at creation)
+      - `autoFocus` - Whether the editor focuses on creation
+      - `theme` - See Themes
+      - `placeholder` - Placeholder text shown when the editor is empty
+      - `indentWithTab` - Whether the Tab key indents
+      - `indentUnit` - A number of spaces, or a whitespace string such as `'\t'`
+      - `lineWrapping` - Whether lines wrap
+      - `highlightWhitespace` - Whether whitespace characters are highlighted
+      - `languages` - Language descriptions (for example from `&#64;codemirror/language-data`); required by `language`
+      - `language` - The language name or alias, looked up in `languages`
+      - `setup` - `'basic'` (default), `'minimal'` or `null`
+      - `extensions` - Extra extensions (lazy items allowed), appended to the global ones
+      - `presets` - Names of the presets registered with `withExtensionPresets()`
+
+      <h3>Convenience inputs</h3>
+
+      With `setup="basic"` these default to on; otherwise to off. An explicit value always wins.
+
+      - `lineNumbers` - The line number gutter
+      - `foldGutter` - The code folding gutter
+      - `highlightActiveLine` - Active line highlighting
+      - `search` - The search panel (`true`, `false` or search options)
+      - `autocompletion` - Autocompletion (`true`, `false` or completion options)
+      - `tabSize` - The width of a tab, in columns (default 4)
+      - `lint` - A lint source, or `&#123; source, config?, gutter? &#125;` (`null` turns the provider's linter off)
+      - `keymap` - Extra key bindings, with a high precedence
+
+      <h3>Outputs</h3>
+
+      - `valueChange` - The user changed the content (programmatic writes do not emit)
+      - `focused` - The editor gained focus
+      - `blurred` - The editor lost focus
+      - `touch` - Emitted on blur; marks a bound form field touched
+      - `ready` - The `EditorView` was created
+      - `error` - An input could not be applied (see Errors)
+
+      <h3>Methods and signals</h3>
+
+      - `view()` - The `EditorView` (`undefined` before render)
+      - `focus()` - Focuses the editor
+      - `getValue()` - The current document
+      - `setValue(value)` - Replaces the document and emits `valueChange` once
+    </ngx-markdown>
+  </section>
+
+  <section>
+    <h2 id="code-diff-editor">Code Diff Editor</h2>
+
+    <ngx-markdown ngPreserveWhitespaces>
+      Selector: `ngx-code-diff-editor`. A side-by-side `MergeView`. It takes the shared inputs of the code editor
+      (theme, language, setup, convenience inputs, presets, form state...) for both sides.
+
+      ```html
+      &lt;ngx-code-diff-editor [(value)]="diff" orientation="a-b" revertControls="a-to-b" /&gt;
+      ```
+
+      <h3>Inputs</h3>
+
+      - `value` - Both documents as `&#123; original, modified &#125;` (a `model`; works with forms like the code editor)
+      - `originalValue` / `modifiedValue` - One side of the comparison (the latest of these and `value` wins)
+      - `originalExtensions` / `modifiedExtensions` - Extra extensions per side
+      - `originalReadonly` - Makes only the original side read-only
+      - `orientation` - `'a-b'` or `'b-a'`
+      - `revertControls` - `'a-to-b'` or `'b-to-a'`
+      - `renderRevertControl` - Renders the revert buttons
+      - `highlightChanges` - Highlights changed text (default `true`)
+      - `gutter` - Shows a gutter marker next to changed lines (default `true`)
+      - `collapseUnchanged` - `&#123; margin?, minSize? &#125;` to collapse unchanged text
+      - `diffConfig` - Options of the diff algorithm
+
+      <h3>Outputs</h3>
+
+      - `valueChange` - `&#123; original, modified &#125;` after a user edit on either side
+      - `originalValueChange` / `modifiedValueChange` - A user edit on one side
+      - `originalFocused` / `originalBlurred` / `modifiedFocused` / `modifiedBlurred` - Focus per side
+      - `touch`, `ready` (the `MergeView`), `error`
+
+      <h3>Methods and signals</h3>
+
+      - `mergeView()`, `focus()` (modified side), `getValue()`, `setValue(&#123; original, modified &#125;)`
+      - `goToNextChunk()` / `goToPreviousChunk()` - Moves the cursor of the modified side between changes
+      - `getChunks()` - The changed chunks
+    </ngx-markdown>
+  </section>
+
+  <section>
+    <h2 id="code-unified-diff-editor">Code Unified Diff Editor</h2>
+
+    <ngx-markdown ngPreserveWhitespaces>
+      Selector: `ngx-code-unified-diff-editor`. One editor holding the modified document, with the deleted lines
+      shown inline and accept/reject buttons per change. Its value works like the code editor's, and it takes the same
+      inputs and outputs.
+
+      ```html
+      &lt;ngx-code-unified-diff-editor [(original)]="original" [(value)]="modified" /&gt;
+      ```
+
+      <h3>Extra inputs</h3>
+
+      - `original` - The document compared with (a `model`: accepting a chunk updates it)
+      - `mergeControls` - Accept/reject buttons: `true` (default), `false` or a render function
+      - `highlightChanges` - Highlights changed text (default `true`)
+      - `gutter` - Shows a gutter marker next to changed lines (default `true`)
+      - `syntaxHighlightDeletions` - Syntax-highlights the deleted lines (default `true`)
+      - `allowInlineDiffs` - Shows small changes inline (default `false`)
+      - `collapseUnchanged` - `&#123; margin?, minSize? &#125;` to collapse unchanged text
+      - `diffConfig` - Options of the diff algorithm
+
+      <h3>Extra methods</h3>
+
+      - `goToNextChunk()` / `goToPreviousChunk()` / `getChunks()`
+    </ngx-markdown>
+  </section>
+
+  <section>
+    <h2 id="errors">Errors</h2>
+
+    <ngx-markdown ngPreserveWhitespaces>
+      Every component emits `error` with a `CodeEditorError`, discriminated by `code`, and keeps its current state.
+      In development mode the error is also logged as a `[ngx-codemirror]` warning.
+
+      | Code | Constant | When |
+      |------|----------|------|
+      | `language-not-found` | `ERROR_LANGUAGE_NOT_FOUND` | `language` is not in `languages` |
+      | `language-load-failed` | `ERROR_LANGUAGE_LOAD_FAILED` | Loading the language failed |
+      | `invalid-theme` | `ERROR_INVALID_THEME` | Unknown theme name |
+      | `theme-load-failed` | `ERROR_THEME_LOAD_FAILED` | Loading a lazy theme failed |
+      | `extension-load-failed` | `ERROR_EXTENSION_LOAD_FAILED` | Loading a lazy extension or preset failed |
+      | `unknown-preset` | `ERROR_UNKNOWN_PRESET` | Unknown preset name |
+      | `invalid-indent-unit` | `ERROR_INVALID_INDENT_UNIT` | Invalid `indentUnit` |
+
+      ```typescript
+      onError(error: CodeEditorError): void &#123;
+        if (error.code === ERROR_LANGUAGE_NOT_FOUND) console.log(error.available);
+      &#125;
+      ```
+    </ngx-markdown>
+  </section>
+</app-scrollspy-nav-layout>

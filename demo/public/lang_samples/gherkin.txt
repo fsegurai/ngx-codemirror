@@ -1,0 +1,16 @@
+Feature: Payment functionality
+
+  Scenario: Successful payment with valid credit card details
+    Given the user is on the payment page
+    When the user enters valid credit card details
+    Then the payment should be processed successfully
+
+  Scenario: Payment failed due to invalid credit card details
+    Given the user is on the payment page
+    When the user enters invalid credit card details
+    Then the user should see an error message saying "Invalid credit card"
+
+  Scenario: Payment with insufficient funds
+    Given the user is on the payment page
+    When the user enters valid credit card details with insufficient funds
+    Then the user should see an error message saying "Insufficient funds"

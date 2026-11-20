@@ -1,0 +1,6 @@
+SELECT ?person ?name ?email
+WHERE {
+  ?person rdf:type ex:Person .
+  ?person ex:hasName ?name .
+  OPTIONAL { ?person ex:hasEmail ?email . }
+}

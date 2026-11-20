@@ -1,0 +1,94 @@
+@use '../shared/styles/layout';
+
+// Stacked on small screens; from `gt-sm` the options panel sits on the left (scrolling on its own) and the
+// editor with its inspector on the right.
+.playground {
+  display: grid;
+  grid-template-areas:
+    'toolbar'
+    'options'
+    'workspace';
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1rem;
+
+  @include layout.gt-sm {
+    grid-template-areas:
+      'toolbar toolbar'
+      'options workspace';
+    grid-template-columns: minmax(16rem, 20rem) minmax(0, 1fr);
+    align-items: start;
+  }
+}
+
+.toolbar {
+  grid-area: toolbar;
+}
+
+.options {
+  grid-area: options;
+  padding: 0.75rem;
+  border: 1px solid color-mix(in srgb, currentColor 15%, transparent);
+  border-radius: 4px;
+  background-color: color-mix(in srgb, currentColor 4%, transparent);
+
+  @include layout.gt-sm {
+    position: sticky;
+    top: 64px;
+    max-height: calc(100vh - 80px);
+    overflow: auto;
+  }
+}
+
+.workspace {
+  grid-area: workspace;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  min-width: 0;
+  margin: 0;
+}
+
+.editor-frame {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid color-mix(in srgb, currentColor 15%, transparent);
+  border-radius: 4px;
+
+  &.fullscreen {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    border-radius: 0;
+
+    .frame-body {
+      flex: 1 1 auto;
+      height: auto;
+      resize: none;
+    }
+  }
+}
+
+.frame-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding: 0.25rem 0.5rem 0.25rem 0.75rem;
+  border-bottom: 1px solid color-mix(in srgb, currentColor 15%, transparent);
+  background-color: color-mix(in srgb, currentColor 4%, transparent);
+}
+
+.frame-title {
+  font-size: 0.8125rem;
+  overflow-wrap: anywhere;
+}
+
+// Vertically resizable from its corner; never shorter than 12rem.
+.frame-body {
+  box-sizing: border-box;
+  height: 28rem;
+  min-height: 12rem;
+  padding: 0.5rem;
+  overflow: hidden;
+  resize: vertical;
+}

@@ -1,0 +1,35 @@
+// Simple Calculator in F#
+
+// Define a function for addition
+let add x y = x + y
+
+// Define a function for subtraction
+let subtract x y = x - y
+
+// Define a function for multiplication
+let multiply x y = x * y
+
+// Define a function for division with a guard for division by zero
+let divide x y =
+    if y = 0 then
+        failwith "Cannot divide by zero"
+    else
+        x / y
+
+// Function to perform an operation based on a string input
+let calculate operation x y =
+    match operation with
+    | "add" -> add x y
+    | "subtract" -> subtract x y
+    | "multiply" -> multiply x y
+    | "divide" -> divide x y
+    | _ -> failwith "Invalid operation"
+
+// Example usage
+let result1 = calculate "add" 5 3
+let result2 = calculate "multiply" 4 7
+let result3 = calculate "divide" 10 2
+
+printfn "Result of addition: %d" result1
+printfn "Result of multiplication: %d" result2
+printfn "Result of division: %d" result3

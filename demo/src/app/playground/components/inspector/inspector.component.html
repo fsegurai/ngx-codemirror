@@ -1,0 +1,35 @@
+<mat-tab-group class="tabs" animationDuration="0ms" mat-stretch-tabs="false">
+  <mat-tab label="Events">
+    <div class="panel">
+      <app-event-log [entries]="entries()" (clear)="clearLog.emit()" />
+    </div>
+  </mat-tab>
+
+  <mat-tab label="Model">
+    <div class="panel">
+      <div class="panel-header">
+        <span class="panel-title">The bound model: <code>{{ modelLabel() }}</code></span>
+        <button mat-stroked-button type="button" [cdkCopyToClipboard]="model()" (cdkCopyToClipboardCopied)="modelCopied.emit($event)"
+                matTooltip="Copy the model to the clipboard">
+          Copy
+        </button>
+      </div>
+      <pre class="model">{{ model() }}</pre>
+    </div>
+  </mat-tab>
+
+  <mat-tab label="Config">
+    <div class="panel">
+      @if (config().length) {
+        <dl class="config">
+          @for (entry of config(); track entry.key) {
+            <dt><code>{{ entry.key }}</code></dt>
+            <dd>{{ entry.value }}</dd>
+          }
+        </dl>
+      } @else {
+        <p class="empty">Every option has its default value.</p>
+      }
+    </div>
+  </mat-tab>
+</mat-tab-group>

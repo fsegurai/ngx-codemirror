@@ -1,0 +1,21 @@
+.HE "Introduction to Troff"
+.LP
+This is an example of a basic Troff document. Troff allows you to define different formatting options to structure your document.
+
+.PP
+Troff is often used for creating **technical documentation**, manuals, and **programming guides**.
+
+.TS
+tab(;)
+l l l.
+Name; Type; Description
+_
+John; Developer; Software Engineer
+Jane; Designer; Graphic Designer
+.TE
+
+.PP
+The above example shows how Troff can format tables.
+
+.BP
+This is a page break in Troff.

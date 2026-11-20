@@ -1,0 +1,13 @@
+import { HttpClient } from '@angular/common/http';
+import { Injectable, inject } from '@angular/core';
+import type { Observable } from 'rxjs';
+import { share } from 'rxjs/operators';
+
+@Injectable({ providedIn: 'root' })
+export class HttpRawLoaderService {
+  private httpClient = inject(HttpClient);
+
+  get(url: string): Observable<string> {
+    return this.httpClient.get(url, { responseType: 'text' }).pipe(share());
+  }
+}

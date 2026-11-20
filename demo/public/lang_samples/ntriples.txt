@@ -1,0 +1,7 @@
+<http://example.org/person/JohnDoe> <http://xmlns.com/foaf/0.1/name> "John Doe" .
+<http://example.org/person/JohnDoe> <http://xmlns.com/foaf/0.1/age> "30"^^<http://www.w3.org/2001/XMLSchema#int> .
+<http://example.org/person/JohnDoe> <http://xmlns.com/foaf/0.1/mbox> <mailto:johndoe@example.org> .
+<http://example.org/person/JaneDoe> <http://xmlns.com/foaf/0.1/name> "Jane Doe" .
+<http://example.org/person/JaneDoe> <http://xmlns.com/foaf/0.1/age> "28"^^<http://www.w3.org/2001/XMLSchema#int> .
+<http://example.org/person/JaneDoe> <http://xmlns.com/foaf/0.1/mbox> <mailto:janedoe@example.org> .
+<http://example.org/person/JohnDoe> <http://example.org/relationship/friendsWith> <http://example.org/person/JaneDoe> .

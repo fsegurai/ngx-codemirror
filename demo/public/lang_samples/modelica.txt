@@ -1,0 +1,22 @@
+model MassSpringDamper
+  // Parameters
+  parameter Real m = 1.0 "Mass (kg)";
+  parameter Real k = 100.0 "Spring constant (N/m)";
+  parameter Real c = 0.5 "Damping coefficient (Ns/m)";
+
+  // Variables
+  Real x(start = 0) "Displacement (m)";
+  Real v(start = 0) "Velocity (m/s)";
+  Real f "Force on the mass (N)";
+
+equation
+  // Equation of motion for the mass-spring-damper system
+  m * der(v) = f - c * v - k * x;
+
+  // Define force acting on the mass
+  f = 10 * sin(2 * Modelica.Constants.pi * time);
+
+  // Relationship between displacement and velocity
+  der(x) = v;
+
+end MassSpringDamper;

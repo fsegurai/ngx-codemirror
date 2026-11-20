@@ -1,0 +1,42 @@
+// Responsive breakpoints matching the former Angular Flex Layout aliases.
+$breakpoint-sm-min: 600px; // gt-xs
+$breakpoint-sm-max: 959.98px; // lt-md
+$breakpoint-md-min: 960px; // gt-sm
+
+@mixin gt-xs {
+  @media (min-width: $breakpoint-sm-min) {
+    @content;
+  }
+}
+
+@mixin lt-md {
+  @media (max-width: $breakpoint-sm-max) {
+    @content;
+  }
+}
+
+@mixin gt-sm {
+  @media (min-width: $breakpoint-md-min) {
+    @content;
+  }
+}
+
+// Two-column editor/preview layout: stacked below `gt-sm`, side by side from `gt-sm`.
+@mixin split($gap: 16px) {
+  .split {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: $gap;
+
+    @include gt-sm {
+      flex-direction: row;
+
+      > .split-item {
+        box-sizing: border-box;
+        flex: 1 1 calc(50% - #{$gap * 0.5});
+        min-width: calc(50% - #{$gap * 0.5});
+      }
+    }
+  }
+}

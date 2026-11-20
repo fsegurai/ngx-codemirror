@@ -1,0 +1,78 @@
+/* Colors, fonts and the base look of body, buttons and selects come from the preview theme (--pg-* variables). */
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 12px;
+  margin-bottom: 12px;
+}
+
+label {
+  color: var(--pg-text-muted);
+}
+
+select {
+  margin-left: 4px;
+}
+
+button:hover {
+  background: color-mix(in srgb, var(--pg-primary) 85%, var(--pg-text));
+}
+
+button:focus-visible,
+select:focus-visible {
+  outline: 2px solid var(--pg-accent);
+  outline-offset: 2px;
+}
+
+/* Editor on the left, live value on the right; stacked on narrow previews. */
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+  gap: 12px;
+}
+
+@media (max-width: 640px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* The component hosts a .cm-editor; the editor theme colors it, the page only sizes and frames it. */
+.cm-editor {
+  height: 300px;
+  border: 1px solid var(--pg-border);
+  border-radius: var(--pg-radius);
+  overflow: hidden;
+}
+
+.output {
+  min-width: 0;
+  padding: 8px 12px;
+  border: 1px solid var(--pg-border);
+  border-radius: var(--pg-radius);
+  background: var(--pg-surface);
+}
+
+.output h2 {
+  margin: 0;
+  color: var(--pg-text-muted);
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.stats {
+  margin: 2px 0 8px;
+  color: var(--pg-text-muted);
+  font-size: 12px;
+}
+
+pre {
+  margin: 0;
+  max-height: 230px;
+  color: var(--pg-text);
+  font-size: 12px;
+  white-space: pre-wrap;
+  word-break: break-word;
+}

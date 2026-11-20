@@ -1,0 +1,40 @@
+Name:           my-package
+Version:        1.2.3
+Release:        1%{?dist}
+Summary:        Example package for RPM build
+
+License:        GPL-2.0-or-later
+URL:            https://example.com/my-package
+Source0:        https://example.com/my-package-1.2.3.tar.gz
+
+BuildRequires:  gcc, make
+Requires:       libc, libxml2
+
+%description
+This is an example RPM package that demonstrates the structure of an RPM spec file.
+It contains basic information like the name, version, and description, as well as the
+build and runtime dependencies.
+
+%prep
+# Prepare the source for building
+%autosetup
+
+%build
+# Compile the source code
+%configure
+make
+
+%install
+# Install the package files
+make install DESTDIR=%{buildroot}
+
+%files
+# List the files to include in the package
+/usr/bin/my-package
+/usr/share/doc/my-package/*
+/etc/my-package.conf
+
+%changelog
+* Fri Dec 7 2024 John Doe <john.doe@example.com> - 1.2.3-1
+- Initial release of the package
+- Added basic functionality

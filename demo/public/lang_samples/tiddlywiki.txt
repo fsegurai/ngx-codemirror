@@ -1,0 +1,25 @@
+\define header() {This is a header.}
+\define list() {
+    * Item 1
+    * Item 2
+    * Item 3
+}
+header
+----
+
+This is a sample tiddler in TiddlyWiki.
+
+\define bold() {**bold text**}
+bold
+
+=== A section title ===
+This section contains a list:
+[list]
+
+==== Subsection ====
+Details about the subsection go here.
+
+This is a reference to another Tiddler: [[Another Tiddler]]
+
+---
+This is a footer.

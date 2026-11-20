@@ -1,0 +1,29 @@
+-- CQL (Cassandra Query Language) is a query language for Apache Cassandra.
+
+-- Create a keyspace
+CREATE KEYSPACE IF NOT EXISTS my_keyspace
+WITH REPLICATION = { 'class' : 'SimpleStrategy', 'replication_factor' : 3 };
+
+-- Use the keyspace
+USE my_keyspace;
+
+-- Create a table
+CREATE TABLE IF NOT EXISTS users (
+    user_id UUID PRIMARY KEY,
+    first_name TEXT,
+    last_name TEXT,
+    email TEXT
+);
+
+-- Insert data into the table
+INSERT INTO users (user_id, first_name, last_name, email)
+VALUES (uuid(), 'John', 'Doe', 'john.doe@example.com');
+
+-- Select data from the table
+SELECT * FROM users;
+
+-- Update data in the table
+UPDATE users SET email = 'john.new@example.com' WHERE user_id = <some-uuid>;
+
+-- Delete data from the table
+DELETE FROM users WHERE user_id = <some-uuid>;

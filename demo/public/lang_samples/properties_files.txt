@@ -1,0 +1,21 @@
+# Database Configuration
+db.url=jdbc:mysql://localhost:3306/mydb
+db.username=root
+db.password=secretpassword
+
+# Server Settings
+server.host=localhost
+server.port=8080
+
+# Logging Configuration
+log.level=INFO
+log.filepath=/var/log/app.log
+
+# Application Settings
+app.name=MyApp
+app.version=1.0.0
+app.language=en
+
+# User Settings
+user.default.language=en
+user.default.timezone=UTC

@@ -1,0 +1,14 @@
+// This program computes the sum of two polynomials and simplifies the result
+
+// Define two polynomials
+p1 := x^2 + 2*x + 3;
+p2 := x^2 - 3*x + 5;
+
+// Add the polynomials
+sum := p1 + p2;
+
+// Simplify the result
+simplified_sum := Simplify(sum);
+
+// Print the result
+Print(simplified_sum);

@@ -1,0 +1,32 @@
+(* Define a simple function to add two integers *)
+let add x y = x + y
+
+(* Define a simple type to represent a point in 2D space *)
+type point = { x: float; y: float }
+
+(* A function that takes a point and returns its distance from the origin (0, 0) *)
+let distance_from_origin p =
+  sqrt (p.x ** 2.0 +. p.y ** 2.0)
+
+(* A function that reverses a list of integers *)
+let reverse_list lst =
+  List.rev lst
+
+(* Pattern matching on a list to compute the sum of its elements *)
+let rec sum_list lst =
+  match lst with
+  | [] -> 0
+  | hd :: tl -> hd + sum_list tl
+
+(* Main function to demonstrate usage of the functions above *)
+let () =
+  let p = { x = 3.0; y = 4.0 } in
+  let dist = distance_from_origin p in
+  Printf.printf "Distance from origin: %.2f\n" dist;
+
+  let lst = [1; 2; 3; 4; 5] in
+  let reversed = reverse_list lst in
+  Printf.printf "Reversed list: [%s]\n" (String.concat "; " (List.map string_of_int reversed));
+
+  let sum = sum_list lst in
+  Printf.printf "Sum of list elements: %d\n" sum

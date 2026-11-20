@@ -1,0 +1,654 @@
+[
+  {
+    "label": "Documentation Home",
+    "description": "Documentation for @fsegurai/ngx-codemirror 22.0.0, CodeMirror 6 editors for Angular as standalone, signal-based components.",
+    "route": "content/README",
+    "tags": ["documentation", "overview", "angular"],
+    "headings": ["Quick path", "Sections", "Version"],
+    "excerpt": "standalone, signal-based components.",
+    "breadcrumb": [
+      {
+        "label": "Home",
+        "route": "content/README"
+      }
+    ]
+  },
+  {
+    "label": "API Reference",
+    "description": "Exact inputs, outputs, methods, provider functions, tokens and types exported by @fsegurai/ngx-codemirror.",
+    "route": "content/api/README",
+    "tags": ["api", "overview"],
+    "excerpt": "Everything below is exported from .",
+    "breadcrumb": [
+      {
+        "label": "API",
+        "route": "content/api"
+      },
+      {
+        "label": "API",
+        "route": "content/api/README"
+      }
+    ]
+  },
+  {
+    "label": "CodeDiffEditorComponent",
+    "description": "Inputs, outputs, signals and methods of ngx-code-diff-editor.",
+    "route": "content/api/code-diff-editor-component",
+    "tags": ["api", "diff"],
+    "headings": ["Signals and methods"],
+    "excerpt": "CodeDiffEditorComponent\n\nSelectors: , , . Takes every\nshared input and output, plus:\n\n| Input / output | Type | Description...",
+    "breadcrumb": [
+      {
+        "label": "API",
+        "route": "content/api"
+      },
+      {
+        "label": "CodeDiffEditorComponent",
+        "route": "content/api/code-diff-editor-component"
+      }
+    ]
+  },
+  {
+    "label": "CodeEditorComponent",
+    "description": "Inputs, outputs, signals and methods of ngx-code-editor.",
+    "route": "content/api/code-editor-component",
+    "tags": ["api", "editor"],
+    "headings": ["Signals and methods"],
+    "excerpt": "CodeEditorComponent\n\nSelectors: , , . Takes every shared input and output,\nplus:\n\n| Input / output | Type | Description...",
+    "breadcrumb": [
+      {
+        "label": "API",
+        "route": "content/api"
+      },
+      {
+        "label": "CodeEditorComponent",
+        "route": "content/api/code-editor-component"
+      }
+    ]
+  },
+  {
+    "label": "CodeUnifiedDiffEditorComponent",
+    "description": "Inputs, outputs, signals and methods of ngx-code-unified-diff-editor.",
+    "route": "content/api/code-unified-diff-editor-component",
+    "tags": ["api", "unified-diff"],
+    "headings": ["Methods"],
+    "excerpt": "CodeUnifiedDiffEditorComponent\n\nSelector: . Takes every input, output, signal and method of\nCodeEditorComponent ( is the modified document), plus:\n\n|...",
+    "breadcrumb": [
+      {
+        "label": "API",
+        "route": "content/api"
+      },
+      {
+        "label": "CodeUnifiedDiffEditorComponent",
+        "route": "content/api/code-unified-diff-editor-component"
+      }
+    ]
+  },
+  {
+    "label": "Errors",
+    "description": "CodeEditorError, its members and the exported error code constants.",
+    "route": "content/api/errors",
+    "tags": ["api", "errors"],
+    "headings": ["Narrowing"],
+    "excerpt": "Errors\n\n is a union discriminated by . Every member has and (prefixed with\n , ).\n\n| Type | constant | Extra fields...",
+    "breadcrumb": [
+      {
+        "label": "API",
+        "route": "content/api"
+      },
+      {
+        "label": "Errors",
+        "route": "content/api/errors"
+      }
+    ]
+  },
+  {
+    "label": "Providers",
+    "description": "Signatures of provideCodeEditor(), withThemes(), withExtensions(), withExtensionPresets() and the injection tokens.",
+    "route": "content/api/providers",
+    "tags": ["api", "providers"],
+    "headings": ["Functions", "Configuration types", "Injection tokens"],
+    "excerpt": "Providers\n\nFunctions\n\n \n\n| Function | Notes |\n|----------|-------|\n| | Merges over the parent injector: options by key, themes and presets by name,...",
+    "breadcrumb": [
+      {
+        "label": "API",
+        "route": "content/api"
+      },
+      {
+        "label": "Providers",
+        "route": "content/api/providers"
+      }
+    ]
+  },
+  {
+    "label": "Shared Inputs and Outputs",
+    "description": "Inputs and outputs shared by ngx-code-editor, ngx-code-diff-editor and ngx-code-unified-diff-editor.",
+    "route": "content/api/shared-inputs",
+    "tags": ["api", "inputs"],
+    "headings": ["Shared outputs"],
+    "excerpt": "All three components take these inputs.",
+    "breadcrumb": [
+      {
+        "label": "API",
+        "route": "content/api"
+      },
+      {
+        "label": "Shared Inputs and Outputs",
+        "route": "content/api/shared-inputs"
+      }
+    ]
+  },
+  {
+    "label": "CodeEditorThemeService",
+    "description": "The root service holding the application-wide editor theme.",
+    "route": "content/api/theme-service",
+    "tags": ["api", "themes"],
+    "excerpt": "CodeEditorThemeService\n\n . Every editor without an instance input follows it, over the \nof .\n\n| Member | Signature | Description...",
+    "breadcrumb": [
+      {
+        "label": "API",
+        "route": "content/api"
+      },
+      {
+        "label": "CodeEditorThemeService",
+        "route": "content/api/theme-service"
+      }
+    ]
+  },
+  {
+    "label": "Types",
+    "description": "Exported types, the darkTheme extension and the External annotation.",
+    "route": "content/api/types",
+    "tags": ["api", "types"],
+    "headings": ["Editor options", "Extensions", "Diff editors", "Values"],
+    "excerpt": "Types\n\nEditor options\n\n| Type | Definition |\n|------|------------|\n| | |\n| | (whole spaces, or one repeated whitespace character) |\n| | |\n| | Options...",
+    "breadcrumb": [
+      {
+        "label": "API",
+        "route": "content/api"
+      },
+      {
+        "label": "Types",
+        "route": "content/api/types"
+      }
+    ]
+  },
+  {
+    "label": "Examples",
+    "description": "Complete, copyable examples for the editor, the diff editors and app-wide configuration.",
+    "route": "content/examples/README",
+    "tags": ["examples", "overview"],
+    "excerpt": "| Reactive Forms Editor | An editor bound to a , with error handling.",
+    "breadcrumb": [
+      {
+        "label": "Examples",
+        "route": "content/examples"
+      },
+      {
+        "label": "Examples",
+        "route": "content/examples/README"
+      }
+    ]
+  },
+  {
+    "label": "App-wide Setup",
+    "description": "Configure lazy themes, presets and an app light/dark toggle once for the whole application.",
+    "route": "content/examples/app-wide-setup",
+    "tags": ["examples", "configuration"],
+    "excerpt": "App-wide Setup\n\nThis mirrors the setup of the demo application.\n\n \n\n \n\n \n\n is an optional, separate package; any CodeMirror theme works.",
+    "breadcrumb": [
+      {
+        "label": "Examples",
+        "route": "content/examples"
+      },
+      {
+        "label": "App-wide Setup",
+        "route": "content/examples/app-wide-setup"
+      }
+    ]
+  },
+  {
+    "label": "Code Review Diff",
+    "description": "Compare two versions side by side or unified, and step through the changed chunks.",
+    "route": "content/examples/code-review-diff",
+    "tags": ["examples", "diff"],
+    "headings": ["Side by side", "Unified"],
+    "excerpt": "Code Review Diff\n\nSide by side\n\n \n\nUnified\n\n \n\nAccepting a chunk updates ; rejecting one updates .",
+    "breadcrumb": [
+      {
+        "label": "Examples",
+        "route": "content/examples"
+      },
+      {
+        "label": "Code Review Diff",
+        "route": "content/examples/code-review-diff"
+      }
+    ]
+  },
+  {
+    "label": "Reactive Forms Editor",
+    "description": "A JSON editor bound to a reactive FormControl, with validation state and error handling.",
+    "route": "content/examples/reactive-forms",
+    "tags": ["examples", "forms"],
+    "headings": ["What to notice"],
+    "excerpt": "sets the editor's state: not editable and read-only.",
+    "breadcrumb": [
+      {
+        "label": "Examples",
+        "route": "content/examples"
+      },
+      {
+        "label": "Reactive Forms Editor",
+        "route": "content/examples/reactive-forms"
+      }
+    ]
+  },
+  {
+    "label": "Features",
+    "description": "What the three editor components and their options do.",
+    "route": "content/features/README",
+    "tags": ["features", "overview"],
+    "excerpt": "| Code Editor | A single CodeMirror editor, .",
+    "breadcrumb": [
+      {
+        "label": "Features",
+        "route": "content/features"
+      },
+      {
+        "label": "Features",
+        "route": "content/features/README"
+      }
+    ]
+  },
+  {
+    "label": "Code Editor",
+    "description": "The ngx-code-editor component, a single CodeMirror EditorView with signal inputs and form support.",
+    "route": "content/features/code-editor",
+    "tags": ["features", "editor"],
+    "headings": ["What it gives you", "Programmatic access"],
+    "excerpt": "Code Editor\n\n renders one CodeMirror .\n\n \n\nSelectors: , and the attribute .\n\nWhat it gives you\n\nis a : two-way bindable and used by every forms...",
+    "breadcrumb": [
+      {
+        "label": "Features",
+        "route": "content/features"
+      },
+      {
+        "label": "Code Editor",
+        "route": "content/features/code-editor"
+      }
+    ]
+  },
+  {
+    "label": "Convenience Inputs",
+    "description": "Inputs for common CodeMirror features such as line numbers, search, autocompletion, lint and key bindings.",
+    "route": "content/features/convenience-inputs",
+    "tags": ["features", "inputs"],
+    "headings": ["Setup"],
+    "excerpt": "Common CodeMirror features have their own inputs, so they need no extension code.",
+    "breadcrumb": [
+      {
+        "label": "Features",
+        "route": "content/features"
+      },
+      {
+        "label": "Convenience Inputs",
+        "route": "content/features/convenience-inputs"
+      }
+    ]
+  },
+  {
+    "label": "Diff Editor",
+    "description": "The ngx-code-diff-editor component, a side-by-side CodeMirror MergeView.",
+    "route": "content/features/diff-editor",
+    "tags": ["features", "diff"],
+    "headings": ["Two ways to bind documents", "Diff-specific options", "Navigation"],
+    "excerpt": "Diff Editor\n\n renders a side-by-side .\nEditor holds the original document, editor the modified one.\n\n \n\n \n\nSelectors: , and the attribute .\n\nTwo ways...",
+    "breadcrumb": [
+      {
+        "label": "Features",
+        "route": "content/features"
+      },
+      {
+        "label": "Diff Editor",
+        "route": "content/features/diff-editor"
+      }
+    ]
+  },
+  {
+    "label": "Error Handling",
+    "description": "The typed error output that replaces thrown exceptions and console errors.",
+    "route": "content/features/error-handling",
+    "tags": ["features", "errors"],
+    "excerpt": "Error Handling\n\nEvery component emits with a (discriminated by ) instead of throwing, and keeps its\ncurrent state. In development mode the error is...",
+    "breadcrumb": [
+      {
+        "label": "Features",
+        "route": "content/features"
+      },
+      {
+        "label": "Error Handling",
+        "route": "content/features/error-handling"
+      }
+    ]
+  },
+  {
+    "label": "Extensions",
+    "description": "Add CodeMirror extensions globally, per editor, lazily, or as named presets.",
+    "route": "content/features/extensions",
+    "tags": ["features", "extensions"],
+    "headings": ["Rules", "Next step"],
+    "excerpt": "Extensions can be eager ( ) or lazy ( ).",
+    "breadcrumb": [
+      {
+        "label": "Features",
+        "route": "content/features"
+      },
+      {
+        "label": "Extensions",
+        "route": "content/features/extensions"
+      }
+    ]
+  },
+  {
+    "label": "Forms Integration",
+    "description": "Use the editors with Signal Forms, reactive forms, ngModel or a plain two-way binding.",
+    "route": "content/features/forms-integration",
+    "tags": ["features", "forms"],
+    "headings": ["Value types", "Form state", "Emissions"],
+    "excerpt": "The components implement Signal Forms . Angular 22's interop keeps the other forms APIs working.",
+    "breadcrumb": [
+      {
+        "label": "Features",
+        "route": "content/features"
+      },
+      {
+        "label": "Forms Integration",
+        "route": "content/features/forms-integration"
+      }
+    ]
+  },
+  {
+    "label": "SSR and Zoneless",
+    "description": "How the editors behave with zoneless change detection and server-side rendering.",
+    "route": "content/features/ssr-and-zoneless",
+    "tags": ["features", "ssr"],
+    "headings": ["View lifecycle", "Reading values early"],
+    "excerpt": "The components are zoneless ( ) and use change detection. Zone.",
+    "breadcrumb": [
+      {
+        "label": "Features",
+        "route": "content/features"
+      },
+      {
+        "label": "SSR and Zoneless",
+        "route": "content/features/ssr-and-zoneless"
+      }
+    ]
+  },
+  {
+    "label": "Themes",
+    "description": "Built-in, registered, lazy and auto themes, and how the theme of an editor is resolved.",
+    "route": "content/features/themes",
+    "tags": ["features", "themes"],
+    "headings": ["Resolution order", "Next step"],
+    "excerpt": "Themes\n\nThe input (and the option of ) accepts:\n\n| Value | Theme |\n|-------|-------|\n| | CodeMirror's default look (the built-in default) |\n| | A...",
+    "breadcrumb": [
+      {
+        "label": "Features",
+        "route": "content/features"
+      },
+      {
+        "label": "Themes",
+        "route": "content/features/themes"
+      }
+    ]
+  },
+  {
+    "label": "Unified Diff Editor",
+    "description": "The ngx-code-unified-diff-editor component, one editor showing changes inline with accept and reject buttons.",
+    "route": "content/features/unified-diff-editor",
+    "tags": ["features", "unified-diff"],
+    "headings": ["How accept and reject work", "Options"],
+    "excerpt": "Unified Diff Editor\n\n is one editor built on CodeMirror's\n . It compares its (the modified\ndocument) with .\n\n \n\nSelector: .\n\nHow accept and reject...",
+    "breadcrumb": [
+      {
+        "label": "Features",
+        "route": "content/features"
+      },
+      {
+        "label": "Unified Diff Editor",
+        "route": "content/features/unified-diff-editor"
+      }
+    ]
+  },
+  {
+    "label": "Getting Started",
+    "description": "Install @fsegurai/ngx-codemirror, render your first editor, and configure defaults.",
+    "route": "content/getting-started/README",
+    "tags": ["getting-started", "overview"],
+    "excerpt": "Three steps take you from zero to a configured editor.",
+    "breadcrumb": [
+      {
+        "label": "Getting Started",
+        "route": "content/getting-started"
+      },
+      {
+        "label": "Getting Started",
+        "route": "content/getting-started/README"
+      }
+    ]
+  },
+  {
+    "label": "Configuration",
+    "description": "Set the default inputs, themes, extensions and presets of every editor with provideCodeEditor().",
+    "route": "content/getting-started/configuration",
+    "tags": ["getting-started", "configuration"],
+    "headings": ["Features", "Precedence", "Next step"],
+    "excerpt": " sets the default inputs of every editor of an injector.",
+    "breadcrumb": [
+      {
+        "label": "Getting Started",
+        "route": "content/getting-started"
+      },
+      {
+        "label": "Configuration",
+        "route": "content/getting-started/configuration"
+      }
+    ]
+  },
+  {
+    "label": "Installation",
+    "description": "Install @fsegurai/ngx-codemirror with its Angular and CodeMirror peer dependencies.",
+    "route": "content/getting-started/installation",
+    "tags": ["getting-started", "installation"],
+    "headings": ["Peer dependencies", "Compatibility", "Next step"],
+    "excerpt": "For syntax highlighting, add the language descriptions you need.",
+    "breadcrumb": [
+      {
+        "label": "Getting Started",
+        "route": "content/getting-started"
+      },
+      {
+        "label": "Installation",
+        "route": "content/getting-started/installation"
+      }
+    ]
+  },
+  {
+    "label": "Quick Start",
+    "description": "Import CodeEditorComponent and bind its value with Signal Forms, reactive forms, ngModel or a model.",
+    "route": "content/getting-started/quick-start",
+    "tags": ["getting-started", "quick-start"],
+    "headings": ["Pick a binding", "Language lookup", "Next step"],
+    "excerpt": "Import the standalone component and bind its value with the forms API you use.",
+    "breadcrumb": [
+      {
+        "label": "Getting Started",
+        "route": "content/getting-started"
+      },
+      {
+        "label": "Quick Start",
+        "route": "content/getting-started/quick-start"
+      }
+    ]
+  },
+  {
+    "label": "Guides",
+    "description": "Task-oriented guides for configuring, theming, lazy loading and migrating.",
+    "route": "content/guides/README",
+    "tags": ["guides", "overview"],
+    "excerpt": "| Global Configuration | Layer defaults per app, route and component.",
+    "breadcrumb": [
+      {
+        "label": "Guides",
+        "route": "content/guides"
+      },
+      {
+        "label": "Guides",
+        "route": "content/guides/README"
+      }
+    ]
+  },
+  {
+    "label": "Global Configuration",
+    "description": "Layer provideCodeEditor() defaults across application, route and component injectors.",
+    "route": "content/guides/global-configuration",
+    "tags": ["guides", "configuration"],
+    "headings": ["Quick path", "How nested calls merge"],
+    "excerpt": "Set defaults once at the application level, then override them where needed.",
+    "breadcrumb": [
+      {
+        "label": "Guides",
+        "route": "content/guides"
+      },
+      {
+        "label": "Global Configuration",
+        "route": "content/guides/global-configuration"
+      }
+    ]
+  },
+  {
+    "label": "Lazy Loading",
+    "description": "Load themes, extensions, presets and languages on first use with dynamic imports.",
+    "route": "content/guides/lazy-loading",
+    "tags": ["guides", "performance"],
+    "headings": ["What happens on load", "Tip: keep loader functions stable", "Languages"],
+    "excerpt": "Any theme, extension or preset can be a : a function returning a .",
+    "breadcrumb": [
+      {
+        "label": "Guides",
+        "route": "content/guides"
+      },
+      {
+        "label": "Lazy Loading",
+        "route": "content/guides/lazy-loading"
+      }
+    ]
+  },
+  {
+    "label": "Linting and Key Bindings",
+    "description": "Add a lint source and custom key bindings with the lint and keymap inputs.",
+    "route": "content/guides/linting-and-keymaps",
+    "tags": ["guides", "lint"],
+    "headings": ["Add a linter", "Add key bindings"],
+    "excerpt": " takes a , or for linter options and a lint gutter.",
+    "breadcrumb": [
+      {
+        "label": "Guides",
+        "route": "content/guides"
+      },
+      {
+        "label": "Linting and Key Bindings",
+        "route": "content/guides/linting-and-keymaps"
+      }
+    ]
+  },
+  {
+    "label": "Migrating from 21.x",
+    "description": "Step-by-step checklist for upgrading from @fsegurai/ngx-codemirror 21.x to 22.x.",
+    "route": "content/guides/migrating-from-21",
+    "tags": ["guides", "migration"],
+    "headings": ["Checklist", "Renamed outputs"],
+    "excerpt": "Migrating from 21.x\n\n22.0.0 contains breaking changes. Work through this checklist; the\nCHANGELOG lists them all.\n\nChecklist\n\n[ ] Minimum versions:...",
+    "breadcrumb": [
+      {
+        "label": "Guides",
+        "route": "content/guides"
+      },
+      {
+        "label": "Migrating from 21.x",
+        "route": "content/guides/migrating-from-21"
+      }
+    ]
+  },
+  {
+    "label": "Theme Switching",
+    "description": "Switch the theme of every editor at once with CodeEditorThemeService.",
+    "route": "content/guides/theme-switching",
+    "tags": ["guides", "themes"],
+    "headings": ["Quick path", "Follow the operating system instead", "Precedence"],
+    "excerpt": " holds an application-wide theme. Every editor without its own input follows it.",
+    "breadcrumb": [
+      {
+        "label": "Guides",
+        "route": "content/guides"
+      },
+      {
+        "label": "Theme Switching",
+        "route": "content/guides/theme-switching"
+      }
+    ]
+  },
+  {
+    "label": "Help",
+    "description": "Answers to common questions, troubleshooting steps and project links.",
+    "route": "content/help/README",
+    "tags": ["help", "overview"],
+    "headings": ["Project links"],
+    "excerpt": "| FAQ | You have a general question about the library.",
+    "breadcrumb": [
+      {
+        "label": "Help",
+        "route": "content/help"
+      },
+      {
+        "label": "Help",
+        "route": "content/help/README"
+      }
+    ]
+  },
+  {
+    "label": "FAQ",
+    "description": "Frequently asked questions about @fsegurai/ngx-codemirror.",
+    "route": "content/help/faq",
+    "tags": ["help", "faq"],
+    "excerpt": "FAQ\n\nDo I need Zone.js?\nNo. The components are zoneless and use change detection.\n\nIs there an NgModule?\nNo. was removed in 22.0.0. Import the...",
+    "breadcrumb": [
+      {
+        "label": "Help",
+        "route": "content/help"
+      },
+      {
+        "label": "FAQ",
+        "route": "content/help/faq"
+      }
+    ]
+  },
+  {
+    "label": "Troubleshooting",
+    "description": "Fix common problems with languages, themes, extensions, layout and forms.",
+    "route": "content/help/troubleshooting",
+    "tags": ["help", "troubleshooting"],
+    "excerpt": "Start by listening to the output: most problems are reported there, with a message.",
+    "breadcrumb": [
+      {
+        "label": "Help",
+        "route": "content/help"
+      },
+      {
+        "label": "Troubleshooting",
+        "route": "content/help/troubleshooting"
+      }
+    ]
+  }
+]

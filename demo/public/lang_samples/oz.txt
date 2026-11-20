@@ -1,0 +1,31 @@
+# This is a simple Oz script demonstrating basic features
+
+declare
+   % Declare a procedure (function) to add two numbers
+   proc {Add X Y}
+      X + Y
+   end
+
+   % Define some variables
+   X = 5
+   Y = 10
+
+   % Add X and Y using the Add procedure
+   Z = {Add X Y}
+
+   % Display the result
+   {Browse Z} % Output will be 15
+
+   % Define a list and use a fold operation to sum its elements
+   List = [1 2 3 4 5]
+   Sum = {Fold + 0 List}
+   {Browse Sum} % Output will be 15
+
+   % Define a constraint to solve a simple equation
+   {FD.is in X 1..10} % X is in the range 1 to 10
+   {FD.is in Y 1..10} % Y is in the range 1 to 10
+   {FD.eq X + Y 15}  % Constraint: X + Y must equal 15
+   {FD.solve}         % Solve the constraints
+   {Browse X}         % Output will be 5 (since 5 + 10 = 15)
+   {Browse Y}         % Output will be 10
+end

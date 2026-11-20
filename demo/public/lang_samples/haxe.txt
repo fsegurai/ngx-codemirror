@@ -1,0 +1,20 @@
+class Person {
+    public var name:String;
+    public var age:Int;
+
+    public function new(name:String, age:Int) {
+        this.name = name;
+        this.age = age;
+    }
+
+    public function greet() {
+        trace("Hello, my name is " + name + " and I am " + age + " years old.");
+    }
+}
+
+class Main {
+    static function main() {
+        var person = new Person("Alice", 30);
+        person.greet();
+    }
+}

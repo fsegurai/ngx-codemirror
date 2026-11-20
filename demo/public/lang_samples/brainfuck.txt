@@ -1,0 +1,20 @@
+++++++++++       // Initialize cell 0 to 10
+[
+    >+++++++     // Add 7 to cell 1
+    >++++++++++  // Add 10 to cell 2
+    >+++         // Add 3 to cell 3
+    >+           // Add 1 to cell 4
+    <<<<-        // Loop back to decrement cell 0 until it reaches 0
+]
+>++.             // Print 'H'
+>+.              // Print 'e'
++++++++..        // Print 'l', 'l'
++++.             // Print 'o'
+>++.             // Print ' '
+<<+++++++++++++++. // Print 'W'
+>.               // Print 'o'
++++.             // Print 'r'
+------.          // Print 'l'
+--------.        // Print 'd'
+>+.              // Print '!'
+>.               // Print newline
